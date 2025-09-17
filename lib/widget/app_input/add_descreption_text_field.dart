@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
@@ -39,15 +40,15 @@ class AppDescriptionTextField extends StatelessWidget {
         const Gap(height: 15),
         AppText(
           data: title,
-          fontWeight: FontWeight.w600,
-          color: Colors.black,
-          fontSize: AppSize.width(value: 16),
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+          fontSize: AppSize.width(value: 18),
         ),
         const Gap(height: 10),
         SizedBox(
           height: 120,
           child: TextFormField(
-            cursorColor: Colors.black,
+            cursorColor: Colors.white,
             controller: controller,
             keyboardType: TextInputType.multiline,
             maxLines: null,
@@ -55,9 +56,13 @@ class AppDescriptionTextField extends StatelessWidget {
             textAlignVertical: TextAlignVertical.top,
             decoration: InputDecoration(
               hintText: hintText,
+              hintStyle: TextStyle(
+                fontSize: AppSize.width(value: 16),
+                color: AppColor.white.withValues(alpha: 0.5),
+              ),
 
               filled: true,
-              fillColor: fillColor ?? Colors.white,
+              fillColor: fillColor ?? AppColor.purple,
               border: border ?? outlineBorder,
               enabledBorder: border ?? outlineBorder,
               focusedBorder: border ?? outlineBorder,

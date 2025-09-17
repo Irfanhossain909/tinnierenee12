@@ -13,4 +13,5 @@ class AppRoutes {
   final String verifyOtpScreen = "/verify-otp-screen";
   final String signUpScreen = "/sign-up-screen";
   final String locationScreen = "/location-screen";
+  final String personalInfoScreen = "/personal-info-screen";
 }
