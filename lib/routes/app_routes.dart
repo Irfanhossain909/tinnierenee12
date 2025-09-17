@@ -10,5 +10,6 @@ class AppRoutes {
 
 
   final String signInScreen = "/sign-in-screen";
+  final String forgetPassScreen = "/forget-pass-screen";
   
 }

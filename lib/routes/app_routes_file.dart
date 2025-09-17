@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/auth/forget_pass_screen/forget_pass_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
@@ -15,5 +16,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.signInScreen,
     // binding: SplashScreenBinding(),
     page: () => const SignInScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.forgetPassScreen,
+    // binding: SplashScreenBinding(),
+    page: () => const ForgetPassScreen(),
   ),
 ];
