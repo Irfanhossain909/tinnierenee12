@@ -11,5 +11,6 @@ class AppRoutes {
 
   final String signInScreen = "/sign-in-screen";
   final String forgetPassScreen = "/forget-pass-screen";
+  final String createNewScreen = "/create-new-screen";
   
 }

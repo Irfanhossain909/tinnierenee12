@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/auth/create_your_password_screen/create_your_password_screen.dart';
 import 'package:tinnierenee12/screen/auth/forget_pass_screen/forget_pass_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 
@@ -21,5 +22,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.forgetPassScreen,
     // binding: SplashScreenBinding(),
     page: () => const ForgetPassScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.createNewScreen,
+    // binding: SplashScreenBinding(),
+    page: () => const CreatePasswordScreen(),
   ),
 ];
