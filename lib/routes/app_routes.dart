@@ -17,4 +17,5 @@ class AppRoutes {
 
   //////////////////////Base Screen/////////////////////////
   final String notification = "/notification-screen";
+  final String profileScreen = "/profile-screen";
 }

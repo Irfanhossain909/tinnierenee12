@@ -10,6 +10,7 @@ import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
+import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
@@ -62,5 +63,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.notification,
     binding: AppBinding(),
     page: () => const NotificationScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.profileScreen,
+    // binding: AppBinding(),
+    page: () => const ProfileScreen(),
   ),
 ];
