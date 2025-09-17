@@ -20,7 +20,7 @@ class PersonalInfoScreen extends StatelessWidget {
     return GetBuilder<PersonalInfoController>(
       builder: (controller) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBarAuth(),
+        appBar: CustomAppBarAuth(title: "Personal Information"),
         body: Padding(
           padding: EdgeInsets.all(AppSize.width(value: 16)),
           child: SingleChildScrollView(
