@@ -35,7 +35,10 @@ class AppInputWidgetTwo extends StatefulWidget {
     this.prefixIconConstraints,
     this.suffixIconConstraints,
     this.textAlignVertical,
-    this.filled = true, // Default value for filled is set to true
+    this.filled = true,
+    this.borderColor,
+    this.textColor,
+    this.hintColor, // Default value for filled is set to true
   });
 
   final String? hintText;
@@ -51,6 +54,9 @@ class AppInputWidgetTwo extends StatefulWidget {
   final bool filled; // Now it's optional with a default value of true
   final double elevation;
   final Color? elevationColor;
+  final Color? borderColor;
+  final Color? textColor;
+  final Color? hintColor;
   final int minLines;
   final int? maxLines;
   final InputBorder? border;
@@ -115,7 +121,7 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
             ),
           const SizedBox(height: 8), // Space between title and TextField
           TextFormField(
-            cursorColor: Colors.white,
+            cursorColor: widget.textColor ?? Colors.white,
             onChanged: widget.onChanged,
             onTap: widget.onTap,
             onFieldSubmitted: widget.onFieldSubmitted,
@@ -138,12 +144,12 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
                   height: 2,
                   fontFamily: AppConst.fontFamily1,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                  color: widget.textColor ?? Colors.white,
                 ),
             decoration: InputDecoration(
               hintText: widget.hintText,
               hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: Colors.white.withValues(alpha: .5),
+                color: widget.hintColor ?? Colors.white.withValues(alpha: .5),
               ),
               filled: widget.filled, // Use the filled property
               fillColor: widget.fillColor ?? Colors.white, // White fill color
@@ -178,19 +184,25 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
                   widget.suffixIconConstraints ??
                   const BoxConstraints(maxWidth: 40, maxHeight: 40),
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
+                borderSide: BorderSide(
+                  color: widget.borderColor ?? Colors.white,
+                ),
                 borderRadius: BorderRadius.circular(
                   widget.borderRadius ?? 12.0,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
+                borderSide: BorderSide(
+                  color: widget.borderColor ?? Colors.white,
+                ),
                 borderRadius: BorderRadius.circular(
                   widget.borderRadius ?? 12.0,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
+                borderSide: BorderSide(
+                  color: widget.borderColor ?? Colors.white,
+                ),
                 borderRadius: BorderRadius.circular(
                   widget.borderRadius ?? 12.0,
                 ),

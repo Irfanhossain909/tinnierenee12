@@ -10,7 +10,10 @@ import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
+import 'package:tinnierenee12/screen/privicy_screen/privicy_screen.dart';
+import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/change_pass_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
+import 'package:tinnierenee12/screen/terms_screen/terms_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
@@ -68,5 +71,20 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.profileScreen,
     // binding: AppBinding(),
     page: () => const ProfileScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.termsCondiScreen,
+    // binding: AppBinding(),
+    page: () => const TermsScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.privicyScreen,
+    // binding: AppBinding(),
+    page: () => const PrivicyScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.changePassScreen,
+    // binding: AppBinding(),
+    page: () => const ChangePassScreen(),
   ),
 ];
