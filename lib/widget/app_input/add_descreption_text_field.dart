@@ -13,12 +13,18 @@ class AppDescriptionTextField extends StatelessWidget {
     this.border,
     this.errBorder,
     required this.title,
+    this.titleColor,
+    this.hintColor,
+    this.textColor,
   });
 
   final String title;
   final TextEditingController? controller;
   final String hintText;
   final Color? fillColor;
+  final Color? titleColor;
+  final Color? hintColor;
+  final Color? textColor;
   final InputBorder? border;
   final InputBorder? errBorder;
 
@@ -40,8 +46,8 @@ class AppDescriptionTextField extends StatelessWidget {
         const Gap(height: 15),
         AppText(
           data: title,
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
+          fontWeight: FontWeight.w600,
+          color: titleColor ?? Colors.white,
           fontSize: AppSize.width(value: 18),
         ),
         const Gap(height: 10),
@@ -58,7 +64,7 @@ class AppDescriptionTextField extends StatelessWidget {
               hintText: hintText,
               hintStyle: TextStyle(
                 fontSize: AppSize.width(value: 16),
-                color: AppColor.white.withValues(alpha: 0.5),
+                color: hintColor ?? AppColor.white.withValues(alpha: 0.5),
               ),
 
               filled: true,

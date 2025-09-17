@@ -12,6 +12,7 @@ import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.da
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
 import 'package:tinnierenee12/screen/privicy_screen/privicy_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/change_pass_screen.dart';
+import 'package:tinnierenee12/screen/profile_section/contact_us_screen/contact_us_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
 import 'package:tinnierenee12/screen/terms_screen/terms_screen.dart';
 
@@ -86,5 +87,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.changePassScreen,
     // binding: AppBinding(),
     page: () => const ChangePassScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.contactUsScreen,
+    // binding: AppBinding(),
+    page: () => const ContactUsScreen(),
   ),
 ];

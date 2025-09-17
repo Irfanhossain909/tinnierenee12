@@ -94,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                   ProfileRow(
                     iconPath: AssetsPath.contactUs,
                     onTap: () {
-                      // Get.toNamed(AppRoutes.instance.changePassScreen);
+                      Get.toNamed(AppRoutes.instance.contactUsScreen);
                     },
                     text: "Contact Us",
                   ),
