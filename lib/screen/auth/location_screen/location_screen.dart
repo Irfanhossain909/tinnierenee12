@@ -1,114 +1,92 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:loyalty_customer/const/app_color.dart';
-// import 'package:loyalty_customer/const/assets_icons_path.dart';
-// import 'package:loyalty_customer/routes/app_routes.dart';
-// import 'package:loyalty_customer/utils/app_size.dart';
-// import 'package:loyalty_customer/widget/app_button/app_button.dart';
-// import 'package:loyalty_customer/widget/app_image/app_image.dart';
-// import 'package:loyalty_customer/widget/app_input/app_input_widget_two.dart';
-// import 'package:loyalty_customer/widget/app_log/gap.dart';
-// import 'package:loyalty_customer/widget/app_text/app_text.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/const/assets_icons_path.dart';
+import 'package:tinnierenee12/utils/app_size.dart';
+import 'package:tinnierenee12/widget/app_button/app_button.dart';
+import 'package:tinnierenee12/widget/app_image/app_image.dart';
+import 'package:tinnierenee12/widget/app_input/app_input_widget_two.dart';
+import 'package:tinnierenee12/widget/app_log/gap.dart';
+import 'package:tinnierenee12/widget/app_text/app_text.dart';
+import 'package:tinnierenee12/widget/appbar/custom_app_bar_auth.dart';
 
-// class LocationScreen extends StatelessWidget {
-//   const LocationScreen({super.key});
+class LocationScreen extends StatelessWidget {
+  const LocationScreen({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       resizeToAvoidBottomInset: false,
-//       backgroundColor: AppColor.surfacePrimaryLight,
-//       body: Column(
-//         children: [
-//           Stack(
-//             children: [
-//               AppImage(path: AssetsPath.backgroundImage),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBarAuth(),
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          AppImage(
+            width: AppSize.width(value: 200),
+            height: AppSize.width(value: 200),
+            path: AssetsPath.authImg,
+          ),
 
-//               Positioned(
-//                 top: AppSize.size.height * 0.07,
-//                 left: 0,
-//                 right: 0, // Ensure that it's horizontally centered
-//                 child: Center(
-//                   // Center the text horizontally
-//                   child: AppImage(
-//                     width: AppSize.width(value: 230),
-//                     height: AppSize.width(value: 230),
-//                     path: AssetsPath.authImg4,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//           Gap(height: AppSize.width(value: 12)),
+          AppText(
+            data: "Set Your Location",
+            fontSize: AppSize.width(value: 28),
+            fontWeight: FontWeight.w700,
+            color: AppColor.white,
+          ),
 
-//           AppText(
-//             data: "Use Current Location",
-//             fontSize: AppSize.width(value: 30),
-//             fontWeight: FontWeight.w700,
-//             color: AppColor.button4Dark,
-//           ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: AppSize.width(value: 12),
+              horizontal: AppSize.width(value: 40),
+            ),
+            child: AppText(
+              data:
+                  "To help us connect you with nearby service providers or customers, please allow access to your location.",
+              textAlign: TextAlign.center,
+              fontSize: AppSize.width(value: 16),
+              fontWeight: FontWeight.w400,
+              color: AppColor.white,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(AppSize.width(value: 12)),
 
-//           Padding(
-//             padding: EdgeInsets.symmetric(
-//               vertical: AppSize.width(value: 12),
-//               horizontal: AppSize.width(value: 40),
-//             ),
-//             child: AppText(
-//               data:
-//                   "Enter your location or allow access to your location to find shop near you.",
-//               textAlign: TextAlign.center,
-//               fontSize: AppSize.width(value: 16),
-//               fontWeight: FontWeight.w400,
-//               color: AppColor.button4Dark,
-//             ),
-//           ),
-//           Padding(
-//             padding: EdgeInsets.all(AppSize.width(value: 12)),
+            child: Column(
+              spacing: AppSize.size.height * 0.01,
+              children: [
+                Container(
+                  width: AppSize.width(value: double.infinity),
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(width: 1.5, color: AppColor.white),
 
-//             child: Column(
-//               spacing: AppSize.size.height * 0.01,
-//               children: [
-//                 Container(
-//                   width: AppSize.width(value: double.infinity),
-//                   padding: EdgeInsets.all(16),
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(30),
-//                     border: Border.all(width: 1.5, color: AppColor.button5Dark),
-
-//                     color: AppColor.button5Light.withValues(alpha: .3),
-//                   ),
-//                   child: Center(
-//                     child: AppText(
-//                       data: "Use Current Location",
-//                       fontSize: AppSize.width(value: 12),
-//                       fontWeight: FontWeight.w400,
-//                       color: AppColor.button2Light,
-//                     ),
-//                   ),
-//                 ),
-//                 AppInputWidgetTwo(
-//                   borderRadius: 30,
-//                   hintText: "Enter a new address",
-//                   suffixIcon: Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: AppImage(path: AssetsPath.icClose),
-//                   ),
-
-//                   prefix: AppImage(path: AssetsPath.icLocation),
-//                 ),
-//                 Gap(height: 16),
-//                 AppButton(
-//                   onTap: () {
-//                     Get.toNamed(AppRoutes.instance.preferencesScreen);
-//                   },
-//                   title: "Continue",
-//                   borderRadius: BorderRadius.circular(30),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+                    color: AppColor.white.withValues(alpha: .3),
+                  ),
+                  child: Center(
+                    child: AppText(
+                      data: "Allow Location Access",
+                      fontSize: AppSize.width(value: 12),
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.white,
+                    ),
+                  ),
+                ),
+                AppInputWidgetTwo(
+                  hintText: "Enter your location manually",
+                  fillColor: AppColor.purple,
+                ),
+                Gap(height: 16),
+                AppButton(
+                  onTap: () {
+                    // Get.toNamed(AppRoutes.instance.preferencesScreen);
+                  },
+                  title: "Continue",
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

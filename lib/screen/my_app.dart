@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:tinnierenee12/const/app_theme.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/routes/app_routes_file.dart';
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       // initialRoute: AppRoutes.instance.initial,
-      initialRoute: AppRoutes.instance.signInScreen,
+      initialRoute: AppRoutes.instance.locationScreen,
       getPages: appRootRoutesFile,
       enableLog: true,
       defaultTransition: Transition.native,
