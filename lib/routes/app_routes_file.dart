@@ -3,6 +3,7 @@ import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/auth/create_your_password_screen/create_your_password_screen.dart';
 import 'package:tinnierenee12/screen/auth/forget_pass_screen/forget_pass_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
+import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
@@ -27,5 +28,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.createNewScreen,
     // binding: SplashScreenBinding(),
     page: () => const CreatePasswordScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.verifyOtpScreen,
+    // binding: SplashScreenBinding(),
+    page: () => const VerifyOtpScreen(),
   ),
 ];

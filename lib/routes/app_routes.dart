@@ -7,10 +7,8 @@ class AppRoutes {
   final String onBoardingScreen = "/onboarding-screen";
   final String navigationScreen = "/navigation-screen";
 
-
-
   final String signInScreen = "/sign-in-screen";
   final String forgetPassScreen = "/forget-pass-screen";
   final String createNewScreen = "/create-new-screen";
-  
+  final String verifyOtpScreen = "/verify-otp-screen";
 }

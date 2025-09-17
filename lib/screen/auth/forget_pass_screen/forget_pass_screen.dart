@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
@@ -70,7 +72,7 @@ class ForgetPassScreen extends StatelessWidget {
                   ),
                   AppButton(
                     onTap: () {
-                      // Get.toNamed(AppRoutes.instance.verifyOtpScreen);
+                      Get.toNamed(AppRoutes.instance.verifyOtpScreen);
                     },
                     title: "Get Verification Code",
                   ),

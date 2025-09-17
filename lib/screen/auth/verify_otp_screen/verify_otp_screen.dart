@@ -1,200 +1,142 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-// import 'package:get/get.dart';
-// import 'package:loyalty_customer/const/app_color.dart';
-// import 'package:loyalty_customer/const/assets_icons_path.dart';
-// import 'package:loyalty_customer/routes/app_routes.dart';
-// import 'package:loyalty_customer/screen/auth/verify_otp_screen/controller/forgot_pass_verify_otp_screen_controller.dart';
-// import 'package:loyalty_customer/utils/app_size.dart';
-// import 'package:loyalty_customer/widget/app_button/app_button.dart';
-// import 'package:loyalty_customer/widget/app_image/app_image.dart';
-// import 'package:loyalty_customer/widget/app_text/app_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:get/get.dart';
+import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/const/assets_icons_path.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/auth/verify_otp_screen/controller/verify_otp_controller.dart';
+import 'package:tinnierenee12/utils/app_size.dart';
+import 'package:tinnierenee12/widget/app_button/app_button.dart';
+import 'package:tinnierenee12/widget/app_image/app_image.dart';
+import 'package:tinnierenee12/widget/app_text/app_text.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
-// class VerifyOtpScreen extends StatelessWidget {
-//   const VerifyOtpScreen({super.key});
+class VerifyOtpScreen extends StatelessWidget {
+  const VerifyOtpScreen({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: AppColor.surfacePrimaryLight,
-//       body: GetBuilder<VerifyOtpController>(
-//         init: VerifyOtpController(),
-//         builder: (controller) {
-//           return Column(
-//             spacing: AppSize.size.height * 0.02,
-//             children: [
-//               Stack(
-//                 children: [
-//                   AppImage(path: AssetsPath.backgroundImage),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: Padding(
+          padding: EdgeInsets.all(18),
+          child: AppImage(
+            width: AppSize.width(value: 18),
+            height: AppSize.width(value: 18),
+            path: AssetsPath.arrowBack,
+            iconColor: AppColor.white,
+          ),
+        ),
+      ),
+      body: GetBuilder<VerifyOtpController>(
+        init: VerifyOtpController(),
+        builder: (controller) {
+          return Column(
+            spacing: AppSize.size.height * 0.02,
+            children: [
+              AppImage(
+                width: AppSize.width(value: 200),
+                height: AppSize.width(value: 200),
+                path: AssetsPath.authImg,
+              ),
 
-//                   Positioned(
-//                     top: AppSize.size.height * 0.07,
-//                     left: 0,
-//                     right: 0, // Ensure that it's horizontally centered
-//                     child: Center(
-//                       // Center the text horizontally
-//                       child: AppImage(
-//                         width: AppSize.width(value: 230),
-//                         height: AppSize.width(value: 230),
-//                         path: AssetsPath.authImg2,
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
+              AppText(
+                data: "Verification Code",
+                fontSize: AppSize.width(value: 28),
+                fontWeight: FontWeight.w700,
+                color: AppColor.white,
+              ),
 
-//               AppText(
-//                 data: "Verification Code",
-//                 fontSize: AppSize.width(value: 30),
-//                 fontWeight: FontWeight.w700,
-//                 color: AppColor.button4Dark,
-//               ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.width(value: 30),
+                ),
+                child: AppText(
+                  data:
+                      "We’ve sent a verification code to your email/phone. Enter the code below to continue and secure your account.",
+                  textAlign: TextAlign.center,
+                  fontSize: AppSize.width(value: 16),
+                  fontWeight: FontWeight.w400,
+                  color: AppColor.white,
+                ),
+              ),
+              AppText(
+                data: "We've Sent a Code to exa...@email.com",
+                fontSize: AppSize.width(value: 16),
+                fontWeight: FontWeight.w700,
+                color: AppColor.white,
+              ),
 
-//               Padding(
-//                 padding: EdgeInsets.symmetric(
-//                   horizontal: AppSize.width(value: 40),
-//                 ),
-//                 child: AppText(
-//                   data: "Please enter the code sent to your Phone to continue.",
-//                   textAlign: TextAlign.center,
-//                   fontSize: AppSize.width(value: 16),
-//                   fontWeight: FontWeight.w400,
-//                   color: AppColor.button4Dark,
-//                 ),
-//               ),
-//               AppText(
-//                 data: "We've Sent a Code to 122*******36",
-//                 fontSize: AppSize.width(value: 16),
-//                 fontWeight: FontWeight.w700,
-//                 color: AppColor.button4Dark,
-//               ),
+              Form(
+                key: controller.formKey,
+                child: PinCodeTextField(
+                  length: 6,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  obscureText: false,
+                  animationType: AnimationType.fade,
+                  keyboardType: TextInputType.number,
+                  pinTheme: PinTheme(
+                    shape: PinCodeFieldShape.box,
 
-//               OtpTextField(
-//                 numberOfFields: 5, // Number of OTP fields
-//                 borderColor: Color(0xFF512DA8), // Border color of the OTP field
-//                 showFieldAsBox:
-//                     true, // Show fields as boxes (true for box style)
-//                 onCodeChanged: (String code) {
-//                   // Handle the code change
-//                 },
-//                 onSubmit: (String verificationCode) {
-//                   // Show the entered verification code in a dialog
-//                   showDialog(
-//                     context: context,
-//                     builder: (context) {
-//                       return AlertDialog(
-//                         title: Text("Verification Code"),
-//                         content: Text('Code entered is $verificationCode'),
-//                       );
-//                     },
-//                   );
-//                 },
-//                 decoration: InputDecoration(
-//                   filled:
-//                       true, // Makes the background color of the text field filled
-//                   fillColor: Colors.white, // Background color inside the box
-//                   contentPadding: EdgeInsets.symmetric(
-//                     horizontal: 15,
-//                     vertical: 10,
-//                   ), // Padding inside the box
-//                   border: OutlineInputBorder(
-//                     borderRadius: BorderRadius.circular(
-//                       12,
-//                     ), // Rounded corners for the box
-//                     borderSide: BorderSide(
-//                       color: Color(0xFF512DA8), // Border color
-//                       width: 2.0, // Border width
-//                     ),
-//                   ),
-//                   focusedBorder: OutlineInputBorder(
-//                     borderRadius: BorderRadius.circular(
-//                       12,
-//                     ), // Rounded corners when focused
-//                     borderSide: BorderSide(
-//                       color: Color(0xFF512DA8), // Focused border color
-//                       width: 2.0, // Focused border thickness
-//                     ),
-//                   ),
-//                   enabledBorder: OutlineInputBorder(
-//                     borderRadius: BorderRadius.circular(
-//                       12,
-//                     ), // Rounded corners for the enabled state
-//                     borderSide: BorderSide(
-//                       color: Color(0xFF512DA8), // Border color when not focused
-//                       width: 2.0,
-//                     ),
-//                   ),
-//                   errorBorder: OutlineInputBorder(
-//                     borderRadius: BorderRadius.circular(
-//                       12,
-//                     ), // Rounded corners for error state
-//                     borderSide: BorderSide(
-//                       color: Colors.red, // Red border on error
-//                       width: 2.0,
-//                     ),
-//                   ),
-//                   focusedErrorBorder: OutlineInputBorder(
-//                     borderRadius: BorderRadius.circular(
-//                       12,
-//                     ), // Rounded corners on error focus
-//                     borderSide: BorderSide(
-//                       color: Colors.red, // Red focused error border color
-//                       width: 2.0,
-//                     ),
-//                   ),
-//                 ),
-//               ),
+                    borderRadius: BorderRadius.circular(8),
+                    fieldHeight: 46,
+                    fieldWidth: 42,
+                    activeFillColor: Colors.white,
+                    inactiveFillColor: Colors.white,
+                    selectedFillColor: Colors.white,
+                    inactiveColor: AppColor.white,
+                  ),
+                  animationDuration: const Duration(milliseconds: 300),
+                  backgroundColor: Colors.transparent,
+                  enableActiveFill: true,
+                  controller: controller.otpTextEditingController,
+                  appContext: context,
+                  onCompleted: (code) {
+                    // Optionally handle completion
+                  },
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    data: 'If you didn’t receive a code. ',
+                    fontSize: AppSize.width(value: 16),
+                    color: AppColor.white,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      controller.resendCode();
+                    },
+                    child: Text(
+                      'Resend',
+                      style: TextStyle(
+                        fontSize: AppSize.width(value: 14),
+                        fontWeight: FontWeight.w700,
+                        color: AppColor.gold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
 
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   AppText(
-//                     data: 'If you didn’t receive a code. ',
-//                     fontSize: AppSize.width(value: 18),
-//                   ),
-//                   Obx(
-//                     () => controller.canResend.value
-//                         ? GestureDetector(
-//                             onTap: () {
-//                               controller.resendCode();
-//                             },
-//                             child: Text(
-//                               'Resend',
-//                               style: TextStyle(
-//                                 fontSize: AppSize.width(value: 16),
-//                                 fontWeight: FontWeight.w700,
-//                                 color: AppColor.buttonDark,
-//                               ),
-//                             ),
-//                           )
-//                         : Text(
-//                             controller.formatTime(),
-//                             style: TextStyle(
-//                               fontSize: AppSize.width(value: 16),
-//                               fontWeight: FontWeight.w700,
-//                               color: AppColor.button4Dark,
-//                             ),
-//                           ),
-//                   ),
-//                 ],
-//               ),
-
-//               Padding(
-//                 padding: EdgeInsets.symmetric(
-//                   horizontal: AppSize.width(value: 16),
-//                 ),
-//                 child: AppButton(
-//                   onTap: () {
-//                     Get.toNamed(AppRoutes.instance.locationScreen);
-//                   },
-//                   title: "Verify",
-//                   borderRadius: BorderRadius.circular(30),
-//                 ),
-//               ),
-//             ],
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.width(value: 16),
+                ),
+                child: AppButton(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.instance.createNewScreen);
+                  },
+                  title: "Verify and Continue",
+                  titleSize: AppSize.width(value: 18),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
