@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/routes/bindings/app_binding.dart';
 import 'package:tinnierenee12/routes/bindings/auth_binding.dart';
 import 'package:tinnierenee12/screen/auth/create_your_password_screen/create_your_password_screen.dart';
 import 'package:tinnierenee12/screen/auth/forget_pass_screen/forget_pass_screen.dart';
@@ -8,7 +9,7 @@ import 'package:tinnierenee12/screen/auth/personal_info_screen/personal_info_scr
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
-import 'package:tinnierenee12/screen/auth/personal_info_screen/controller/personal_info_controller.dart';
+import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
@@ -51,9 +52,15 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.personalInfoScreen,
-    binding: BindingsBuilder(() {
-      Get.lazyPut(() => PersonalInfoController());
-    }),
+    binding: AppBinding(),
     page: () => const PersonalInfoScreen(),
+  ),
+
+  ///////////////////////////////base screen//////////////////////////
+  ///
+  GetPage(
+    name: AppRoutes.instance.notification,
+    binding: AppBinding(),
+    page: () => const NotificationScreen(),
   ),
 ];

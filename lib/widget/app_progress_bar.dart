@@ -13,7 +13,7 @@ class ProgressiveBorderContainer extends StatefulWidget {
   final Duration animationDuration;
 
   const ProgressiveBorderContainer({
-    Key? key,
+    super.key,
     required this.progress,
     this.child,
     this.width = 200,
@@ -23,7 +23,7 @@ class ProgressiveBorderContainer extends StatefulWidget {
     this.backgroundColor = Colors.grey,
     this.borderWidth = 4.0,
     this.animationDuration = const Duration(milliseconds: 1000),
-  }) : super(key: key);
+  });
 
   @override
   State<ProgressiveBorderContainer> createState() =>
@@ -144,7 +144,7 @@ class ProgressiveBorderPainter extends CustomPainter {
 
     // Background border
     final backgroundPaint = Paint()
-      ..color = backgroundColor.withOpacity(0.3)
+      ..color = backgroundColor.withValues(alpha: .3)
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth;
 
@@ -178,7 +178,10 @@ class ProgressiveBorderPainter extends CustomPainter {
 
 // Usage Example
 class ExampleUsage extends StatefulWidget {
+  const ExampleUsage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ExampleUsageState createState() => _ExampleUsageState();
 }
 
