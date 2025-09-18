@@ -21,4 +21,7 @@ class AssetsPath {
   //////////////////////Image//////////////////////////////////////
   static const String authImg = "assets/images/pass_img.png";
   static const String placeHolder = "assets/images/placeholder.png";
+  static const String rightDown = "assets/images/right_down.png";
+  static const String leftUp = "assets/images/left_up.png";
+  static const String appLogo = "assets/images/app_logo.png";
 }

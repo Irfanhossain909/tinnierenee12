@@ -15,17 +15,18 @@ import 'package:tinnierenee12/screen/privicy_screen/privicy_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/change_pass_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/contact_us_screen/contact_us_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
+import 'package:tinnierenee12/screen/splash_screen/splash_screen.dart';
 import 'package:tinnierenee12/screen/terms_screen/terms_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
-  // GetPage(
-  //   name: AppRoutes.instance.initial,
-  //   binding: SplashScreenBinding(),
-  //   page: () => const SplashScreen(),
-  //   transitionDuration: Duration(milliseconds: 800),
-  //   opaque: false,
-  // ),
+  GetPage(
+    name: AppRoutes.instance.initial,
+    binding: AuthBinding(),
+    page: () => const SplashScreen(),
+    transitionDuration: Duration(milliseconds: 800),
+    opaque: false,
+  ),
   
   GetPage(
     name: AppRoutes.instance.navigationScreen,
