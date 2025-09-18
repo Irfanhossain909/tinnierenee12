@@ -12,6 +12,11 @@ class AssetsPath {
   static const String transaction = "assets/icons/trans_history.png";
   static const String contactUs = "assets/icons/contact_us.png";
   static const String arrowRight = "assets/icons/arrow_right.png";
+  static const String nav1 = "assets/icons/nav1.png";
+  static const String nav2 = "assets/icons/nav2.png";
+  static const String nav3 = "assets/icons/nav3.png";
+  static const String nav4 = "assets/icons/nav4.png";
+  static const String nav5 = "assets/icons/nav5.png";
 
   //////////////////////Image//////////////////////////////////////
   static const String authImg = "assets/images/pass_img.png";

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/routes/bindings/app_binding.dart';
 import 'package:tinnierenee12/routes/bindings/auth_binding.dart';
+import 'package:tinnierenee12/screen/app_navigation_screen/navigation_screen.dart';
 import 'package:tinnierenee12/screen/auth/create_your_password_screen/create_your_password_screen.dart';
 import 'package:tinnierenee12/screen/auth/forget_pass_screen/forget_pass_screen.dart';
 import 'package:tinnierenee12/screen/auth/location_screen/location_screen.dart';
@@ -25,6 +26,12 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   //   transitionDuration: Duration(milliseconds: 800),
   //   opaque: false,
   // ),
+  
+  GetPage(
+    name: AppRoutes.instance.navigationScreen,
+    binding: AppBinding(),
+    page: () => const NavigationScreen(),
+  ),
   GetPage(
     name: AppRoutes.instance.signInScreen,
     // binding: SplashScreenBinding(),
