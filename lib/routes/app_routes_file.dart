@@ -10,6 +10,7 @@ import 'package:tinnierenee12/screen/auth/personal_info_screen/personal_info_scr
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
+import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_screen.dart';
 import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_details_screen/employee_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
@@ -90,6 +91,12 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.employeeHome,
     // binding: AppBinding(),
     page: () => const EmployeeHomeScreen(),
+  ),
+  ///////////////////////////////earning screen//////////////////////////
+  GetPage(
+    name: AppRoutes.instance.employeeEarningScreen,
+    // binding: AppBinding(),
+    page: () => const EmployeeEarningScreen(),
   ),
   ///////////////////////////////shift screen//////////////////////////
   GetPage(
