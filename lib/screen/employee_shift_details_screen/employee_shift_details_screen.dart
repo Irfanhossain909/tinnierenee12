@@ -98,9 +98,7 @@ class EmployeeShiftDetailsScreen extends StatelessWidget {
                 fontSize: AppSize.width(value: 18),
                 fontWeight: FontWeight.w700,
               ),
-              // AppImage(
-              //   path: ,
-              // )
+              AppImage(path: AssetsPath.map),
             ],
           ),
         ),
