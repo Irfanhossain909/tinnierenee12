@@ -4,24 +4,31 @@ import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
-import 'package:tinnierenee12/widget/app_progress_bar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
 class CustomAppBarAuth extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
-  const CustomAppBarAuth({super.key, this.title});
+  final List<Widget>? action;
+  const CustomAppBarAuth({
+    super.key,
+    this.title,
+    this.action,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: [
-        ProgressiveBorderContainer(
-          progress: 60,
-          width: 55,
-          height: 55,
-          borderRadius: 50, // Perfectly round
-        ),
-      ],
+      actions: action,
+      // actions: [
+      //   isActionProgressBarShown
+      //       ? ProgressiveBorderContainer(
+      //           progress: 60,
+      //           width: 55,
+      //           height: 55,
+      //           borderRadius: 50, // Perfectly round
+      //         )
+      //       : SizedBox(),
+      // ],
       centerTitle: true,
       title: AppText(
         data: title ?? "",

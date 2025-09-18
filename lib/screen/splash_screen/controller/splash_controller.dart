@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 
 class SplashController extends GetxController {
-  // GetStorageServices storageServices = GetStorageServices.instance;
+ 
   RxDouble animation = 0.0.obs;
   RxDouble animation2 = 0.0.obs;
 
@@ -16,8 +17,8 @@ class SplashController extends GetxController {
 
       Future.delayed(Duration(seconds: 3), () {
         Get.delete<SplashController>();
-
-        // Get.toNamed(AppRoutes.instance.selectionScreen);
+        
+        Get.toNamed(AppRoutes.instance.roleSelectionScreen);
         // // final String token = storageServices.getToken();
         // if (token.isNotEmpty) {
         //   Get.offAllNamed(AppRoutes.instance.navigationScreen);

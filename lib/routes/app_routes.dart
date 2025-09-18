@@ -4,7 +4,8 @@ class AppRoutes {
   static AppRoutes get instance => _instance;
   /////////////  initial or splash screen
   final String initial = "/";
-  final String onBoardingScreen = "/onboarding-screen";
+  final String roleSelectionScreen = "/role-selection-screen";
+  final String onBoardingScreen1 = "/onboarding-screen1";
   final String navigationScreen = "/navigation-screen";
 ///////////////////////////Auth/////////////////////////////////
   final String signInScreen = "/sign-in-screen";
