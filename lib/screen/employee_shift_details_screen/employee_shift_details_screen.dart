@@ -93,12 +93,27 @@ class EmployeeShiftDetailsScreen extends StatelessWidget {
                   AppText(data: "09:00 - 17:00"),
                 ],
               ),
+              Gap(height: AppSize.width(value: 12)),
               AppText(
                 data: "Explore Daycare Center on the Map",
                 fontSize: AppSize.width(value: 18),
                 fontWeight: FontWeight.w700,
               ),
-              AppImage(path: AssetsPath.map),
+
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                child: AppImage(
+                  width: AppSize.width(value: double.infinity),
+                  height: AppSize.size.height * 0.23,
+                  path: AssetsPath.map,
+                ),
+              ),
+              Gap(height: AppSize.width(value: 12)),
+              AppText(
+                data: "My Working Day",
+                fontSize: AppSize.width(value: 18),
+                fontWeight: FontWeight.w700,
+              ),
             ],
           ),
         ),
