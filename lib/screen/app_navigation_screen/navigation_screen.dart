@@ -6,6 +6,8 @@ import 'package:tinnierenee12/screen/app_navigation_screen/controller/navigation
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
+import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
+import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
@@ -24,8 +26,8 @@ class NavigationScreen extends StatelessWidget {
             () => IndexedStack(
               index: controller.selectedIndex.value,
               children: [
-                SignInScreen(),
-                NotificationScreen(),
+                EmployeeHomeScreen(),
+                EmployeeShiftScreen(),
                 ProfileScreen(),
                 SignUpScreen(),
                 ProfileScreen(),

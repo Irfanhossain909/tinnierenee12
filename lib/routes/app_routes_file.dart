@@ -10,6 +10,8 @@ import 'package:tinnierenee12/screen/auth/personal_info_screen/personal_info_scr
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
+import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
+import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
 import 'package:tinnierenee12/screen/on_boarding_screen1/on_boarding_screen1.dart';
 import 'package:tinnierenee12/screen/privicy_screen/privicy_screen.dart';
@@ -30,7 +32,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     transitionDuration: Duration(milliseconds: 800),
     opaque: false,
   ),
-  
+
   GetPage(
     name: AppRoutes.instance.navigationScreen,
     binding: AppBinding(),
@@ -82,7 +84,19 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     page: () => const PersonalInfoScreen(),
   ),
 
-  ///////////////////////////////base screen//////////////////////////
+  ///////////////////////////////Home screen//////////////////////////
+  GetPage(
+    name: AppRoutes.instance.employeeHome,
+    // binding: AppBinding(),
+    page: () => const EmployeeHomeScreen(),
+  ),
+  ///////////////////////////////shift screen//////////////////////////
+  GetPage(
+    name: AppRoutes.instance.employeeShiftScreen,
+    // binding: AppBinding(),
+    page: () => const EmployeeShiftScreen(),
+  ),
+  ///////////////////////////////Profile screen//////////////////////////
   ///
   GetPage(
     name: AppRoutes.instance.notification,

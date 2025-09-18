@@ -9,14 +9,19 @@ import 'package:tinnierenee12/widget/app_text/app_text.dart';
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
     super.key,
-    this.title, // Optionally pass a title to the AppBar
+    this.title,
+    this.autoShowLeading = true,
+    this.action, // Optionally pass a title to the AppBar
   });
 
   final String? title;
+  final List<Widget>? action;
+  final bool autoShowLeading;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      actions: action,
       backgroundColor: AppColor.white,
       centerTitle: true,
       title: AppText(
@@ -25,20 +30,22 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         color: AppColor.black,
         fontWeight: FontWeight.w700,
       ),
-      leading: Padding(
-        padding: const EdgeInsets.all(18),
-        child: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: AppImage(
-            width: AppSize.width(value: 18),
-            height: AppSize.width(value: 18),
-            path: AssetsPath.arrowBack,
-            iconColor: AppColor.black,
-          ),
-        ),
-      ),
+      leading: autoShowLeading
+          ? Padding(
+              padding: const EdgeInsets.all(18),
+              child: InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: AppImage(
+                  width: AppSize.width(value: 18),
+                  height: AppSize.width(value: 18),
+                  path: AssetsPath.arrowBack,
+                  iconColor: AppColor.black,
+                ),
+              ),
+            )
+          : SizedBox(),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(8),

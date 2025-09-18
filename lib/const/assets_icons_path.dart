@@ -18,6 +18,8 @@ class AssetsPath {
   static const String nav4 = "assets/icons/nav4.png";
   static const String nav5 = "assets/icons/nav5.png";
   static const String camera = "assets/icons/camera.png";
+  static const String close = "assets/icons/close.png";
+  static const String filter = "assets/icons/filter.png";
 
   //////////////////////Image//////////////////////////////////////
   static const String authImg = "assets/images/pass_img.png";

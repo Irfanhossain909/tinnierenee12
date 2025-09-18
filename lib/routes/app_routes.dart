@@ -7,7 +7,7 @@ class AppRoutes {
   final String roleSelectionScreen = "/role-selection-screen";
   final String onBoardingScreen1 = "/onboarding-screen1";
   final String navigationScreen = "/navigation-screen";
-///////////////////////////Auth/////////////////////////////////
+  ///////////////////////////Auth/////////////////////////////////
   final String signInScreen = "/sign-in-screen";
   final String forgetPassScreen = "/forget-pass-screen";
   final String createNewScreen = "/create-new-screen";
@@ -16,7 +16,7 @@ class AppRoutes {
   final String locationScreen = "/location-screen";
   final String personalInfoScreen = "/personal-info-screen";
 
-  //////////////////////Base Screen/////////////////////////
+  //////////////////////Profile Screen/////////////////////////
   final String notification = "/notification-screen";
   final String profileScreen = "/profile-screen";
   final String termsCondiScreen = "/terms-condi-screen";
@@ -24,4 +24,8 @@ class AppRoutes {
   final String changePassScreen = "/change-pass-screen";
   final String contactUsScreen = "/contact-us-screen";
   final String changeProfileScreen = "/change-profile-screen";
+  //////////////////////Home Screen/////////////////////////
+  final String employeeHome = "/employee-home-screen";
+  //////////////////////shift Screen/////////////////////////
+  final String employeeShiftScreen = "/employee-shift-screen";
 }
