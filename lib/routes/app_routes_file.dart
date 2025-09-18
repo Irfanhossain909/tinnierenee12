@@ -14,6 +14,7 @@ import 'package:tinnierenee12/screen/notification_screen/notification_screen.dar
 import 'package:tinnierenee12/screen/on_boarding_screen1/on_boarding_screen1.dart';
 import 'package:tinnierenee12/screen/privicy_screen/privicy_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/change_pass_screen.dart';
+import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/chnage_profile_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/contact_us_screen/contact_us_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
 import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
@@ -112,5 +113,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.contactUsScreen,
     // binding: AppBinding(),
     page: () => const ContactUsScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.changeProfileScreen,
+    // binding: AppBinding(),
+    page: () => const ChnageProfileScreen(),
   ),
 ];

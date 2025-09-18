@@ -28,7 +28,7 @@ class NavigationScreen extends StatelessWidget {
                 NotificationScreen(),
                 ProfileScreen(),
                 SignUpScreen(),
-                VerifyOtpScreen(),
+                ProfileScreen(),
                 // const HomeScreen(),
                 // const SendDocumentReviewScreen(),
                 // ProfileMainScreen(),

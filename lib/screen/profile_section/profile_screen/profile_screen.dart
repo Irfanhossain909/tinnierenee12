@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
 
                       AppButton(
                         onTap: () {
-                          // Get.toNamed(AppRoutes.instance.changeProfileScreen);
+                          Get.toNamed(AppRoutes.instance.changeProfileScreen);
                         },
                         title: "Edit Profile",
 
