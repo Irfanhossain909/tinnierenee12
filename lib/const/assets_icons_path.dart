@@ -20,6 +20,9 @@ class AssetsPath {
   static const String camera = "assets/icons/camera.png";
   static const String close = "assets/icons/close.png";
   static const String filter = "assets/icons/filter.png";
+  static const String right = "assets/icons/right.png";
+  
+
 
   //////////////////////Image//////////////////////////////////////
   static const String authImg = "assets/images/pass_img.png";

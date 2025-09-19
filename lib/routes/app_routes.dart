@@ -33,4 +33,5 @@ class AppRoutes {
   final String employeeEarningScreen = "/employee-earning-screen";
   //////////////////////Employee findShift Screen/////////////////////////
   final String employeeFindShiftScreen = "/employee-find-shift-screen";
+  final String employeeFindShiftDetailsScreen = "/employee-find-shift-details-screen";
 }
