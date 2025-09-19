@@ -7,6 +7,7 @@ import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
 import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_screen.dart';
+import 'package:tinnierenee12/screen/employee_find_shift_screen/employee_find_shift_screen.dart';
 import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
@@ -29,7 +30,7 @@ class NavigationScreen extends StatelessWidget {
               children: [
                 EmployeeHomeScreen(),
                 EmployeeShiftScreen(),
-                ProfileScreen(),
+                EmployeeFindShiftScreen(),
                 EmployeeEarningScreen(),
                 ProfileScreen(),
                 // const HomeScreen(),
