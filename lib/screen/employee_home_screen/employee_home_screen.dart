@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
+import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
@@ -49,10 +49,11 @@ class EmployeeHomeScreen extends StatelessWidget {
                     Gap(height: AppSize.width(value: 4)),
                     Row(
                       children: [
-                        AppImageCircular(
+                        AppImage(
                           path: AssetsPath.icLocation,
                           width: 16,
                           height: 16,
+                          iconColor: AppColor.black,
                         ),
                         Gap(width: 6),
                         AppText(
@@ -71,7 +72,11 @@ class EmployeeHomeScreen extends StatelessWidget {
                   },
                   child: Stack(
                     children: [
-                      Icon(Icons.notifications, color: AppColor.purple, size: 32),
+                      Icon(
+                        Icons.notifications,
+                        color: AppColor.purple,
+                        size: 32,
+                      ),
                       Positioned(
                         top: 4,
                         right: 4,

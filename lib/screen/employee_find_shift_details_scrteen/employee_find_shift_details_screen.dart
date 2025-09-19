@@ -30,7 +30,10 @@ class EmployeeFindShiftDetailsScreen extends StatelessWidget {
         ),
         child: AppButton(title: "Apply", filColor: AppColor.purple),
       ),
-      appBar: CustomAppbar(title: "Shift Details"),
+      appBar: CustomAppbar(
+        
+        title: "Shift Full Details",
+      ),
       body: Padding(
         padding: EdgeInsets.only(
           top: AppSize.width(value: 16),
