@@ -2,35 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
-import 'package:tinnierenee12/screen/app_navigation_screen/controller/navigation_screen_controller.dart';
-import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
-import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
-import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
+import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
+import 'package:tinnierenee12/screen/client_home_screen/client_home_screen.dart';
+
 import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_screen.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_screen/employee_find_shift_screen.dart';
 import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
-import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 
-class NavigationScreen extends StatelessWidget {
-  const NavigationScreen({super.key});
+class AppNavigationForClientScreen extends StatelessWidget {
+  const AppNavigationForClientScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: NavigationScreenController(),
+      init: AppNavigationForClientController(),
       builder: (controller) {
         return Scaffold(
           body: Obx(
             () => IndexedStack(
               index: controller.selectedIndex.value,
               children: [
-                EmployeeHomeScreen(),
+                ClientHomeScreen(),
                 EmployeeShiftScreen(),
-                EmployeeFindShiftScreen(),
 
                 EmployeeEarningScreen(),
                 ProfileScreen(),
@@ -55,13 +52,12 @@ class NavigationScreen extends StatelessWidget {
               child: Obx(
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: List.generate(5, (index) {
+                  children: List.generate(4, (index) {
                     final isSelected = controller.selectedIndex.value == index;
                     final iconPaths = [
                       AssetsPath.nav1,
                       AssetsPath.nav2,
-                      AssetsPath.nav3,
-                      AssetsPath.nav4,
+                      AssetsPath.nav6,
                       AssetsPath.nav5,
                     ];
 

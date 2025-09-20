@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/routes/bindings/app_binding.dart';
 import 'package:tinnierenee12/routes/bindings/auth_binding.dart';
+import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
+import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/app_navigation_for_sclient_screen.dart';
 import 'package:tinnierenee12/screen/app_navigation_screen/navigation_screen.dart';
 import 'package:tinnierenee12/screen/auth/create_your_password_screen/create_your_password_screen.dart';
 import 'package:tinnierenee12/screen/auth/forget_pass_screen/forget_pass_screen.dart';
@@ -10,6 +12,7 @@ import 'package:tinnierenee12/screen/auth/personal_info_screen/personal_info_scr
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
+import 'package:tinnierenee12/screen/client_home_screen/client_home_screen.dart';
 import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_screen.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_details_scrteen/employee_find_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_screen/employee_find_shift_screen.dart';
@@ -41,6 +44,11 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.navigationScreen,
     binding: AppBinding(),
     page: () => const NavigationScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.navigationForClientScreen,
+    binding: AppBinding(),
+    page: () => const AppNavigationForClientScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.roleSelectionScreen,
@@ -93,6 +101,11 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.employeeHome,
     // binding: AppBinding(),
     page: () => const EmployeeHomeScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.clientHomeScreen,
+    // binding: AppBinding(),
+    page: () => const ClientHomeScreen(),
   ),
   ///////////////////////////////earning screen//////////////////////////
   GetPage(

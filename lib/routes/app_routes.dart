@@ -7,6 +7,7 @@ class AppRoutes {
   final String roleSelectionScreen = "/role-selection-screen";
   final String onBoardingScreen1 = "/onboarding-screen1";
   final String navigationScreen = "/navigation-screen";
+  final String navigationForClientScreen = "/navigation-for-client-screen";
   ///////////////////////////Auth/////////////////////////////////
   final String signInScreen = "/sign-in-screen";
   final String forgetPassScreen = "/forget-pass-screen";
@@ -26,6 +27,7 @@ class AppRoutes {
   final String changeProfileScreen = "/change-profile-screen";
   //////////////////////Home Screen/////////////////////////
   final String employeeHome = "/employee-home-screen";
+  final String clientHomeScreen = "/client-home-screen";
   //////////////////////shift Screen/////////////////////////
   final String employeeShiftScreen = "/employee-shift-screen";
   final String employeeShiftDetailsScreen = "/employee-shift-details-screen";
