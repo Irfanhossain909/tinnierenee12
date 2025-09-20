@@ -21,6 +21,7 @@ class AssetsPath {
   static const String close = "assets/icons/close.png";
   static const String filter = "assets/icons/filter.png";
   static const String right = "assets/icons/right.png";
+  static const String identity = "assets/icons/identity.png";
   
 
 

@@ -4,9 +4,13 @@ import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
+import 'package:tinnierenee12/widget/app_button/app_button.dart';
+import 'package:tinnierenee12/widget/app_card/app_card.dart';
+import 'package:tinnierenee12/widget/app_expanded_card/app_expanded_card.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
+import 'package:tinnierenee12/widget/app_progress_bar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
 class EmployeeHomeScreen extends StatelessWidget {
@@ -16,7 +20,7 @@ class EmployeeHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 200,
+        toolbarHeight: 168,
         backgroundColor: AppColor.white,
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -151,26 +155,156 @@ class EmployeeHomeScreen extends StatelessWidget {
         ),
       ),
 
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: AppSize.width(value: 8),
+          horizontal: AppSize.width(value: 16),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: AppColor.white,
+        ),
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColor.purple.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(color: AppColor.purple),
+              ),
+              padding: EdgeInsets.all(AppSize.width(value: 12)),
+              child: AppImage(
+                width: AppSize.width(value: 24),
+                path: AssetsPath.identity,
+              ),
+            ),
+            AppText(
+              data: "My Document",
+              fontSize: AppSize.width(value: 16),
+              fontWeight: FontWeight.w700,
+              color: AppColor.purple,
+            ),
+            Spacer(),
+            Icon(Icons.add_circle_outline_rounded),
+          ],
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: AppColor.white,
-          ),
-          child: ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                height: 100,
-                color: Colors.blue[100],
-              );
+        padding: EdgeInsets.symmetric(vertical: 16.0),
+        child: AppCard(
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _StickyHeaderDelegate(
+                    minHeight: AppSize.width(value: 60),
+                    maxHeight: AppSize.width(value: 60),
+                    child: Container(
+                      decoration: BoxDecoration(color: AppColor.white),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: AppSize.width(value: 8),
+                            children: [
+                              AppText(
+                                data: "Your Task List",
+                                fontSize: AppSize.width(value: 16),
+                                fontWeight: FontWeight.w600,
+                                color: AppColor.purple,
+                              ),
+                              AppText(
+                                data:
+                                    "Complete these actions to begin working.",
+                                fontSize: AppSize.width(value: 12),
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.black,
+                              ),
+                            ],
+                          ),
+
+                          ProgressiveBorderContainer(
+                            size: AppSize.size.width * 0.12,
+                            progressColor: AppColor.purple,
+
+                            progress: 80.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ];
             },
+            body: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return AppExpandedCard(
+                  leadingImage: Container(
+                    decoration: BoxDecoration(
+                      color: AppColor.purple.withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: AppColor.purple),
+                    ),
+                    padding: EdgeInsets.all(AppSize.width(value: 12)),
+                    child: AppImage(
+                      width: AppSize.width(value: 24),
+                      path: AssetsPath.identity,
+                    ),
+                  ),
+                  buttonText: "Submit",
+                  buttonColor: AppColor.gold,
+
+                  onButtonPressed: () {},
+
+                  title: "Personal Information",
+                  shortDescription: "Submit your personal details.",
+                  longDescription:
+                      "A background check is required to work at a licensed childcare center.",
+                );
+              },
+            ),
           ),
         ),
       ),
     );
+  }
+}
+
+class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _StickyHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_StickyHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
