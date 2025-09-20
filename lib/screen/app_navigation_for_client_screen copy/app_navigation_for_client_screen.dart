@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
+import 'package:tinnierenee12/screen/client_add_shift_screen/client_add_shift_screen.dart';
 import 'package:tinnierenee12/screen/client_home_screen/client_home_screen.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/client_shift_screen.dart';
 
@@ -30,7 +31,7 @@ class AppNavigationForClientScreen extends StatelessWidget {
                 ClientHomeScreen(),
                 ClientShiftScreen(),
 
-                EmployeeEarningScreen(),
+                ClientAddShiftScreen(),
                 ProfileScreen(),
               ],
             ),

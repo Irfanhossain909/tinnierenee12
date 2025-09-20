@@ -12,13 +12,13 @@ class AppDescriptionTextField extends StatelessWidget {
     this.fillColor,
     this.border,
     this.errBorder,
-    required this.title,
+    this.title,
     this.titleColor,
     this.hintColor,
     this.textColor,
   });
 
-  final String title;
+  final String? title;
   final TextEditingController? controller;
   final String hintText;
   final Color? fillColor;
@@ -43,13 +43,17 @@ class AppDescriptionTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Gap(height: 15),
-        AppText(
-          data: title,
-          fontWeight: FontWeight.w600,
-          color: titleColor ?? Colors.white,
-          fontSize: AppSize.width(value: 18),
-        ),
+        // const Gap(height: 15),
+        // Show SizedBox if title is null or empty, otherwise show AppText
+        (title == null || title!.isEmpty)
+            ? const SizedBox()
+            : AppText(
+                data: title!,
+                fontWeight: FontWeight.w600,
+                color: titleColor ?? Colors.white,
+                fontSize: AppSize.width(value: 18),
+              ),
+
         const Gap(height: 10),
         SizedBox(
           height: 120,

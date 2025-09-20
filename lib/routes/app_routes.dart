@@ -37,4 +37,6 @@ class AppRoutes {
   //////////////////////Employee findShift Screen/////////////////////////
   final String employeeFindShiftScreen = "/employee-find-shift-screen";
   final String employeeFindShiftDetailsScreen = "/employee-find-shift-details-screen";
+  //////////////////////add shift Screen/////////////////////////
+  final String clientAddShiftScreen = "/client-add-shift-screen";
 }
