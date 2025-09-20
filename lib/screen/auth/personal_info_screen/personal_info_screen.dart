@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
@@ -122,7 +124,16 @@ class PersonalInfoScreen extends StatelessWidget {
             horizontal: AppSize.width(value: 16),
             vertical: AppSize.width(value: 16),
           ),
-          child: AppButton(title: "Continue"),
+          child: AppButton(
+            onTap: () {
+              if (roll == "employee") {
+                Get.toNamed(AppRoutes.instance.navigationScreen);
+              } else {
+                Get.toNamed(AppRoutes.instance.navigationForClientScreen);
+              }
+            },
+            title: "Continue",
+          ),
         ),
       ),
     );

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      initialRoute: AppRoutes.instance.navigationForClientScreen,
+      initialRoute: AppRoutes.instance.initial,
       // initialRoute: AppRoutes.instance.profileScreen,
       getPages: appRootRoutesFile,
       enableLog: true,

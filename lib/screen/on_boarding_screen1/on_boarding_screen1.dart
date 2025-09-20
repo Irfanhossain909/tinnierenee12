@@ -95,7 +95,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                         "Set up your profile, browse available shifts, and accept with a tap. Track your earnings and stay connected with admins through real-time notifications.",
                     buttonLabel: "Get Started",
                     onPressed: () {
-                      Get.toNamed(AppRoutes.instance.navigationScreen);
+                      Get.toNamed(AppRoutes.instance.signInScreen);
                     },
                   ),
                 ],

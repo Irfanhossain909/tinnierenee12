@@ -9,6 +9,8 @@ import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
+String roll = "";
+
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
 
@@ -57,25 +59,32 @@ class RoleSelectionScreen extends StatelessWidget {
 
             AppButton(
               onTap: () {
+                roll = "employee";
                 Get.toNamed(AppRoutes.instance.onBoardingScreen1);
               },
               width: AppSize.size.width * 0.5,
               title: "I'm a Employee",
             ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColor.black),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSize.width(value: 55),
-                vertical: AppSize.width(value: 16),
-              ),
-              child: AppText(
-                data: "I'm a Client",
-                color: AppColor.black,
-                fontWeight: FontWeight.w600,
-                fontSize: AppSize.width(value: 16),
+            GestureDetector(
+              onTap: () {
+                roll = "client";
+                Get.toNamed(AppRoutes.instance.onBoardingScreen1);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.black),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.width(value: 55),
+                  vertical: AppSize.width(value: 16),
+                ),
+                child: AppText(
+                  data: "I'm a Client",
+                  color: AppColor.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: AppSize.width(value: 16),
+                ),
               ),
             ),
           ],

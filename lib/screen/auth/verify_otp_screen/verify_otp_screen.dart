@@ -126,7 +126,7 @@ class VerifyOtpScreen extends StatelessWidget {
                 ),
                 child: AppButton(
                   onTap: () {
-                    Get.toNamed(AppRoutes.instance.createNewScreen);
+                    Get.toNamed(AppRoutes.instance.locationScreen);
                   },
                   title: "Verify and Continue",
                   titleSize: AppSize.width(value: 18),

@@ -4,6 +4,7 @@ import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/app_const.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_input/app_input_widget_two.dart';
@@ -34,6 +35,15 @@ class SignInScreen extends StatelessWidget {
         child: Column(
           spacing: AppSize.size.height * 0.01,
           children: [
+            Center(
+              child: AppImage(
+                path: AssetsPath.appLogo,
+                width: AppSize.size.width * 0.65,
+                // height: AppSize.size.width * 0.22,
+                fit: BoxFit.contain,
+              ),
+            ),
+            Gap(height: AppSize.size.height * 0.009),
             AppText(
               data: "Let's Get Started!",
               fontSize: AppSize.width(value: 18),
@@ -78,32 +88,41 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.gold,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              width: AppSize.width(value: double.infinity),
-              height: AppSize.size.height * 0.06,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AppText(
-                    data: "Sign In",
-                    fontSize: AppSize.width(value: 18),
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.white,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.arrow_right_alt_outlined,
-                      size: AppSize.width(value: 28),
+            GestureDetector(
+              onTap: () {
+                if (roll == "employee") {
+                  Get.toNamed(AppRoutes.instance.navigationScreen);
+                } else {
+                  Get.toNamed(AppRoutes.instance.navigationForClientScreen);
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColor.gold,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                width: AppSize.width(value: double.infinity),
+                height: AppSize.size.height * 0.06,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppText(
+                      data: "Sign In",
+                      fontSize: AppSize.width(value: 18),
+                      fontWeight: FontWeight.w600,
                       color: AppColor.white,
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.arrow_right_alt_outlined,
+                        size: AppSize.width(value: 28),
+                        color: AppColor.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Gap(height: AppSize.size.height * 0.005),
@@ -141,7 +160,7 @@ class SignInScreen extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  // Get.toNamed(AppRoutes.instance.termsScreen);
+                  Get.toNamed(AppRoutes.instance.termsCondiScreen);
                 },
                 child: Text(
                   "Terms & Conditions",
@@ -159,7 +178,7 @@ class SignInScreen extends StatelessWidget {
               Gap(width: AppSize.width(value: 20)),
               InkWell(
                 onTap: () {
-                  // Get.toNamed(AppRoutes.instance.privicyScreen);
+                  Get.toNamed(AppRoutes.instance.privicyScreen);
                 },
                 child: Text(
                   "Privacy Policy",
@@ -187,7 +206,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      // Get.offNamed(AppRoutes.instance.signUpScreen);
+                      Get.offNamed(AppRoutes.instance.signUpScreen);
                     },
                     child: AppText(
                       data: "Sign Up",

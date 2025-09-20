@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/app_const.dart';
+import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/controller/signup_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
+import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_input/app_input_widget_two.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
@@ -30,6 +32,15 @@ class SignUpScreen extends StatelessWidget {
                   child: Column(
                     spacing: AppSize.size.height * 0.015,
                     children: [
+                      Center(
+                        child: AppImage(
+                          path: AssetsPath.appLogo,
+                          width: AppSize.size.width * 0.65,
+                          // height: AppSize.size.width * 0.22,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Gap(height: AppSize.size.height * 0.009),
                       AppText(
                         data: "Create Your Account",
                         fontSize: AppSize.width(value: 18),
@@ -82,7 +93,7 @@ class SignUpScreen extends StatelessWidget {
                       Gap(height: AppSize.width(value: 12)),
                       AppButton(
                         onTap: () {
-                          // Get.toNamed(AppRoutes.instance.cteatePasswordScreen);
+                          Get.toNamed(AppRoutes.instance.verifyOtpScreen);
                         },
                         title: "Sign Up",
                         titleSize: AppSize.width(value: 18),
@@ -127,7 +138,7 @@ class SignUpScreen extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  // Get.toNamed(AppRoutes.instance.termsScreen);
+                  Get.toNamed(AppRoutes.instance.termsCondiScreen);
                 },
                 child: Text(
                   "Terms & Conditions",
@@ -145,7 +156,7 @@ class SignUpScreen extends StatelessWidget {
               Gap(width: AppSize.width(value: 20)),
               InkWell(
                 onTap: () {
-                  // Get.toNamed(AppRoutes.instance.privicyScreen);
+                  Get.toNamed(AppRoutes.instance.privicyScreen);
                 },
                 child: Text(
                   "Privacy Policy",
