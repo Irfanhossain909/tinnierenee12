@@ -30,6 +30,7 @@ class AppRoutes {
   final String clientHomeScreen = "/client-home-screen";
   //////////////////////shift Screen/////////////////////////
   final String employeeShiftScreen = "/employee-shift-screen";
+  final String clientShiftScreen = "/client-shift-screen";
   final String employeeShiftDetailsScreen = "/employee-shift-details-screen";
   //////////////////////earning Screen/////////////////////////
   final String employeeEarningScreen = "/employee-earning-screen";
