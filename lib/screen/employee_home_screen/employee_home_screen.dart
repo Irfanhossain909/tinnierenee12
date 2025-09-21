@@ -154,39 +154,44 @@ class EmployeeHomeScreen extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: AppSize.width(value: 8),
-          horizontal: AppSize.width(value: 16),
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: AppColor.white,
-        ),
-        child: Row(
-          children: [
-            Container(
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppColor.purple.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: AppColor.purple),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          Get.toNamed(AppRoutes.instance.employeeAddMyDocumentScreen);
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: AppSize.width(value: 8),
+            horizontal: AppSize.width(value: 16),
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: AppColor.white,
+          ),
+          child: Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColor.purple.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: AppColor.purple),
+                ),
+                padding: EdgeInsets.all(AppSize.width(value: 12)),
+                child: AppImage(
+                  width: AppSize.width(value: 24),
+                  path: AssetsPath.identity,
+                ),
               ),
-              padding: EdgeInsets.all(AppSize.width(value: 12)),
-              child: AppImage(
-                width: AppSize.width(value: 24),
-                path: AssetsPath.identity,
+              AppText(
+                data: "My Document",
+                fontSize: AppSize.width(value: 16),
+                fontWeight: FontWeight.w700,
+                color: AppColor.purple,
               ),
-            ),
-            AppText(
-              data: "My Document",
-              fontSize: AppSize.width(value: 16),
-              fontWeight: FontWeight.w700,
-              color: AppColor.purple,
-            ),
-            Spacer(),
-            Icon(Icons.add_circle_outline_rounded),
-          ],
+              Spacer(),
+              Icon(Icons.add_circle_outline_rounded),
+            ],
+          ),
         ),
       ),
       body: Padding(
@@ -259,7 +264,9 @@ class EmployeeHomeScreen extends StatelessWidget {
                   buttonColor: AppColor.gold,
 
                   onButtonPressed: () {
-                    Get.toNamed(AppRoutes.instance.employeePersonalInfoSubmitScreen1);
+                    Get.toNamed(
+                      AppRoutes.instance.employeePersonalInfoSubmitScreen1,
+                    );
                   },
 
                   title: "Personal Information",

@@ -44,4 +44,6 @@ class AppRoutes {
   ////////////////////////peronal info submit screen/////////////////
   final String employeePersonalInfoSubmitScreen1 = "/employee-personal-info-submit-screen1";
   final String employeePersonalInfoSubmitScreen2 = "/employee-personal-info-submit-screen2";
+  final String employeePersonalInfoSubmitScreen3 = "/employee-personal-info-submit-screen3";
+  final String employeeAddMyDocumentScreen = "/employee-add-my-document-screen";
 }

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/routes/bindings/app_binding.dart';
 import 'package:tinnierenee12/routes/bindings/auth_binding.dart';
+import 'package:tinnierenee12/screen/add_document_screen/add_document_screen.dart';
 import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
 import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/app_navigation_for_client_screen.dart';
 import 'package:tinnierenee12/screen/app_navigation_screen/navigation_screen.dart';
@@ -21,6 +22,7 @@ import 'package:tinnierenee12/screen/employee_find_shift_details_scrteen/employe
 import 'package:tinnierenee12/screen/employee_find_shift_screen/employee_find_shift_screen.dart';
 import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
 import 'package:tinnierenee12/screen/employee_personal_info_submit_screen_one/employee_personal_info_submit_screen_one.dart';
+import 'package:tinnierenee12/screen/employee_personal_info_submit_screen_three/employee_personal_info_submit_screen_three.dart';
 import 'package:tinnierenee12/screen/employee_personal_info_submit_screen_tow/employee_personal_info_submit_screen_two.dart';
 import 'package:tinnierenee12/screen/employee_shift_details_screen/employee_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
@@ -200,5 +202,15 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.employeePersonalInfoSubmitScreen2,
     // binding: AppBinding(),
     page: () => const EmployeePersonalInfoSubmitScreenTwo(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.employeePersonalInfoSubmitScreen3,
+    // binding: AppBinding(),
+    page: () => const EmployeePersonalInfoSubmitScreenThree(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.employeeAddMyDocumentScreen,
+    // binding: AppBinding(),
+    page: () => const AddDocumentScreen(),
   ),
 ];
