@@ -43,4 +43,5 @@ class AppRoutes {
   final String clientAddShiftScreen = "/client-add-shift-screen";
   ////////////////////////peronal info submit screen/////////////////
   final String employeePersonalInfoSubmitScreen1 = "/employee-personal-info-submit-screen1";
+  final String employeePersonalInfoSubmitScreen2 = "/employee-personal-info-submit-screen2";
 }

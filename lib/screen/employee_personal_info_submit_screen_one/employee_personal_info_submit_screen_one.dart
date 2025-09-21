@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_card/app_card.dart';
@@ -22,7 +24,12 @@ class EmployeePersonalInfoSubmitScreenOne extends StatelessWidget {
           vertical: AppSize.width(value: 24),
         ),
         decoration: BoxDecoration(color: AppColor.white),
-        child: AppButton(title: "Continue"),
+        child: AppButton(
+          onTap: () {
+            Get.toNamed(AppRoutes.instance.employeePersonalInfoSubmitScreen2);
+          },
+          title: "Continue",
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(AppSize.width(value: 12)),
