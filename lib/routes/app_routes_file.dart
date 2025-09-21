@@ -20,6 +20,7 @@ import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_sc
 import 'package:tinnierenee12/screen/employee_find_shift_details_scrteen/employee_find_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_screen/employee_find_shift_screen.dart';
 import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
+import 'package:tinnierenee12/screen/employee_personal_info_submit_screen_one/employee_personal_info_submit_screen_one.dart';
 import 'package:tinnierenee12/screen/employee_shift_details_screen/employee_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
@@ -188,5 +189,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.changeProfileScreen,
     // binding: AppBinding(),
     page: () => const ChnageProfileScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.employeePersonalInfoSubmitScreen1,
+    // binding: AppBinding(),
+    page: () => const EmployeePersonalInfoSubmitScreenOne(),
   ),
 ];

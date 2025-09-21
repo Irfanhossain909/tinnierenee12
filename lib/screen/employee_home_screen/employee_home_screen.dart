@@ -258,7 +258,9 @@ class EmployeeHomeScreen extends StatelessWidget {
                   buttonText: "Submit",
                   buttonColor: AppColor.gold,
 
-                  onButtonPressed: () {},
+                  onButtonPressed: () {
+                    Get.toNamed(AppRoutes.instance.employeePersonalInfoSubmitScreen1);
+                  },
 
                   title: "Personal Information",
                   shortDescription: "Submit your personal details.",
