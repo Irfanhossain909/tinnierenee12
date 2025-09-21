@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
@@ -24,7 +25,7 @@ class LocationScreen extends StatelessWidget {
           AppImage(
             width: AppSize.width(value: 200),
             height: AppSize.width(value: 200),
-            path: AssetsPath.authImg,
+            path: AssetsPath.locationImg,
           ),
 
           AppText(
@@ -78,8 +79,13 @@ class LocationScreen extends StatelessWidget {
                 ),
                 Gap(height: 16),
                 AppButton(
+                  width: double.infinity,
                   onTap: () {
-                    Get.toNamed(AppRoutes.instance.personalInfoScreen);
+                    if (roll == "client") {
+                      Get.toNamed(AppRoutes.instance.clientBusinessInfoScreen);
+                    } else {
+                      Get.toNamed(AppRoutes.instance.personalInfoScreen);
+                    }
                   },
                   title: "Continue",
                 ),

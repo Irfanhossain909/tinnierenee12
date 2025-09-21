@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
-import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
@@ -126,11 +125,7 @@ class PersonalInfoScreen extends StatelessWidget {
           ),
           child: AppButton(
             onTap: () {
-              if (roll == "employee") {
-                Get.toNamed(AppRoutes.instance.navigationScreen);
-              } else {
-                Get.toNamed(AppRoutes.instance.navigationForClientScreen);
-              }
+              Get.toNamed(AppRoutes.instance.navigationScreen);
             },
             title: "Continue",
           ),

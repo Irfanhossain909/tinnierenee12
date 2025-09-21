@@ -16,6 +16,7 @@ class AppRoutes {
   final String signUpScreen = "/sign-up-screen";
   final String locationScreen = "/location-screen";
   final String personalInfoScreen = "/personal-info-screen";
+  final String clientBusinessInfoScreen = "/client-business-info-screen";
 
   //////////////////////Profile Screen/////////////////////////
   final String notification = "/notification-screen";
@@ -42,8 +43,14 @@ class AppRoutes {
   //////////////////////add shift Screen/////////////////////////
   final String clientAddShiftScreen = "/client-add-shift-screen";
   ////////////////////////peronal info submit screen/////////////////
-  final String employeePersonalInfoSubmitScreen1 = "/employee-personal-info-submit-screen1";
-  final String employeePersonalInfoSubmitScreen2 = "/employee-personal-info-submit-screen2";
-  final String employeePersonalInfoSubmitScreen3 = "/employee-personal-info-submit-screen3";
+  final String employeePersonalInfoSubmitScreen1 =
+      "/employee-personal-info-submit-screen1";
+  final String employeePersonalInfoSubmitScreen2 =
+      "/employee-personal-info-submit-screen2";
+  final String employeePersonalInfoSubmitScreen3 =
+      "/employee-personal-info-submit-screen3";
   final String employeeAddMyDocumentScreen = "/employee-add-my-document-screen";
+  final String employeeSettingScreen = "/employee-setting-screen";
+  final String clientSubscriptionScreen = "/client_subcription-screen";
+  final String paymentSuccessfullScreen = "/payment-successfull-screen";
 }

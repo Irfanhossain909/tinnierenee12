@@ -22,8 +22,5 @@ class AppNavigationForClientController extends GetxController {
     selectedIndex.value = index;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+ 
 }

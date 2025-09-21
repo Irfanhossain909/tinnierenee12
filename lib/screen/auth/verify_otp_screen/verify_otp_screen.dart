@@ -37,7 +37,7 @@ class VerifyOtpScreen extends StatelessWidget {
               AppImage(
                 width: AppSize.width(value: 200),
                 height: AppSize.width(value: 200),
-                path: AssetsPath.authImg,
+                path: AssetsPath.otpImg,
               ),
 
               AppText(

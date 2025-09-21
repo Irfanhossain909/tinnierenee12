@@ -31,7 +31,10 @@ class ChangePassScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            AppImage(width: AppSize.size.width * 0.6, path: AssetsPath.authImg),
+            AppImage(
+              width: AppSize.size.width * 0.6,
+              path: AssetsPath.changePass,
+            ),
 
             Padding(
               padding: EdgeInsets.all(AppSize.width(value: 16)),

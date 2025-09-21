@@ -3,13 +3,13 @@ import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/routes/bindings/app_binding.dart';
 import 'package:tinnierenee12/routes/bindings/auth_binding.dart';
 import 'package:tinnierenee12/screen/add_document_screen/add_document_screen.dart';
-import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
 import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/app_navigation_for_client_screen.dart';
 import 'package:tinnierenee12/screen/app_navigation_screen/navigation_screen.dart';
 import 'package:tinnierenee12/screen/auth/create_your_password_screen/create_your_password_screen.dart';
 import 'package:tinnierenee12/screen/auth/forget_pass_screen/forget_pass_screen.dart';
 import 'package:tinnierenee12/screen/auth/location_screen/location_screen.dart';
 import 'package:tinnierenee12/screen/auth/personal_info_screen/personal_info_screen.dart';
+import 'package:tinnierenee12/screen/auth/client_business_info_screen/client_business_info_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
@@ -24,10 +24,12 @@ import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.d
 import 'package:tinnierenee12/screen/employee_personal_info_submit_screen_one/employee_personal_info_submit_screen_one.dart';
 import 'package:tinnierenee12/screen/employee_personal_info_submit_screen_three/employee_personal_info_submit_screen_three.dart';
 import 'package:tinnierenee12/screen/employee_personal_info_submit_screen_tow/employee_personal_info_submit_screen_two.dart';
+import 'package:tinnierenee12/screen/employee_setting_screen/employee_setting_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_details_screen/employee_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
 import 'package:tinnierenee12/screen/on_boarding_screen1/on_boarding_screen1.dart';
+import 'package:tinnierenee12/screen/payment_successfull_screen/payment_successfull_screen.dart';
 import 'package:tinnierenee12/screen/privicy_screen/privicy_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/change_pass_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/chnage_profile_screen.dart';
@@ -35,6 +37,7 @@ import 'package:tinnierenee12/screen/profile_section/contact_us_screen/contact_u
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
 import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/screen/splash_screen/splash_screen.dart';
+import 'package:tinnierenee12/screen/subscription_screen/my_sub_screen/my_sub_screen.dart';
 import 'package:tinnierenee12/screen/terms_screen/terms_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
@@ -101,6 +104,11 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.personalInfoScreen,
     binding: AppBinding(),
     page: () => const PersonalInfoScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.clientBusinessInfoScreen,
+    binding: AppBinding(),
+    page: () => const ClientBusinessInfoScreen(),
   ),
 
   ///////////////////////////////Home screen//////////////////////////
@@ -212,5 +220,20 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.employeeAddMyDocumentScreen,
     // binding: AppBinding(),
     page: () => const AddDocumentScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.employeeSettingScreen,
+    // binding: AppBinding(),
+    page: () => const EmployeeSettingScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.clientSubscriptionScreen,
+    // binding: AppBinding(),
+    page: () => const MySubScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.paymentSuccessfullScreen,
+    // binding: AppBinding(),
+    page: () => const PaymentSuccessfullScreen(),
   ),
 ];

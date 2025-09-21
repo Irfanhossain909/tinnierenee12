@@ -28,7 +28,7 @@ class AppExpandedCard extends StatefulWidget {
   final Color? iconColor;
 
   const AppExpandedCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.shortDescription,
     this.leadingImage,
@@ -47,7 +47,7 @@ class AppExpandedCard extends StatefulWidget {
     this.expandIcon,
     this.collapseIcon,
     this.iconColor,
-  }) : super(key: key);
+  });
 
   @override
   State<AppExpandedCard> createState() => _AppExpandedCardState();
@@ -146,9 +146,9 @@ class _AppExpandedCardState extends State<AppExpandedCard>
                             widget.shortDescription,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color:
-                                  widget.textColor?.withOpacity(0.7) ??
+                                  widget.textColor?.withValues(alpha: .7) ??
                                   theme.textTheme.bodyMedium?.color
-                                      ?.withOpacity(0.7),
+                                      ?.withValues(alpha: .7),
                             ),
                             maxLines: _isExpanded ? null : 1,
                             overflow: _isExpanded
@@ -195,9 +195,9 @@ class _AppExpandedCardState extends State<AppExpandedCard>
                             widget.longDescription!,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color:
-                                  widget.textColor?.withOpacity(0.8) ??
+                                  widget.textColor?.withValues(alpha: .8) ??
                                   theme.textTheme.bodyMedium?.color
-                                      ?.withOpacity(0.8),
+                                      ?.withValues(alpha: .8),
                             ),
                           ),
                           if (widget.buttonText != null)
@@ -257,7 +257,7 @@ class _AppExpandedCardState extends State<AppExpandedCard>
 
 // Example usage
 class ExampleUsage extends StatelessWidget {
-  const ExampleUsage({Key? key}) : super(key: key);
+  const ExampleUsage({super.key});
 
   @override
   Widget build(BuildContext context) {

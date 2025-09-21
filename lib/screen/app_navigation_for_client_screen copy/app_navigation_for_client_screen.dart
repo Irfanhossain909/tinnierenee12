@@ -6,11 +6,6 @@ import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/con
 import 'package:tinnierenee12/screen/client_add_shift_screen/client_add_shift_screen.dart';
 import 'package:tinnierenee12/screen/client_home_screen/client_home_screen.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/client_shift_screen.dart';
-
-import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_screen.dart';
-import 'package:tinnierenee12/screen/employee_find_shift_screen/employee_find_shift_screen.dart';
-import 'package:tinnierenee12/screen/employee_home_screen/employee_home_screen.dart';
-import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';

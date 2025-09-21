@@ -14,7 +14,7 @@ class PrivicyScreen extends StatelessWidget {
       body: Center(
         child: AppImage(
           width: AppSize.size.width * 0.6,
-          path: AssetsPath.authImg,
+          path: AssetsPath.termsImg,
         ),
       ),
     );

@@ -170,7 +170,7 @@ class _DotsIndicator extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: AppSize.width(value: 6)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color: isActive ? AppColor.gold : AppColor.black.withOpacity(0.8),
+            color: isActive ? AppColor.gold : AppColor.black.withValues(alpha: .8),
             // shape: BoxShape.circle,
           ),
         );

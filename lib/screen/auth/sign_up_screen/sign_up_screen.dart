@@ -5,6 +5,7 @@ import 'package:tinnierenee12/const/app_const.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/controller/signup_controller.dart';
+import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
@@ -70,6 +71,16 @@ class SignUpScreen extends StatelessWidget {
                         hintText: "example@gmail.com",
                         fillColor: AppColor.purple,
                       ),
+                      if (roll == "client")
+                        AppInputWidgetTwo(
+                          keyboardType: TextInputType.number,
+                          borderRadius: AppSize.width(value: 8),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: AppSize.width(value: 20),
+                          ),
+                          hintText: "Phone Number",
+                          fillColor: AppColor.purple,
+                        ),
 
                       AppInputWidgetTwo(
                         borderRadius: AppSize.width(value: 8),
@@ -92,6 +103,7 @@ class SignUpScreen extends StatelessWidget {
 
                       Gap(height: AppSize.width(value: 12)),
                       AppButton(
+                        width: double.infinity,
                         onTap: () {
                           Get.toNamed(AppRoutes.instance.verifyOtpScreen);
                         },
