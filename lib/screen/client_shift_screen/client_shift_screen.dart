@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/client_home_screen/client_home_screen.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/controller/client_shift_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
@@ -57,7 +59,7 @@ class ClientShiftScreen extends StatelessWidget {
                   ),
                   const PopupMenuItem<String>(
                     value: 'Pending',
-                    child: Text('Pending'),
+                    child: Text('Substitute'),
                   ),
                 ],
                 child: Padding(
@@ -103,7 +105,7 @@ class ClientShiftScreen extends StatelessWidget {
                               ),
                             if (controller.selectedValue.value == "Pending")
                               AppText(
-                                data: "Pending Shift",
+                                data: "Substitute Shift",
                                 fontSize: AppSize.width(value: 18),
                                 fontWeight: FontWeight.w600,
                                 color: AppColor.purple,
@@ -122,10 +124,6 @@ class ClientShiftScreen extends StatelessWidget {
                           child: ListView.builder(
                             itemCount: 10,
                             itemBuilder: (context, index) {
-                              // return SubstituteCard();
-                              //Complate Card
-                              // return ShiftCompleteCard();
-                              //Active Card
                               return ClientHomeShiftCard();
                             },
                           ),
@@ -135,11 +133,7 @@ class ClientShiftScreen extends StatelessWidget {
                           child: ListView.builder(
                             itemCount: 10,
                             itemBuilder: (context, index) {
-                              // return SubstituteCard();
-                              //Complate Card
                               return ShiftCompleteCard();
-                              //Active Card
-                              // return ClientHomeShiftCard();
                             },
                           ),
                         ),
@@ -148,27 +142,21 @@ class ClientShiftScreen extends StatelessWidget {
                           child: ListView.builder(
                             itemCount: 10,
                             itemBuilder: (context, index) {
-                              return SubstituteCard();
-                              //Complate Card
-                              // return ShiftCompleteCard();
-                              //Active Card
-                              // return ClientHomeShiftCard();
+                              return SubstituteCard(
+                                onTap: () {
+                                  Get.toNamed(
+                                    AppRoutes
+                                        .instance
+                                        .clientAllSubstituteScreen,
+                                  );
+                                },
+                              );
                             },
                           ),
                         ),
                     ],
                   );
                 }),
-                // body: ListView.builder(
-                //   itemCount: 10,
-                //   itemBuilder: (context, index) {
-                //     return SubstituteCard();
-                //     //Complate Card
-                //     // return ShiftCompleteCard();
-                //     //Active Card
-                //     // return ClientHomeShiftCard();
-                //   },
-                // ),
               ),
             ),
           ),
@@ -179,14 +167,15 @@ class ClientShiftScreen extends StatelessWidget {
 }
 
 class SubstituteCard extends StatelessWidget {
-  const SubstituteCard({super.key});
+  final VoidCallback? onTap;
+  const SubstituteCard({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: AppSize.width(value: 12)),
       child: GestureDetector(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.white,

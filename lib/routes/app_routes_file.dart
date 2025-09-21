@@ -13,6 +13,7 @@ import 'package:tinnierenee12/screen/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:tinnierenee12/screen/auth/sign_up_screen/sign_up_screen.dart';
 import 'package:tinnierenee12/screen/auth/verify_otp_screen/verify_otp_screen.dart';
 import 'package:tinnierenee12/screen/client_add_shift_screen/client_add_shift_screen.dart';
+import 'package:tinnierenee12/screen/client_all_substitute_screen/client_all_substitute_screen.dart';
 import 'package:tinnierenee12/screen/client_home_screen/client_home_screen.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/client_shift_screen.dart';
 import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_screen.dart';
@@ -128,8 +129,13 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.clientShiftScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const ClientShiftScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.clientAllSubstituteScreen,
+    binding: AppBinding(),
+    page: () => const ClientAllSubstituteScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.employeeFindShiftScreen,

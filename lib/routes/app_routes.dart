@@ -31,12 +31,14 @@ class AppRoutes {
   //////////////////////shift Screen/////////////////////////
   final String employeeShiftScreen = "/employee-shift-screen";
   final String clientShiftScreen = "/client-shift-screen";
+  final String clientAllSubstituteScreen = "/client-substitute-screen";
   final String employeeShiftDetailsScreen = "/employee-shift-details-screen";
   //////////////////////earning Screen/////////////////////////
   final String employeeEarningScreen = "/employee-earning-screen";
   //////////////////////Employee findShift Screen/////////////////////////
   final String employeeFindShiftScreen = "/employee-find-shift-screen";
-  final String employeeFindShiftDetailsScreen = "/employee-find-shift-details-screen";
+  final String employeeFindShiftDetailsScreen =
+      "/employee-find-shift-details-screen";
   //////////////////////add shift Screen/////////////////////////
   final String clientAddShiftScreen = "/client-add-shift-screen";
 }
