@@ -17,6 +17,7 @@ import 'package:tinnierenee12/screen/client_add_shift_screen/client_add_shift_sc
 import 'package:tinnierenee12/screen/client_all_substitute_screen/client_all_substitute_screen.dart';
 import 'package:tinnierenee12/screen/client_home_screen/client_home_screen.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/client_shift_screen.dart';
+import 'package:tinnierenee12/screen/client_transaction_histry_screen/client_transaction_histry_screen.dart';
 import 'package:tinnierenee12/screen/employee_earning_screen/employee_earning_screen.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_details_scrteen/employee_find_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_screen/employee_find_shift_screen.dart';
@@ -72,7 +73,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.signInScreen,
-    // binding: SplashScreenBinding(),
+    binding: AuthBinding(),
     page: () => const SignInScreen(),
   ),
   GetPage(
@@ -235,5 +236,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.paymentSuccessfullScreen,
     // binding: AppBinding(),
     page: () => const PaymentSuccessfullScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.clientTransactionHistryScreen,
+    // binding: AppBinding(),
+    page: () => const ClientTransactionHistryScreen(),
   ),
 ];

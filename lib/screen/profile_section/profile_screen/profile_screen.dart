@@ -102,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
                     ProfileRow(
                       iconPath: AssetsPath.transaction,
                       onTap: () {
-                        // Get.toNamed(AppRoutes.instance.changePassScreen);
+                        Get.toNamed(AppRoutes.instance.clientTransactionHistryScreen);
                       },
                       text: "Transaction History",
                     ),

@@ -53,4 +53,5 @@ class AppRoutes {
   final String employeeSettingScreen = "/employee-setting-screen";
   final String clientSubscriptionScreen = "/client_subcription-screen";
   final String paymentSuccessfullScreen = "/payment-successfull-screen";
+  final String clientTransactionHistryScreen = "/client-transaction-histry-screen";
 }

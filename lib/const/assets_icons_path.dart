@@ -42,6 +42,7 @@ class AssetsPath {
   static const String leftUp = "assets/images/left_up.png";
   static const String appLogo = "assets/images/app_logo.png";
   static const String map = "assets/images/map.webp";
+  static const String calender = "assets/images/calender.png";
   static const String paymentSuccessFullimg =
       "assets/images/payment_successfull_img.png";
 }

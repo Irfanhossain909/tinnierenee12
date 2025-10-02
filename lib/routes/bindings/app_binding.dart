@@ -8,6 +8,7 @@ import 'package:tinnierenee12/screen/client_shift_screen/controller/client_shift
 class AppBinding extends Bindings {
   @override
   dependencies() {
+    
     Get.lazyPut(() => NavigationScreenController());
     Get.lazyPut(() => AppNavigationForClientController());
     Get.lazyPut(() => PersonalInfoController());
