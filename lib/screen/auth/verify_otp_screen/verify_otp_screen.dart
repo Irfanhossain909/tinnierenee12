@@ -60,11 +60,22 @@ class VerifyOtpScreen extends StatelessWidget {
                   color: AppColor.white,
                 ),
               ),
-              AppText(
-                data: "We've Sent a Code to exa...@email.com",
-                fontSize: AppSize.width(value: 16),
-                fontWeight: FontWeight.w700,
-                color: AppColor.white,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    data: "We've Sent a Code to ",
+                    fontSize: AppSize.width(value: 16),
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.white,
+                  ),
+                  AppText(
+                    data: controller.email,
+                    fontSize: AppSize.width(value: 16),
+                    fontWeight: FontWeight.w700,
+                    color: AppColor.white,
+                  ),
+                ],
               ),
 
               Form(
@@ -92,41 +103,83 @@ class VerifyOtpScreen extends StatelessWidget {
                   controller: controller.otpTextEditingController,
                   appContext: context,
                   onCompleted: (code) {
-                    // Optionally handle completion
+                    controller.otpTextEditingController.text = code;
                   },
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppText(
-                    data: 'If you didn’t receive a code. ',
-                    fontSize: AppSize.width(value: 16),
-                    color: AppColor.white,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      controller.resendCode();
-                    },
-                    child: Text(
-                      'Resend',
-                      style: TextStyle(
-                        fontSize: AppSize.width(value: 14),
-                        fontWeight: FontWeight.w700,
-                        color: AppColor.gold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
 
+              Obx(() {
+                if (controller.seconds.value == 0) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText(
+                        data: "The code has expired",
+                        color: AppColor.white,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // controller.resendOtp();
+                          controller.startTimer();
+                        },
+                        child: AppText(
+                          data: "Resend",
+                          color: AppColor.gold,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText(
+                        data: "This code will expire in ",
+                        color: AppColor.white,
+                        textAlign: TextAlign.center,
+                      ),
+                      AppText(
+                        data: controller.formatTime(controller.seconds.value),
+                        color: AppColor.white,
+                        fontWeight: FontWeight.w700,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  );
+                }
+              }),
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     AppText(
+              //       data: 'If you didn’t receive a code. ',
+              //       fontSize: AppSize.width(value: 16),
+              //       color: AppColor.white,
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         controller.resendCode();
+              //       },
+              //       child: Text(
+              //         'Resend',
+              //         style: TextStyle(
+              //           fontSize: AppSize.width(value: 14),
+              //           fontWeight: FontWeight.w700,
+              //           color: AppColor.gold,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppSize.width(value: 16),
                 ),
                 child: AppButton(
                   onTap: () {
-                    Get.toNamed(AppRoutes.instance.locationScreen);
+                    controller.emailVerify();
                   },
                   title: "Verify and Continue",
                   titleSize: AppSize.width(value: 18),

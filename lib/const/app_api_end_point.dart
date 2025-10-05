@@ -27,15 +27,8 @@ class AppApiEndPoint {
 
 // Move this function outside the class
 String _getDomain() {
-  ///////////10.0.70.208:3001///////////////////////
-  // String liveServer = "http://10.0.70.208:10.0.70.30:3002";
-  // String localServer = "http://10.0.70.208:3001";
-  //////////LIVE////////////////////////
-  // String liveServer = "http://195.35.9.21:3001";
-  // String localServer = "http://10.0.70.30:3002";
-  //////////10.0.70.30:3002////////////////////////
-  String liveServer = "https://api.flxbookonline.com";
-  String localServer = "10.10.7.46:5003";
+  String liveServer = "http://10.10.7.46:5003";
+  String localServer = "http://10.10.7.46:5003";
   try {
     if (kDebugMode) {
       return localServer;

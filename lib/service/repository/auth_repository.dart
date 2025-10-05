@@ -14,38 +14,38 @@ class AuthRepository {
   static final AuthRepository instance = AuthRepository._();
   GetStorageServices storageServices = GetStorageServices.instance;
 
-  Future<bool> login({required String email, required String password}) async {
-    try {
-      Map<String, String> body = {"email": email, "password": password};
-      appInPutUnfocused();
-      var response = await nonAuthApi.sendRequest.post(
-        AppApiEndPoint.login,
-        data: body,
-      );
-      if (response.statusCode == 200 && response.data != null) {
-        String accessToken = response.data["data"]["accessToken"];
-        storageServices.setToken(accessToken);
+  // Future<bool> login({required String email, required String password}) async {
+  //   try {
+  //     Map<String, String> body = {"email": email, "password": password};
+  //     appInPutUnfocused();
+  //     var response = await nonAuthApi.sendRequest.post(
+  //       AppApiEndPoint.login,
+  //       data: body,
+  //     );
+  //     if (response.statusCode == 200 && response.data != null) {
+  //       String accessToken = response.data["data"]["accessToken"];
+  //       storageServices.setToken(accessToken);
 
-        return true;
-      } else {
-        // Handle the error if the response or data is null
-        AppPrint.apiResponse("Error: Access Token not found!");
-      }
+  //       return true;
+  //     } else {
+  //       // Handle the error if the response or data is null
+  //       AppPrint.apiResponse("Error: Access Token not found!");
+  //     }
 
-      return false;
-    } on DioException catch (error) {
-      if (error.response?.data["message"].runtimeType != null) {
-        Get.snackbar(
-          "error",
-          "${error.response?.data["message"] ?? "Something went wrong"}",
-        );
-      }
-      return false;
-    } catch (e) {
-      errorLog("login", e);
-      return false;
-    }
-  }
+  //     return false;
+  //   } on DioException catch (error) {
+  //     if (error.response?.data["message"].runtimeType != null) {
+  //       Get.snackbar(
+  //         "error",
+  //         "${error.response?.data["message"] ?? "Something went wrong"}",
+  //       );
+  //     }
+  //     return false;
+  //   } catch (e) {
+  //     errorLog("login", e);
+  //     return false;
+  //   }
+  // }
 
   // Future<bool> forgetEmailSend({required String email}) async {
   //   Map<String, String> body = {"email": email};
@@ -70,75 +70,75 @@ class AuthRepository {
   //   return false;
   // }
 
-  // Future<bool> signUp({
-  //   required String name,
-  //   required String email,
-  //   required String address,
-  //   required String password,
-  //   required String role,
-  // }) async {
-  //   try {
-  //     Map<String, String> body = {
-  //       "name": name,
-  //       "email": email,
-  //       "address": address,
-  //       "password": password,
-  //       "role": role,
-  //     };
-  //     appInPutUnfocused();
-  //     var response = await nonAuthApi.sendRequest.post(
-  //       AppApiEndPoint.instance.signup,
-  //       data: body,
-  //     );
-  //     AppPrint.apiResponse(response);
-  //     if (response.statusCode == 200) {
-  //       AppPrint.apiResponse(response.data["data"]["role"]);
-  //       storageServices.setUserRole(response.data["data"]["role"]);
-  //       String role = storageServices.getUserRole();
-  //       AppPrint.apiResponse(role, title: "Store Roll");
-  //       appInPutUnfocused();
-  //       return true;
-  //     } else {
-  //       appInPutUnfocused();
-  //       return false;
-  //     }
-  //   } on DioException catch (error) {
-  //     if (error.response?.data["message"].runtimeType != null) {
-  //       Get.snackbar(
-  //         "error",
-  //         "${error.response?.data["message"] ?? "Something went wrong"}",
-  //       );
-  //     }
-  //     return false;
-  //   } catch (e) {
-  //     errorLog("signUp", e);
-  //     return false;
-  //   }
-  // }
+  Future<bool> signUp({
+    required String phone,
+    required String name,
+    required String email,
+    required String password,
+    required String role,
+  }) async {
+    try {
+      Map<String, String> body = {
+        "name": name,
+        "phone": phone,
+        "email": email,
+        "password": password,
+        "role": role,
+      };
+      appInPutUnfocused();
+      var response = await nonAuthApi.sendRequest.post(
+        AppApiEndPoint.signup,
+        data: body,
+      );
+      AppPrint.apiResponse(response);
+      if (response.statusCode == 200) {
+        // AppPrint.apiResponse(response.data["data"]["role"]);
+        // storageServices.setUserRole(response.data["data"]["role"]);
+        // String role = storageServices.getUserRole();
+        // AppPrint.apiResponse(role, title: "Store Roll");
+        appInPutUnfocused();
+        return true;
+      } else {
+        appInPutUnfocused();
+        return false;
+      }
+    } on DioException catch (error) {
+      if (error.response?.data["message"].runtimeType != null) {
+        Get.snackbar(
+          "error",
+          "${error.response?.data["message"] ?? "Something went wrong"}",
+        );
+      }
+      return false;
+    } catch (e) {
+      errorLog("signUp", e);
+      return false;
+    }
+  }
 
-  // Future<bool> emailVerify({required String email, required int otp}) async {
-  //   Map<String, dynamic> body = {"email": email, "oneTimeCode": otp};
-  //   try {
-  //     var response = await nonAuthApi.sendRequest.post(
-  //       AppApiEndPoint.instance.verifyEmail,
-  //       data: body,
-  //     );
-  //     if (response.statusCode == 200 && response.data != null) {
-  //       String accessToken = response.data["data"]["accessToken"];
-  //       storageServices.setToken(accessToken);
-  //       AppPrint.apiResponse(storageServices.getToken(), title: "Store Token");
-  //       return true;
-  //     } else {
-  //       // Handle the error if the response or data is null
-  //       AppPrint.apiResponse("Error: Access Token not found!");
-  //     }
+  Future<bool> emailVerify({required String email, required int otp}) async {
+    Map<String, dynamic> body = {"email": email, "oneTimeCode": otp};
+    try {
+      var response = await nonAuthApi.sendRequest.post(
+        AppApiEndPoint.verifyEmail,
+        data: body,
+      );
+      if (response.statusCode == 200 && response.data["success"] == true) {
+        // String accessToken = response.data["data"]["accessToken"];
+        // storageServices.setToken(accessToken);
+        // AppPrint.apiResponse(storageServices.getToken(), title: "Store Token");
+        return true;
+      } else {
+        // Handle the error if the response or data is null
+        AppPrint.apiResponse("Error: Access Token not found!");
+      }
 
-  //     return false;
-  //   } catch (e) {
-  //     AppPrint.appError(e.toString(), title: "Email Verify");
-  //   }
-  //   return false;
-  // }
+      return false;
+    } catch (e) {
+      AppPrint.appError(e.toString(), title: "Email Verify");
+    }
+    return false;
+  }
 
   // Future<dynamic> forgetEmailVerify({
   //   required String email,

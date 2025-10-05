@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
         title: "Profile",
         autoShowLeading: false,
         action: [
-          if (roll == "employee")
+          if (rollSelected == "employee")
             IconButton(
               onPressed: () {
                 Get.toNamed(AppRoutes.instance.employeeSettingScreen);
@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            if (roll == "client")
+            if (rollSelected == "client")
               Container(
                 decoration: BoxDecoration(
                   color: AppColor.white, // Background color of the container
@@ -102,7 +102,9 @@ class ProfileScreen extends StatelessWidget {
                     ProfileRow(
                       iconPath: AssetsPath.transaction,
                       onTap: () {
-                        Get.toNamed(AppRoutes.instance.clientTransactionHistryScreen);
+                        Get.toNamed(
+                          AppRoutes.instance.clientTransactionHistryScreen,
+                        );
                       },
                       text: "Transaction History",
                     ),
@@ -236,7 +238,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-            if (roll == "employee")
+            if (rollSelected == "employee")
               AppCard(
                 child: Column(
                   spacing: AppSize.size.height * 0.03,

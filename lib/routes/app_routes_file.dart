@@ -98,7 +98,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.locationScreen,
-    // binding: AuthBinding(),
+    binding: AppBinding(),
     page: () => const LocationScreen(),
   ),
   GetPage(

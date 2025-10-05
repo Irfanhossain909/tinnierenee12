@@ -95,7 +95,7 @@ class _OnBoardingScreen1State extends State<OnBoardingScreen1> {
                         "Set up your profile, browse available shifts, and accept with a tap. Track your earnings and stay connected with admins through real-time notifications.",
                     buttonLabel: "Get Started",
                     onPressed: () {
-                      Get.toNamed(AppRoutes.instance.signInScreen);
+                      Get.toNamed(AppRoutes.instance.roleSelectionScreen);
                     },
                   ),
                 ],
@@ -170,7 +170,9 @@ class _DotsIndicator extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: AppSize.width(value: 6)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color: isActive ? AppColor.gold : AppColor.black.withValues(alpha: .8),
+            color: isActive
+                ? AppColor.gold
+                : AppColor.black.withValues(alpha: .8),
             // shape: BoxShape.circle,
           ),
         );

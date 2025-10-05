@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
+import 'package:tinnierenee12/const/role.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
@@ -9,7 +10,7 @@ import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
-String roll = "";
+String rollSelected = "";
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
@@ -21,7 +22,6 @@ class RoleSelectionScreen extends StatelessWidget {
         child: AppImage(
           path: AssetsPath.appLogo,
           width: AppSize.size.width * 0.65,
-          // height: AppSize.size.width * 0.22,
           fit: BoxFit.contain,
         ),
       ),
@@ -59,16 +59,16 @@ class RoleSelectionScreen extends StatelessWidget {
 
             AppButton(
               onTap: () {
-                roll = "employee";
-                Get.toNamed(AppRoutes.instance.onBoardingScreen1);
+                rollSelected = Role.EMPLOYEE.name;
+                Get.toNamed(AppRoutes.instance.signUpScreen);
               },
               width: AppSize.size.width * 0.5,
               title: "I'm a Employee",
             ),
             GestureDetector(
               onTap: () {
-                roll = "client";
-                Get.toNamed(AppRoutes.instance.onBoardingScreen1);
+                rollSelected = Role.CLIENT.name;
+                Get.toNamed(AppRoutes.instance.signUpScreen);
               },
               child: Container(
                 decoration: BoxDecoration(
