@@ -20,6 +20,10 @@ class AppApiEndPoint {
   static String resendOtp = "/auth/resend-otp";
   static String deleteAccount = "/auth/delete-account";
 
+  ///////////////////////other /////////////////////
+  static String profile = "/user";
+
+
   // static String getMessage(var page, var limit ,String iD) => "/message/$iD?page=$page&limit=$limit";
   // static String search(var text,) => "/wcservice?search=$text";
   // final String specificCategoryService = "/service/";

@@ -7,6 +7,7 @@ import 'package:tinnierenee12/screen/auth/verify_otp_screen/controller/verify_ot
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
+import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -150,29 +151,6 @@ class VerifyOtpScreen extends StatelessWidget {
                 }
               }),
 
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     AppText(
-              //       data: 'If you didn’t receive a code. ',
-              //       fontSize: AppSize.width(value: 16),
-              //       color: AppColor.white,
-              //     ),
-              //     GestureDetector(
-              //       onTap: () {
-              //         controller.resendCode();
-              //       },
-              //       child: Text(
-              //         'Resend',
-              //         style: TextStyle(
-              //           fontSize: AppSize.width(value: 14),
-              //           fontWeight: FontWeight.w700,
-              //           color: AppColor.gold,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppSize.width(value: 16),
@@ -185,6 +163,12 @@ class VerifyOtpScreen extends StatelessWidget {
                   titleSize: AppSize.width(value: 18),
                 ),
               ),
+
+              Obx(() {
+                return controller.isLoading.value
+                    ? AppLoading()
+                    : const SizedBox();
+              }),
             ],
           );
         },

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/service/api/get_storage_services.dart';
 import 'package:tinnierenee12/service/repository/auth_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
@@ -59,6 +60,7 @@ class VerifyOtpController extends GetxController {
         otp: int.parse(otpTextEditingController.text),
       );
       if (response) {
+        Get.toNamed(AppRoutes.instance.locationScreen);
         // String role = getStorageServices.getUserRole();
         // if (role == Role.RETAILER.name) {
         //   Get.offAllNamed(AppRoutes.instance.retailerNavigationScreen);
@@ -68,6 +70,7 @@ class VerifyOtpController extends GetxController {
         //   Get.offAllNamed(AppRoutes.instance.salesNavigationScreen);
         //   Get.snackbar("Success", "You are a sales");
         // }
+        isLoading.value = false;
       } else {
         isLoading.value = false;
         AppPrint.appPrint("forget password otp verify response false");

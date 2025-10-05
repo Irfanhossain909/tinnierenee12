@@ -120,7 +120,9 @@ class LocationScreen extends StatelessWidget {
                     ),
                     AppButton(
                       width: double.infinity,
-                      onTap: () {},
+                      onTap: () {
+                        controller.updateProfileData();
+                      },
                       title: "Continue",
                     ),
                   ],

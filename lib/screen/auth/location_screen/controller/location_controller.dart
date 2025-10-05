@@ -1,11 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/service/api/location_permission.dart';
+import 'package:tinnierenee12/service/repository/profile_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 
 class LocationController extends GetxController {
   TextEditingController searchController = TextEditingController();
   LocationService getLocation = LocationService.instance;
+  ProfileRepository profileRepo = ProfileRepository.instance;
 
   // Reactive variables to store search query
   var searchQuery = ''.obs;
@@ -18,7 +22,44 @@ class LocationController extends GetxController {
   var selectedLongitude = 0.0.obs;
   var isCurrentLocation = false.obs;
 
+  bool validateLocation() {
+    if (selectedPlaceId.value.isEmpty ||
+        selectedAddress.value.isEmpty ||
+        selectedLatitude.value == 0.0 ||
+        selectedLongitude.value == 0.0) {
+      Get.snackbar(
+        "Error",
+        "Please select a valid location",
+        colorText: AppColor.white,
+      );
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   ///Functions GetLocation
+  Future<void> updateProfileData() async {
+    final bool valid = validateLocation();
+    if (valid) return;
+
+    try {
+      var response = await profileRepo.updateUserProfile(
+        latitude: selectedLatitude.value.toString(),
+        longitude: selectedLongitude.value.toString(),
+      );
+
+      if (response) {
+        Get.offAllNamed(AppRoutes.instance.signInScreen);
+        
+      } else {
+        AppPrint.appError("Failed to update profile data");
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "LocationController");
+    }
+  }
+
   Future<void> fetchUserLocation() async {
     isLoading.value = true;
     // Call location permission and fetch location
