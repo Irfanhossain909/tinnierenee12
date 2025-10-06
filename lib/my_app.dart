@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       // initialRoute: AppRoutes.instance.initial,
-      initialRoute: AppRoutes.instance.clientBusinessInfoScreen ,
+      initialRoute: AppRoutes.instance.initial ,
       getPages: appRootRoutesFile,
       enableLog: true,
       defaultTransition: Transition.native,

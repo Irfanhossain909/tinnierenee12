@@ -7,7 +7,7 @@ import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
-import 'package:tinnierenee12/widget/app_location_field/PlacesSuggation.dart';
+import 'package:tinnierenee12/widget/app_location_field/placesSuggation.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_app_bar_auth.dart';
 
