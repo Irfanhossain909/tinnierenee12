@@ -6,7 +6,7 @@ class AppRoutes {
   final String initial = "/";
   final String roleSelectionScreen = "/role-selection-screen";
   final String onBoardingScreen1 = "/onboarding-screen1";
-  final String navigationScreen = "/navigation-screen";
+  final String navigationForEmployeeScreen = "/navigation-screen";
   final String navigationForClientScreen = "/navigation-for-client-screen";
   ///////////////////////////Auth/////////////////////////////////
   final String signInScreen = "/sign-in-screen";
@@ -53,5 +53,6 @@ class AppRoutes {
   final String employeeSettingScreen = "/employee-setting-screen";
   final String clientSubscriptionScreen = "/client_subcription-screen";
   final String paymentSuccessfullScreen = "/payment-successfull-screen";
-  final String clientTransactionHistryScreen = "/client-transaction-histry-screen";
+  final String clientTransactionHistryScreen =
+      "/client-transaction-histry-screen";
 }

@@ -52,7 +52,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
 
   GetPage(
-    name: AppRoutes.instance.navigationScreen,
+    name: AppRoutes.instance.navigationForEmployeeScreen,
     binding: AppBinding(),
     page: () => const NavigationScreen(),
   ),

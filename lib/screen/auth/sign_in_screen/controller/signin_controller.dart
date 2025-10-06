@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/const/role.dart';
+import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/service/repository/auth_repository.dart';
+import 'package:tinnierenee12/service/repository/profile_repository.dart';
+import 'package:tinnierenee12/service/storage_service/get_storage_services.dart';
+import 'package:tinnierenee12/widget/app_log/app_print.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 class SigninController extends GetxController {
   //// SignUp form Key
-  final GlobalKey signUpFormKey = GlobalKey<FormState>();
+  GlobalKey signInFormKey = GlobalKey<FormState>();
   ////Text Editing Controller
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  //repository
+  AuthRepository authRepository = AuthRepository.instance;
+  ProfileRepository profileRepository = ProfileRepository.instance;
+  GetStorageServices getStorageServices = GetStorageServices.instance;
+
+  //variable
+  var loading = false.obs;
 
   @override
   void onInit() {
@@ -20,6 +35,46 @@ class SigninController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  //Function
+  Future<void> signin() async {
+    try {
+      loading.value = true;
+      var response = await authRepository.login(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      if (response) {
+        AppPrint.appLog("Signin Success");
+        String role = await profileRepository.getUserRole() ?? '';
+
+        if (role.isNotEmpty) {
+          if (role == Role.CLIENT.name) {
+            Get.offAllNamed(AppRoutes.instance.navigationForClientScreen);
+          }
+          if (role == Role.EMPLOYEE.name) {
+            Get.offAllNamed(AppRoutes.instance.navigationForEmployeeScreen);
+          }
+          getStorageServices.setUserRole(role);
+        } else {
+          AppSnackbar.error(title: "Error", message: "Profile data is empty");
+        }
+
+        AppSnackbar.success(
+          bgColor: AppColor.purple,
+          textColor: AppColor.white,
+          title: "Success",
+          message: "You have successfully logged in!",
+        );
+      } else {
+        loading.value = false;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "signin");
+    } finally {
+      loading.value = false;
+    }
   }
 
   ////Validator Function

@@ -5,10 +5,10 @@ import 'package:tinnierenee12/const/app_const.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/auth/sign_in_screen/controller/signin_controller.dart';
-import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_input/app_input_widget_two.dart';
+import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
@@ -39,7 +39,7 @@ class SignInScreen extends StatelessWidget {
                 padding: EdgeInsets.all(AppSize.width(value: 12)),
 
                 child: Form(
-                  key: controller.signUpFormKey,
+                  key: controller.signInFormKey,
                   child: Column(
                     spacing: AppSize.size.height * 0.01,
                     children: [
@@ -65,6 +65,7 @@ class SignInScreen extends StatelessWidget {
                         color: AppColor.white,
                       ),
                       AppInputWidgetTwo(
+                        controller: controller.emailController,
                         borderRadius: AppSize.width(value: 8),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: AppSize.width(value: 20),
@@ -75,6 +76,7 @@ class SignInScreen extends StatelessWidget {
                       ),
 
                       AppInputWidgetTwo(
+                        controller: controller.passwordController,
                         borderRadius: AppSize.width(value: 8),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: AppSize.width(value: 20),
@@ -99,45 +101,51 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          if (rollSelected == "employee") {
-                            Get.toNamed(AppRoutes.instance.navigationScreen);
-                          } else {
-                            Get.toNamed(
-                              AppRoutes.instance.navigationForClientScreen,
-                            );
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColor.gold,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          width: AppSize.width(value: double.infinity),
-                          height: AppSize.size.height * 0.06,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              AppText(
-                                data: "Sign In",
-                                fontSize: AppSize.width(value: 18),
-                                fontWeight: FontWeight.w600,
-                                color: AppColor.white,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.arrow_right_alt_outlined,
-                                  size: AppSize.width(value: 28),
-                                  color: AppColor.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      Obx(() {
+                        return Stack(
+                          children: [
+                            controller.loading.value
+                                ? AppLoading()
+                                : GestureDetector(
+                                    onTap: () {
+                                      controller.signin();
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColor.gold,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      width: AppSize.width(
+                                        value: double.infinity,
+                                      ),
+                                      height: AppSize.size.height * 0.06,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          AppText(
+                                            data: "Sign In",
+                                            fontSize: AppSize.width(value: 18),
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColor.white,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              Icons.arrow_right_alt_outlined,
+                                              size: AppSize.width(value: 28),
+                                              color: AppColor.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        );
+                      }),
                       Gap(height: AppSize.size.height * 0.005),
                       Container(
                         decoration: BoxDecoration(

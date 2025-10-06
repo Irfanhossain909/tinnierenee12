@@ -125,7 +125,7 @@ class PersonalInfoScreen extends StatelessWidget {
           ),
           child: AppButton(
             onTap: () {
-              Get.toNamed(AppRoutes.instance.navigationScreen);
+              Get.toNamed(AppRoutes.instance.navigationForEmployeeScreen);
             },
             title: "Continue",
           ),

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import 'package:tinnierenee12/const/app_api_end_point.dart';
+import 'package:tinnierenee12/models/profile/profile_model.dart';
 import 'package:tinnierenee12/service/api/api_services.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 
@@ -77,33 +78,52 @@ class ProfileRepository {
     }
   }
 
-  // Future<UserModelData?> getProfileData() async {
-  //   try {
-  //     AppPrint.appLog("🔄 Making API call to get profile data...");
-  //     var response = await apiServices.apiGetServices(
-  //       AppApiEndPoint.instance.profile,
-  //     );
+  Future<ProfileModelData?> getProfileData() async {
+    try {
+      AppPrint.appLog("🔄 Making API call to get profile data...");
+      var response = await apiServices.apiGetServices(AppApiEndPoint.profile);
 
-  //     AppPrint.appLog("📥 Raw API response: $response");
+      AppPrint.appLog("📥 Raw API response: $response");
 
-  //     if (response != null) {
-  //       if (response["data"] != null && response["data"] is Map) {
-  //         AppPrint.appLog("✅ Valid profile data found, parsing...");
-  //         final userData = UserModelData.fromJson(response["data"]);
-  //         AppPrint.appLog(
-  //           "🎯 Parsed territory from API: ${userData.territory}",
-  //         );
-  //         return userData;
-  //       } else {
-  //         AppPrint.appLog("❌ Invalid data structure in response");
-  //       }
-  //     } else {
-  //       AppPrint.appLog("❌ getProfileData response null");
-  //       return null;
-  //     }
-  //   } catch (e) {
-  //     AppPrint.appError(e, title: "getProfileData");
-  //   }
-  //   return null;
-  // }
+      if (response != null) {
+        if (response["data"] != null && response["data"] is Map) {
+          AppPrint.appLog("✅ Valid profile data found, parsing...");
+          final profileData = ProfileModelData.fromJson(response["data"]);
+          AppPrint.appLog("ð Parsed profile from API: ${profileData.role}");
+          return profileData;
+        } else {
+          AppPrint.appLog("❌ Invalid data structure in response");
+        }
+      } else {
+        AppPrint.appLog("❌ getProfileData response null");
+        return null;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "getProfileData");
+    }
+    return null;
+  }
+
+  Future<String?> getUserRole() async {
+    try {
+      AppPrint.appLog("🔄 Making API call to get profile data...");
+      var response = await apiServices.apiGetServices(AppApiEndPoint.profile);
+
+      AppPrint.appLog("📥 Raw API response: $response");
+
+      if (response != null) {
+        if (response["data"] != null && response["data"] is Map) {
+          return response["data"]["role"];
+        } else {
+          AppPrint.appLog("❌ Invalid data structure in response");
+        }
+      } else {
+        AppPrint.appLog("❌ getProfileData response null");
+        return null;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "getProfileData");
+    }
+    return null;
+  }
 }

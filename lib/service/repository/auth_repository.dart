@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_api_end_point.dart';
+import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/service/api/app_in_put_unfocused.dart';
 import 'package:tinnierenee12/service/api/get_storage_services.dart';
 import 'package:tinnierenee12/service/api/non_auth_api.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 import 'package:tinnierenee12/widget/app_log/error_log.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 class AuthRepository {
   NonAuthApi nonAuthApi = NonAuthApi();
@@ -14,38 +16,43 @@ class AuthRepository {
   static final AuthRepository instance = AuthRepository._();
   GetStorageServices storageServices = GetStorageServices.instance;
 
-  // Future<bool> login({required String email, required String password}) async {
-  //   try {
-  //     Map<String, String> body = {"email": email, "password": password};
-  //     appInPutUnfocused();
-  //     var response = await nonAuthApi.sendRequest.post(
-  //       AppApiEndPoint.login,
-  //       data: body,
-  //     );
-  //     if (response.statusCode == 200 && response.data != null) {
-  //       String accessToken = response.data["data"]["accessToken"];
-  //       storageServices.setToken(accessToken);
+  Future<bool> login({required String email, required String password}) async {
+    try {
+      Map<String, String> body = {"email": email, "password": password};
+      appInPutUnfocused();
+      var response = await nonAuthApi.sendRequest.post(
+        AppApiEndPoint.login,
+        data: body,
+      );
+      AppPrint.apiResponse(
+        response.data["data"]["accessToken"],
+        title: "Store Token",
+      );
+      if (response.statusCode == 200 && response.data != null) {
+        String accessToken = response.data["data"]["accessToken"];
+        storageServices.setToken(accessToken);
 
-  //       return true;
-  //     } else {
-  //       // Handle the error if the response or data is null
-  //       AppPrint.apiResponse("Error: Access Token not found!");
-  //     }
+        return true;
+      } else {
+        // Handle the error if the response or data is null
+        AppPrint.apiResponse("Error: Access Token not found!");
+      }
 
-  //     return false;
-  //   } on DioException catch (error) {
-  //     if (error.response?.data["message"].runtimeType != null) {
-  //       Get.snackbar(
-  //         "error",
-  //         "${error.response?.data["message"] ?? "Something went wrong"}",
-  //       );
-  //     }
-  //     return false;
-  //   } catch (e) {
-  //     errorLog("login", e);
-  //     return false;
-  //   }
-  // }
+      return false;
+    } on DioException catch (error) {
+      if (error.response?.data["message"].runtimeType != null) {
+        Get.snackbar(
+          "Failed",
+          "${error.response?.data["message"] ?? "Something went wrong"}",
+          colorText: AppColor.white,
+        );
+      }
+      return false;
+    } catch (e) {
+      errorLog("login", e);
+      return false;
+    }
+  }
 
   // Future<bool> forgetEmailSend({required String email}) async {
   //   Map<String, String> body = {"email": email};
