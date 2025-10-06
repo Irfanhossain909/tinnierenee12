@@ -16,8 +16,13 @@ class ProfileRepository {
 
   Future<bool> updateUserProfile({
     String? name,
+    String? businessInformation,
     String? address,
-    String? phone,
+    String? licenseId,
+    String? websiteLink,
+    String? bio,
+    String? contact,
+    String? birthDate,
     String? image,
     String? latitude,
     String? longitude,
@@ -26,8 +31,13 @@ class ProfileRepository {
       FormData formDataMap = FormData.fromMap({
         "data": jsonEncode({
           "name": name,
+          "businessInformation": businessInformation,
           "address": address,
-          "phone": phone,
+          "licenseId": licenseId,
+          "websiteLink": websiteLink,
+          "bio": bio,
+          "contact": contact,
+          "birthDate": birthDate,
           "latitude": latitude,
           "longitude": longitude,
         }),

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/role.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/service/api/get_storage_services.dart';
 import 'package:tinnierenee12/service/api/location_permission.dart';
 import 'package:tinnierenee12/service/repository/profile_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
@@ -11,6 +11,7 @@ class LocationController extends GetxController {
   TextEditingController searchController = TextEditingController();
   LocationService getLocation = LocationService.instance;
   ProfileRepository profileRepo = ProfileRepository.instance;
+  GetStorageServices getStorage = GetStorageServices.instance;
 
   // Reactive variables to store search query
   var searchQuery = ''.obs;
@@ -35,6 +36,7 @@ class LocationController extends GetxController {
 
       if (response) {
         String role = await profileRepo.getUserRole() ?? '';
+        await getStorage.setUserRole(role);
         if (role == Role.CLIENT.name) {
           AppPrint.apiResponse("User is a client");
           Get.toNamed(AppRoutes.instance.clientBusinessInfoScreen);

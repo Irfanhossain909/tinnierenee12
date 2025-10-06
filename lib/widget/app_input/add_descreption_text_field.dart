@@ -58,6 +58,10 @@ class AppDescriptionTextField extends StatelessWidget {
         SizedBox(
           height: 120,
           child: TextFormField(
+            style: TextStyle(
+              fontSize: AppSize.width(value: 16),
+              color: textColor ?? AppColor.white,
+            ),
             cursorColor: Colors.white,
             controller: controller,
             keyboardType: TextInputType.multiline,

@@ -57,70 +57,7 @@ class AppSnackbar {
       margin: const EdgeInsets.all(12),
       borderRadius: 8,
       duration: duration ?? const Duration(seconds: 2),
-      icon: Icon(
-        icon ?? Icons.error,
-        size: 24,
-        color: iconColor ?? AppColors.purple,
-      ),
+      icon: Icon(icon ?? Icons.error, size: 24, color: iconColor ?? Colors.red),
     );
   }
 }
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-
-// class AppSnackbar {
-//   // ✅ Success Snackbar
-//   static void success({
-//     required String title,
-//     required String message,
-//     Color? bgColor, // background color
-//     Color? textColor, // text color
-//     Color? iconColor, // icon color
-//     IconData? icon, // custom icon
-//     Duration? duration, // custom duration
-//     SnackPosition? position, // custom position
-//   }) {
-//     Get.snackbar(
-//       title,
-//       message,
-//       snackPosition: position ?? SnackPosition.TOP,
-//       backgroundColor: bgColor ?? Colors.green.withValues(alpha: 0.2),
-//       colorText: textColor ?? Colors.white,
-//       margin: const EdgeInsets.all(12),
-//       borderRadius: 8,
-//       duration: duration ?? const Duration(seconds: 2),
-//       icon: Icon(
-//         icon ?? Icons.check_circle,
-//         size: 24,
-//         color: iconColor ?? Colors.white,
-//       ),
-//     );
-//   }
-
-//   // ❌ Error Snackbar
-//   static void error({
-//     required String title,
-//     required String message,
-//     Color? bgColor, // background color
-//     Color? textColor, // text color
-//     Color? iconColor, // icon color
-//     IconData? icon, // custom icon
-//     Duration? duration, // custom duration
-//     SnackPosition? position, // custom position
-//   }) {
-//     Get.snackbar(
-//       title,
-//       message,
-//       snackPosition: position ?? SnackPosition.TOP,
-//       backgroundColor: bgColor ?? Colors.red.shade400,
-//       colorText: textColor ?? Colors.white,
-//       margin: const EdgeInsets.all(12),
-//       borderRadius: 8,
-//       duration: duration ?? const Duration(seconds: 2),
-//       icon: Icon(icon ?? Icons.error, color: iconColor ?? Colors.white),
-//     );
-//   }
-// }
