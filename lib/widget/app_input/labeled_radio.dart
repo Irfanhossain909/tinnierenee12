@@ -30,8 +30,8 @@ class LabeledRadio<T> extends StatelessWidget {
             groupValue: groupValue,
             onChanged: onChanged,
             activeColor: AppColor.white,
-            fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-              if (states.contains(MaterialState.selected)) {
+            fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+              if (states.contains(WidgetState.selected)) {
                 return AppColor.white;
               }
               return AppColor.white.withValues(alpha: 0.5);

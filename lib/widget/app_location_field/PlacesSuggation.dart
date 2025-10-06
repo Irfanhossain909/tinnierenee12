@@ -313,7 +313,7 @@ class _PlaceAutocompleteWidgetState extends State<PlaceAutocompleteWidget> {
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColor.black.withOpacity(0.1),
+                        color: AppColor.black.withValues(alpha: .1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(

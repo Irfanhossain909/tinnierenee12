@@ -1,4 +1,4 @@
-// Import geocoding package
+
 
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -14,24 +14,28 @@ class LocationService {
   Future<void> requestLocationPermission() async {
     LocationPermission permission = await Geolocator.checkPermission();
 
+    //     // If permission is denied, ask again
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, handle appropriately
-        AppPrint.appLog('Location permissions are denied');
-        return;
-      }
     }
 
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are permanently denied
-      AppPrint.appLog(
-        'Location permissions are permanently denied, we cannot request permissions.',
-      );
-      // You can open app settings directly if needed:
-      // await Geolocator.openAppSettings();
+    // If still denied after requesting
+    if (permission == LocationPermission.denied) {
+      AppPrint.appLog('User denied location permission. Asking again...');
+      // Ask again next time user tries (so don't block)
       return;
     }
+
+    // If permanently denied, open settings
+    if (permission == LocationPermission.deniedForever) {
+      AppPrint.appError(
+        'Location permissions permanently denied. Opening settings...',
+      );
+      await Geolocator.openAppSettings();
+      return;
+    }
+
+    
 
     if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always) {

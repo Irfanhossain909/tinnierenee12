@@ -106,11 +106,14 @@ class _ProgressiveBorderContainerState extends State<ProgressiveBorderContainer>
                     widget.child is Icon
                         ? Icon(
                             (widget.child as Icon).icon,
-                            color: (widget.child as Icon).color ?? widget.progressColor,
+                            color:
+                                (widget.child as Icon).color ??
+                                widget.progressColor,
                             size: responsiveIconSize,
                           )
                         : widget.child!,
-                  if (widget.child != null) SizedBox(height: widget.size * 0.02),
+                  if (widget.child != null)
+                    SizedBox(height: widget.size * 0.02),
                   Text(
                     '${(widget.progress).toStringAsFixed(0)}%',
                     style: TextStyle(
@@ -196,6 +199,7 @@ class ExampleUsage extends StatefulWidget {
   const ExampleUsage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ExampleUsageState createState() => _ExampleUsageState();
 }
 
@@ -299,8 +303,6 @@ class _ExampleUsageState extends State<ExampleUsage> {
     );
   }
 }
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:tinnierenee12/utils/app_size.dart';

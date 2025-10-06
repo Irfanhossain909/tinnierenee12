@@ -74,15 +74,12 @@ class LocationRepository {
     }
 
     try {
-      final Uri uri = Uri.https(
-        'maps.googleapis.com',
-        'maps/api/place/details/json',
-        {
-          'place_id': placeId,
-          'fields': 'geometry,formatted_address,name',
-          'key': apikey
-        },
-      );
+      final Uri uri =
+          Uri.https('maps.googleapis.com', 'maps/api/place/details/json', {
+            'place_id': placeId,
+            'fields': 'geometry,formatted_address,name',
+            'key': apikey,
+          });
 
       final response = await http.get(uri);
 
@@ -113,4 +110,3 @@ class LocationRepository {
     }
   }
 }
-
