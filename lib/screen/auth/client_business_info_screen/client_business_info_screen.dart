@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
+import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
 import 'package:tinnierenee12/widget/app_input/add_descreption_text_field.dart';
 import 'package:tinnierenee12/widget/app_input/app_input_widget_two.dart';
@@ -27,10 +29,60 @@ class ClientBusinessInfoScreen extends StatelessWidget {
             child: Column(
               spacing: AppSize.size.height * 0.01,
               children: [
-                AppImageCircular(
-                  width: AppSize.width(value: 150),
-                  path: AssetsPath.authImg,
-                ),
+                Obx(() {
+                  return Stack(
+                    children: [
+                      Container(
+                        width: AppSize.size.width * 0.38,
+                        height: AppSize.size.height * 0.17,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColor.white, width: 1),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Container(
+                            child: controller.cameraImage.value.isNotEmpty
+                                ? AppImageCircular(
+                                    filePath: controller.cameraImage.value,
+                                  )
+                                : AppImageCircular(
+                                    url:
+                                        "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_640.png",
+                                  ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+
+                        child: InkWell(
+                          onTap: () {
+                            controller.getImage(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                color: AppColor.white,
+                                width: 1,
+                              ),
+                              color: AppColor.purple,
+                            ),
+                            child: AppImage(
+                              path: AssetsPath.camera,
+                              iconColor: AppColor.white,
+                              width: AppSize.width(value: 16),
+                              height: AppSize.width(value: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
                 AppText(
                   data: "Upload Your Business Logo",
                   fontSize: AppSize.width(value: 16),
