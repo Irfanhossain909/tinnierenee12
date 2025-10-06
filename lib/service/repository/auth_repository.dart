@@ -7,7 +7,6 @@ import 'package:tinnierenee12/service/api/get_storage_services.dart';
 import 'package:tinnierenee12/service/api/non_auth_api.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 import 'package:tinnierenee12/widget/app_log/error_log.dart';
-import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 class AuthRepository {
   NonAuthApi nonAuthApi = NonAuthApi();
@@ -130,10 +129,10 @@ class AuthRepository {
         AppApiEndPoint.verifyEmail,
         data: body,
       );
-      if (response.statusCode == 200 && response.data["success"] == true) {
-        // String accessToken = response.data["data"]["accessToken"];
-        // storageServices.setToken(accessToken);
-        // AppPrint.apiResponse(storageServices.getToken(), title: "Store Token");
+      if (response.statusCode == 200 && response.data["data"] != null) {
+        String accessToken = response.data["data"]["accessToken"];
+        storageServices.setToken(accessToken);
+        AppPrint.apiResponse(storageServices.getToken(), title: "Store Token");
         return true;
       } else {
         // Handle the error if the response or data is null

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/const/role.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/service/api/location_permission.dart';
 import 'package:tinnierenee12/service/repository/profile_repository.dart';
@@ -16,47 +17,40 @@ class LocationController extends GetxController {
   // Reactive variables to store location data
 
   var isLoading = false.obs;
+  var isLoadingForUpdate = false.obs;
   var selectedPlaceId = ''.obs;
   var selectedAddress = ''.obs;
   var selectedLatitude = 0.0.obs;
   var selectedLongitude = 0.0.obs;
   var isCurrentLocation = false.obs;
 
-  bool validateLocation() {
-    if (selectedPlaceId.value.isEmpty ||
-        selectedAddress.value.isEmpty ||
-        selectedLatitude.value == 0.0 ||
-        selectedLongitude.value == 0.0) {
-      Get.snackbar(
-        "Error",
-        "Please select a valid location",
-        colorText: AppColor.white,
-      );
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   ///Functions GetLocation
   Future<void> updateProfileData() async {
-    final bool valid = validateLocation();
-    if (valid) return;
-
     try {
+      isLoadingForUpdate.value = true;
       var response = await profileRepo.updateUserProfile(
         latitude: selectedLatitude.value.toString(),
         longitude: selectedLongitude.value.toString(),
       );
 
       if (response) {
-        Get.offAllNamed(AppRoutes.instance.signInScreen);
-        
+        String role = await profileRepo.getUserRole() ?? '';
+        if (role == Role.CLIENT.name) {
+          AppPrint.apiResponse("User is a client");
+          Get.toNamed(AppRoutes.instance.clientBusinessInfoScreen);
+        } else {
+          Get.offAllNamed(AppRoutes.instance.personalInfoScreen);
+        }
+        isLoadingForUpdate.value = false;
       } else {
         AppPrint.appError("Failed to update profile data");
+        isLoadingForUpdate.value = false;
       }
     } catch (e) {
       AppPrint.appError(e, title: "LocationController");
+      isLoadingForUpdate.value = false;
+    } finally {
+      isLoadingForUpdate.value = false;
     }
   }
 

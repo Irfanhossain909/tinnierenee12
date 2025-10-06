@@ -22,7 +22,7 @@ class AppApiEndPoint {
 
   ///////////////////////other /////////////////////
   static String profile = "/user/profile";
-
+  static String profileUpdate = "/user";
 
   // static String getMessage(var page, var limit ,String iD) => "/message/$iD?page=$page&limit=$limit";
   // static String search(var text,) => "/wcservice?search=$text";

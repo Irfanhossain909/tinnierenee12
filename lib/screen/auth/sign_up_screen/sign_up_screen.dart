@@ -156,6 +156,7 @@ class SignUpScreen extends StatelessWidget {
                                 children: [
                                   Checkbox(
                                     activeColor: AppColor.white,
+                                    side: BorderSide(color: AppColor.white),
                                     checkColor: AppColor.black,
                                     value: controlller.isChecked.value,
                                     onChanged: (bool? value) {

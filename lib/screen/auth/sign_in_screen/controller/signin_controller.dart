@@ -46,7 +46,7 @@ class SigninController extends GetxController {
         password: passwordController.text,
       );
       if (response) {
-        AppPrint.appLog("Signin Success");
+        
         String role = await profileRepository.getUserRole() ?? '';
 
         if (role.isNotEmpty) {

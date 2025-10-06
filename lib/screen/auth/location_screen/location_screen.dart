@@ -118,13 +118,17 @@ class LocationScreen extends StatelessWidget {
                             },
                       ),
                     ),
-                    AppButton(
-                      width: double.infinity,
-                      onTap: () {
-                        controller.updateProfileData();
-                      },
-                      title: "Continue",
-                    ),
+                    Obx(() {
+                      return controller.isLoadingForUpdate.value
+                          ? AppLoading()
+                          : AppButton(
+                              width: double.infinity,
+                              onTap: () {
+                                controller.updateProfileData();
+                              },
+                              title: "Continue",
+                            );
+                    }),
                   ],
                 ),
               ),

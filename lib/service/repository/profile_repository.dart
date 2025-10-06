@@ -61,7 +61,7 @@ class ProfileRepository {
       }
 
       var response = await apiServices.apiPatchServices(
-        url: AppApiEndPoint.profile,
+        url: AppApiEndPoint.profileUpdate,
         body: formDataMap,
       );
 
