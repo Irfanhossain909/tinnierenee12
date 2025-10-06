@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/service/api/api_services.dart';
 import 'package:tinnierenee12/service/api/app_in_put_unfocused.dart';
 import 'package:tinnierenee12/service/api/get_storage_services.dart';
 import 'package:tinnierenee12/service/api/non_auth_api.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 import 'package:tinnierenee12/widget/app_log/error_log.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 class AuthRepository {
   NonAuthApi nonAuthApi = NonAuthApi();
@@ -176,40 +178,41 @@ class AuthRepository {
   //   return false;
   // }
 
-  // Future<bool> changePassword({
-  //   required String currentPassword,
-  //   required String newPassword,
-  //   required String confirmPassword,
-  // }) async {
-  //   try {
-  //     appInPutUnfocused();
-  //     Map body = {
-  //       "currentPassword": currentPassword,
-  //       "newPassword": newPassword,
-  //       "confirmPassword": confirmPassword,
-  //     };
-  //     var response = await ApiServices.instance.apiPostServices(
-  //       url: AppApiEndPoint.instance.changePassword,
-  //       body: body,
-  //     );
-  //     if (response != null) {
-  //       AppPrint.appLog("confirm password repository response :: $response");
-  //       return true;
-  //     }
-  //     return false;
-  //   } on DioException catch (error) {
-  //     if (error.response?.data["message"].runtimeType != Null) {
-  //       Get.snackbar(
-  //         "Error",
-  //         "${error.response?.data["message"] ?? "Something was wrong"}",
-  //       );
-  //     }
-  //     return false;
-  //   } catch (e) {
-  //     errorLog("resetPassword", e);
-  //     return false;
-  //   }
-  // }
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    try {
+      appInPutUnfocused();
+      Map body = {
+        "currentPassword": currentPassword,
+        "newPassword": newPassword,
+        "confirmPassword": confirmPassword,
+      };
+      var response = await ApiServices.instance.apiPostServices(
+        url: AppApiEndPoint.changePassword,
+        body: body,
+      );
+      if (response != null) {
+        AppPrint.appLog("confirm password repository response :: $response");
+        return true;
+      }
+      return false;
+    } on DioException catch (error) {
+      if (error.response?.data["message"].runtimeType != Null) {
+        AppSnackbar.error(
+          title: "Error",
+          message:
+              "${error.response?.data["message"] ?? "Something was wrong"}",
+        );
+      }
+      return false;
+    } catch (e) {
+      errorLog("resetPassword", e);
+      return false;
+    }
+  }
 
   // Future<bool> resetPassword({
   //   required String newPassword,

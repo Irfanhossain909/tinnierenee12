@@ -6,6 +6,7 @@ import 'package:tinnierenee12/service/api/get_storage_services.dart';
 import 'package:tinnierenee12/service/api/location_permission.dart';
 import 'package:tinnierenee12/service/repository/profile_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 class LocationController extends GetxController {
   TextEditingController searchController = TextEditingController();
@@ -35,13 +36,17 @@ class LocationController extends GetxController {
       );
 
       if (response) {
-        String role = await profileRepo.getUserRole() ?? '';
-        await getStorage.setUserRole(role);
-        if (role == Role.CLIENT.name) {
-          AppPrint.apiResponse("User is a client");
-          Get.toNamed(AppRoutes.instance.clientBusinessInfoScreen);
+        bool role = await profileRepo.getRoleUidStoreInLocal();
+        String roleName = getStorage.getUserRole();
+        if (role) {
+          if (roleName == Role.CLIENT.name) {
+            Get.offAllNamed(AppRoutes.instance.navigationForClientScreen);
+          }
+          if (roleName == Role.EMPLOYEE.name) {
+            Get.offAllNamed(AppRoutes.instance.navigationForEmployeeScreen);
+          }
         } else {
-          Get.offAllNamed(AppRoutes.instance.personalInfoScreen);
+          AppSnackbar.error(title: "Error", message: "Location not found.");
         }
         isLoadingForUpdate.value = false;
       } else {

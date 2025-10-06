@@ -174,7 +174,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.profileScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const ProfileScreen(),
   ),
   GetPage(
@@ -189,7 +189,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.changePassScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const ChangePassScreen(),
   ),
   GetPage(

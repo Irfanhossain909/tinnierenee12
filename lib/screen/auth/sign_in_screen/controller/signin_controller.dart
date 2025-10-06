@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/role.dart';
+import 'package:tinnierenee12/models/profile/profile_model.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/service/repository/auth_repository.dart';
 import 'package:tinnierenee12/service/repository/profile_repository.dart';
@@ -23,6 +24,7 @@ class SigninController extends GetxController {
 
   //variable
   var loading = false.obs;
+  Rxn<ProfileModelData> profiledata = Rxn<ProfileModelData>();
 
   @override
   void onInit() {
@@ -46,17 +48,15 @@ class SigninController extends GetxController {
         password: passwordController.text,
       );
       if (response) {
-        
-        String role = await profileRepository.getUserRole() ?? '';
-
-        if (role.isNotEmpty) {
-          if (role == Role.CLIENT.name) {
+        bool role = await profileRepository.getRoleUidStoreInLocal();
+        String roleName = getStorageServices.getUserRole();
+        if (role) {
+          if (roleName == Role.CLIENT.name) {
             Get.offAllNamed(AppRoutes.instance.navigationForClientScreen);
           }
-          if (role == Role.EMPLOYEE.name) {
+          if (roleName == Role.EMPLOYEE.name) {
             Get.offAllNamed(AppRoutes.instance.navigationForEmployeeScreen);
           }
-          getStorageServices.setUserRole(role);
         } else {
           AppSnackbar.error(title: "Error", message: "Profile data is empty");
         }

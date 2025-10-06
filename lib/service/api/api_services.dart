@@ -6,6 +6,7 @@ import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/service/api/api.dart';
 import 'package:tinnierenee12/service/api/non_auth_api.dart';
 import 'package:tinnierenee12/widget/app_log/error_log.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 import 'get_storage_services.dart';
 
@@ -100,7 +101,11 @@ class ApiServices {
 
         if (e.response?.statusCode == 400 &&
             e.response?.data["message"] != null) {
-          Get.snackbar("error", "${e.response?.data["message"]}");
+          AppSnackbar.error(
+            title: "Error",
+            message: "${e.response?.data["message"]}",
+          );
+          // Get.snackbar("error", "${e.response?.data["message"]}");
         }
       }
       errorLog('api dio exception', e);
@@ -267,9 +272,6 @@ class ApiServices {
     }
   }
 }
-
-
-
 
 // import 'dart:async';
 // import 'dart:io';

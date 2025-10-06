@@ -32,43 +32,7 @@ class GetStorageServices {
     }
   }
 
-  // ////////////////  reset token
-  // Future<void> setResetToken(String value) async {
-  //   try {
-  //     await box.write(AppStorageKey.instance.resetToken, value);
-  //     await box.save();
-  //   } catch (e) {
-  //     errorLog("set reset token ", e);
-  //   }
-  // }
-
-  // String getResetToken() {
-  //   try {
-  //     return box.read(AppStorageKey.instance.resetToken) ?? "";
-  //   } catch (e) {
-  //     errorLog("get reset token", e);
-  //     return "";
-  //   }
-  // }
-
-  // Future<void> setfullFil(bool value) async {
-  //   try {
-  //     await box.write(AppStorageKey.instance.setFullFill, value);
-  //     await box.save();
-  //   } catch (e) {
-  //     errorLog("set Full Fill", e);
-  //   }
-  // }
-
-  // bool getfullFil() {
-  //   try {
-  //     return box.read(AppStorageKey.instance.setFullFill) ?? false;
-  //   } catch (e) {
-  //     errorLog("get FullFill", e);
-  //     return false;
-  //   }
-  // }
-
+  
   //////////////// UID (_id)
   Future<void> setUID(String value) async {
     try {
@@ -131,22 +95,9 @@ class GetStorageServices {
     try {
       // Clear all stored data
       await box.remove(AppStorageKey.instance.token); // Remove token
-      await box.remove(
-        AppStorageKey.instance.refreshToken,
-      ); // Remove refresh token
+      // Remove refresh token
       await box.remove("UID"); // Remove user ID
       await box.remove("role"); // Remove user role
-      // await box.remove(
-      //   AppStorageKey.instance.setFullFill,
-      // ); // Remove profile completion status
-      // await box.remove(
-      //   AppStorageKey.instance.language,
-      // ); // Remove language preference
-      // await box.remove(
-      //   AppStorageKey.instance.country,
-      // ); // Remove country preference
-
-      // Save changes
       await box.save();
 
       // Note: Navigation is now handled by the calling controller
@@ -180,20 +131,5 @@ class GetStorageServices {
     }
   }
 
-  //   Future<void> storageClear() async {
-  //   try {
-  //     // Clear all stored data
-  //     await box.remove(AppStorageKey.instance.token);
-  //     await box.remove(AppStorageKey.instance.refreshToken);
-  //     await box.remove("role"); // Clear user role
-  //     await box.remove(AppStorageKey.instance.userData);
-  //     await box.remove(AppStorageKey.instance.suggestion);
-  //     await box.remove(AppStorageKey.instance.country);
-
-  //     // Navigate to sign in screen and remove all previous routes
-  //     Get.offAllNamed(AppRoutes.signIn);
-  //   } catch (e) {
-  //     errorLog("logout", e);
-  //   }
-  // }
+  
 }

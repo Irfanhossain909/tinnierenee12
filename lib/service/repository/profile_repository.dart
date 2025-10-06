@@ -6,6 +6,7 @@ import 'package:mime/mime.dart';
 import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/models/profile/profile_model.dart';
 import 'package:tinnierenee12/service/api/api_services.dart';
+import 'package:tinnierenee12/service/api/get_storage_services.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 
 class ProfileRepository {
@@ -13,6 +14,7 @@ class ProfileRepository {
   static final ProfileRepository instance = ProfileRepository._();
 
   final ApiServices apiServices = ApiServices.instance;
+  GetStorageServices getStorageServices = GetStorageServices.instance;
 
   Future<bool> updateUserProfile({
     String? name,
@@ -118,7 +120,7 @@ class ProfileRepository {
     return null;
   }
 
-  Future<String?> getUserRole() async {
+  Future<bool> getRoleUidStoreInLocal() async {
     try {
       AppPrint.appLog("🔄 Making API call to get profile data...");
       var response = await apiServices.apiGetServices(AppApiEndPoint.profile);
@@ -127,17 +129,19 @@ class ProfileRepository {
 
       if (response != null) {
         if (response["data"] != null && response["data"] is Map) {
-          return response["data"]["role"];
+          getStorageServices.setUserRole(response["data"]["role"]);
+          getStorageServices.setUID(response["data"]["_id"]);
+          return true;
         } else {
           AppPrint.appLog("❌ Invalid data structure in response");
         }
       } else {
         AppPrint.appLog("❌ getProfileData response null");
-        return null;
+        return false;
       }
     } catch (e) {
       AppPrint.appError(e, title: "getProfileData");
     }
-    return null;
+    return false;
   }
 }

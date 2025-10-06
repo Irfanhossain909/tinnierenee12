@@ -5,16 +5,19 @@ import 'package:tinnierenee12/screen/auth/location_screen/controller/location_co
 import 'package:tinnierenee12/screen/auth/personal_info_screen/controller/personal_info_controller.dart';
 import 'package:tinnierenee12/screen/auth/client_business_info_screen/controller/client_business_info_controller.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/controller/client_shift_controller.dart';
+import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/controller/change_password_controller.dart';
+import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
 
 class AppBinding extends Bindings {
   @override
   dependencies() {
-    
     Get.lazyPut(() => NavigationScreenController());
     Get.lazyPut(() => AppNavigationForClientController());
     Get.lazyPut(() => PersonalInfoController());
     Get.lazyPut(() => ClientBusinessInfoController());
     Get.lazyPut(() => LocationController());
     Get.lazyPut(() => ClientShiftController());
+    Get.lazyPut(() => ProfileController());
+    Get.lazyPut(() => ChangePasswordController());
   }
 }

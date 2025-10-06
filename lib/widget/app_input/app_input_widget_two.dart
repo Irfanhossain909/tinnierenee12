@@ -38,10 +38,12 @@ class AppInputWidgetTwo extends StatefulWidget {
     this.filled = true,
     this.borderColor,
     this.textColor,
+    this.passIconColor,
     this.hintColor, // Default value for filled is set to true
   });
 
   final String? hintText;
+  final Color? passIconColor;
   final Widget? prefix;
   final Widget? suffixIcon;
   final bool isPassWord;
@@ -164,7 +166,7 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
                   : null,
               suffixIcon: widget.isPassWord
                   ? IconButton(
-                      color: Colors.white,
+                      color: widget.passIconColor ?? Colors.white,
                       padding: EdgeInsets.zero,
                       iconSize: 16,
                       onPressed: () {
