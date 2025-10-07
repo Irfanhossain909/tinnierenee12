@@ -1,9 +1,122 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:tinnierenee12/screen/auth/location_screen/controller/location_controller.dart';
+import 'package:tinnierenee12/service/repository/job_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 class ClientAddNewShiftController extends GetxController {
+  //Repository
+  JobRepository jobRepository = JobRepository.instance;
+  LocationController locationController = Get.find<LocationController>();
+
+  //TextEditingControllers
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionLicenseController = TextEditingController();
+  TextEditingController qualificationController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+
+  //Loading state
+  RxBool isLoading = false.obs;
+  String selectedAgeGroup = '';
+  bool validation() {
+    if (titleController.text.isEmpty) {
+      AppSnackbar.error(title: "Error", message: "Please enter job title");
+      return false;
+    }
+    if (descriptionLicenseController.text.isEmpty) {
+      AppSnackbar.error(
+        title: "Error",
+        message: "Please enter  job description",
+      );
+      return false;
+    }
+
+    if (qualificationController.text.isEmpty) {
+      AppSnackbar.error(
+        title: "Error",
+        message: "Please enter required qualification",
+      );
+      return false;
+    }
+
+    if (selectedStartDate.value.isEmpty) {
+      AppSnackbar.error(
+        title: "Error",
+        message: "Please select job start date",
+      );
+      return false;
+    }
+
+    if (selectedEndDate.value.isEmpty) {
+      AppSnackbar.error(title: "Error", message: "Please select job end date");
+      return false;
+    }
+    if (selectedEndTime.value.isEmpty) {
+      AppSnackbar.error(title: "Error", message: "Please select job end time");
+      return false;
+    }
+    if (selectedStartTime.value.isEmpty) {
+      AppSnackbar.error(
+        title: "Error",
+        message: "Please select job start time",
+      );
+      return false;
+    }
+    if (priceController.text.isEmpty) {
+      AppSnackbar.error(title: "Error", message: "Please enter job price");
+      return false;
+    }
+    if (locationController.selectedLatitude.value == 0 ||
+        locationController.selectedLongitude.value == 0) {
+      AppSnackbar.error(title: "Error", message: "Please select job location");
+
+      return false;
+    }
+    if (selectedAgeGroup.isEmpty) {
+      AppSnackbar.error(title: "Error", message: "Please select job age group");
+      return false;
+    }
+
+    return true;
+  }
+
+  Future<void> addjob() async {
+    bool isValid = validation();
+    if (!isValid) return;
+
+    try {
+      isLoading.value = true;
+      final response = await jobRepository.addJob(
+        title: titleController.text,
+        description: descriptionLicenseController.text,
+        qualification: qualificationController.text,
+        ageGroup: selectedAgeGroup,
+        price: int.parse(priceController.text),
+        startDate: selectedStartDate.value,
+        endDate: selectedEndDate.value,
+        startTime: selectedStartTime.value,
+        endTime: selectedEndTime.value,
+        lat: locationController.selectedLatitude.value,
+        lng: locationController.selectedLongitude.value,
+      );
+      if (response) {
+        AppSnackbar.success(
+          title: "Success",
+          message: "Job added successfully",
+        );
+        Get.close(1);
+      } else {
+        AppSnackbar.error(title: "Error", message: "Something went wrong");
+        isLoading.value = false;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "add job");
+      isLoading.value = false;
+    }
+  }
+
   ////////////////////////////Date Picker////////////////////////////////
   var selectedStartDate = ''.obs; // selected date as string
   var selectedEndDate = ''.obs; // selected date as string
@@ -58,51 +171,63 @@ class ClientAddNewShiftController extends GetxController {
   }
 
   ////////////////////////////////////////////////////////////////////////
-  
+
   ////////////////////////////Time Picker////////////////////////////////
-var selectedStartTime = ''.obs; // selected start time as string
-var selectedEndTime = ''.obs;   // selected end time as string
+  var selectedStartTime = ''.obs; // selected start time as string
+  var selectedEndTime = ''.obs; // selected end time as string
 
-Future<void> startTimePick(BuildContext context) async {
-  final TimeOfDay? pickedTime = await showTimePicker(
-    context: context,
-    initialTime: TimeOfDay.now(),
-  );
-
-  if (pickedTime != null) {
-    // Format time to "10:30 AM"
-    final now = DateTime.now();
-    final formattedTime = DateFormat('hh:mm a').format(
-      DateTime(now.year, now.month, now.day, pickedTime.hour, pickedTime.minute),
+  Future<void> startTimePick(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
     );
 
-    selectedStartTime.value = formattedTime;
-    debugPrint('Selected Start Time: $formattedTime');
-    AppPrint.appLog(selectedStartTime.value);
+    if (pickedTime != null) {
+      // Format time to "10:30 AM"
+      final now = DateTime.now();
+      final formattedTime = DateFormat('hh:mm a').format(
+        DateTime(
+          now.year,
+          now.month,
+          now.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        ),
+      );
 
-    // reset end time when start time changes
-    selectedEndTime.value = '';
+      selectedStartTime.value = formattedTime;
+      debugPrint('Selected Start Time: $formattedTime');
+      AppPrint.appLog(selectedStartTime.value);
+
+      // reset end time when start time changes
+      selectedEndTime.value = '';
+    }
   }
-}
 
-Future<void> endTimePick(BuildContext context) async {
-  final TimeOfDay? pickedTime = await showTimePicker(
-    context: context,
-    initialTime: TimeOfDay.now(),
-  );
-
-  if (pickedTime != null) {
-    // Format time to "10:30 AM"
-    final now = DateTime.now();
-    final formattedTime = DateFormat('hh:mm a').format(
-      DateTime(now.year, now.month, now.day, pickedTime.hour, pickedTime.minute),
+  Future<void> endTimePick(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
     );
 
-    selectedEndTime.value = formattedTime;
-    debugPrint('Selected End Time: $formattedTime');
-    AppPrint.appLog(selectedEndTime.value);
-  }
-}
-////////////////////////////////////////////////////////////////////////
+    if (pickedTime != null) {
+      // Format time to "10:30 AM"
+      final now = DateTime.now();
+      final formattedTime = DateFormat('hh:mm a').format(
+        DateTime(
+          now.year,
+          now.month,
+          now.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        ),
+      );
 
+      selectedEndTime.value = formattedTime;
+      debugPrint('Selected End Time: $formattedTime');
+      AppPrint.appLog(selectedEndTime.value);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////
 }
