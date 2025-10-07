@@ -43,6 +43,7 @@ class ProfileModelData {
     int? v;
     String? latitude;
     String? longitude;
+    String? contact;
 
     ProfileModelData({
         this.id,
@@ -59,6 +60,7 @@ class ProfileModelData {
         this.v,
         this.latitude,
         this.longitude,
+        this.contact,
     });
 
     factory ProfileModelData.fromRawJson(String str) => ProfileModelData.fromJson(json.decode(str));
@@ -66,20 +68,21 @@ class ProfileModelData {
     String toRawJson() => json.encode(toJson());
 
     factory ProfileModelData.fromJson(Map<String, dynamic> json) => ProfileModelData(
-        id: json["_id"],
-        name: json["name"],
-        role: json["role"],
-        email: json["email"],
-        workExperience: json["workExperience"],
-        image: json["image"],
-        verified: json["verified"],
-        isActive: json["isActive"],
-        isSubscribed: json["isSubscribed"],
-        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        id: json["_id"] ?? "",
+        name: json["name"] ?? "",
+        role: json["role"] ?? "",
+        email: json["email"] ?? "",
+        workExperience: json["workExperience"] ?? "",
+        image: json["image"] ?? "",
+        verified: json["verified"] ?? "",
+        isActive: json["isActive"] ?? "",
+        isSubscribed: json["isSubscribed"] ?? "",
+        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"] ?? ""),
+        updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"] ?? ""),
+        v: json["__v"] ?? "",
+        latitude: json["latitude"] ?? "",
+        longitude: json["longitude"] ?? "",
+        contact: json["contact"] ?? "",
     );
 
     Map<String, dynamic> toJson() => {
@@ -97,5 +100,6 @@ class ProfileModelData {
         "__v": v,
         "latitude": latitude,
         "longitude": longitude,
+        "contact": contact,
     };
 }

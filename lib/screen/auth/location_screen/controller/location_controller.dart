@@ -31,8 +31,8 @@ class LocationController extends GetxController {
     try {
       isLoadingForUpdate.value = true;
       var response = await profileRepo.updateUserProfile(
-        latitude: selectedLatitude.value.toString(),
-        longitude: selectedLongitude.value.toString(),
+        latitude: selectedLatitude.value,
+        longitude: selectedLongitude.value,
       );
 
       if (response) {
@@ -40,10 +40,10 @@ class LocationController extends GetxController {
         String roleName = getStorage.getUserRole();
         if (role) {
           if (roleName == Role.CLIENT.name) {
-            Get.offAllNamed(AppRoutes.instance.navigationForClientScreen);
+            Get.offAllNamed(AppRoutes.instance.clientBusinessInfoScreen);
           }
           if (roleName == Role.EMPLOYEE.name) {
-            Get.offAllNamed(AppRoutes.instance.navigationForEmployeeScreen);
+            Get.offAllNamed(AppRoutes.instance.personalInfoScreen);
           }
         } else {
           AppSnackbar.error(title: "Error", message: "Location not found.");
@@ -87,6 +87,9 @@ class LocationController extends GetxController {
         "Address: $address\n"
         "Latitude: $lat\n"
         "Longitude: $lng",
+      );
+      AppPrint.apiResponse(
+        "Data lat  : ${selectedLatitude.value}\nData long  : ${selectedLongitude.value}\n",
       );
 
       isLoading.value = false;

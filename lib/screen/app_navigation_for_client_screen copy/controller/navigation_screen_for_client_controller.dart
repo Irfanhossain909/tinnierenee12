@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
 
 class AppNavigationForClientController extends GetxController {
   RxInt selectedIndex = RxInt(0);
@@ -23,9 +22,5 @@ class AppNavigationForClientController extends GetxController {
     selectedIndex.value = index;
   }
 
-  @override
-  void onInit() {
-    Get.find<ProfileController>().fetchProfileData();
-    super.onInit();
-  }
+  
 }

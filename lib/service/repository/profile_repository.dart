@@ -17,18 +17,18 @@ class ProfileRepository {
   GetStorageServices getStorageServices = GetStorageServices.instance;
 
   Future<bool> updateUserProfile({
+    
     String? name,
     String? businessInformation,
     String? personalInformation,
-    String? address,
     String? licenseId,
     String? websiteLink,
     String? bio,
     String? contact,
     String? birthDate,
     String? image,
-    String? latitude,
-    String? longitude,
+    double? latitude,
+    double? longitude,
     bool? workExperience,
   }) async {
     try {
@@ -37,7 +37,6 @@ class ProfileRepository {
           "name": name,
           "businessInformation": businessInformation,
           "personalInformation": personalInformation,
-          "address": address,
           "licenseId": licenseId,
           "websiteLink": websiteLink,
           "bio": bio,

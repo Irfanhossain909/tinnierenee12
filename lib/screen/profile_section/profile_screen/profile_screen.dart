@@ -40,52 +40,59 @@ class ProfileScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.all(AppSize.width(value: 16)),
-                  child: Row(
-                    children: [
-                      AppImageCircular(
-                        fit: BoxFit.cover,
-                        url:
-                            "https://cdn.pixabay.com/photo/2016/12/07/21/01/cartoon-1890438_640.jpg",
-                        width: AppSize.width(value: 124),
-                        height: AppSize.width(value: 124),
-                      ),
-                      Gap(width: AppSize.width(value: 20)),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: AppSize.size.height * 0.014,
-                        children: [
-                          AppText(
-                            data: "Sabbir Ahmed",
-                            fontSize: AppSize.width(value: 18),
-                            fontWeight: FontWeight.w700,
-                            color: AppColor.white,
-                          ),
-                          AppText(
-                            data: "012345-678912",
-                            fontSize: AppSize.width(value: 14),
-                            fontWeight: FontWeight.w500,
-                            // Use the text color from the current theme
-                            color: AppColor.white,
-                          ),
+                Obx(() {
+                  return Padding(
+                    padding: EdgeInsets.all(AppSize.width(value: 16)),
+                    child: Row(
+                      children: [
+                        AppImageCircular(
+                          fit: BoxFit.cover,
+                          url:
+                              controller.profileData.value?.image ??
+                              "https://cdn.pixabay.com/photo/2016/12/07/21/01/cartoon-1890438_640.jpg",
+                          width: AppSize.width(value: 124),
+                          height: AppSize.width(value: 124),
+                        ),
+                        Gap(width: AppSize.width(value: 20)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: AppSize.size.height * 0.014,
+                          children: [
+                            AppText(
+                              data:
+                                  controller.profileData.value?.name ??
+                                  "No Name",
+                              fontSize: AppSize.width(value: 18),
+                              fontWeight: FontWeight.w700,
+                              color: AppColor.white,
+                            ),
+                            AppText(
+                              data:
+                                  controller.profileData.value?.email ??
+                                  "No Contact Number",
+                              fontSize: AppSize.width(value: 14),
+                              fontWeight: FontWeight.w500,
+                              // Use the text color from the current theme
+                              color: AppColor.white,
+                            ),
 
-                          AppButton(
-                            onTap: () {
-                              Get.toNamed(
-                                AppRoutes.instance.changeProfileScreen,
-                              );
-                            },
-                            title: "Edit Profile",
+                            AppButton(
+                              onTap: () {
+                                Get.toNamed(
+                                  AppRoutes.instance.changeProfileScreen,
+                                );
+                              },
+                              title: "Edit Profile",
 
-                            width: AppSize.size.width * 0.3,
-                            height: AppSize.size.width * 0.1,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                              width: AppSize.size.width * 0.3,
+                              height: AppSize.size.width * 0.1,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }),
                 if (controller.getStorage.getUserRole() == Role.CLIENT.name)
                   Container(
                     decoration: BoxDecoration(
@@ -144,7 +151,9 @@ class ProfileScreen extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return LogOutpopUp();
+                                return LogOutpopUp(
+                                  onTapLogout: () => controller.logout(),
+                                );
                               },
                             );
                           },

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_card/app_card.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
@@ -12,174 +14,187 @@ import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
 class ClientHomeScreen extends StatelessWidget {
   const ClientHomeScreen({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 88,
-        backgroundColor: AppColor.white,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(8),
-            bottomRight: Radius.circular(8),
-          ),
-        ),
-        title: Column(
-          children: [
-            Row(
-              spacing: AppSize.size.width * 0.03,
+    return GetBuilder<ClientHomeController>(
+      init: ClientHomeController(),
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 88,
+            backgroundColor: AppColor.white,
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            surfaceTintColor: Colors.transparent,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
+            ),
+            title: Column(
               children: [
-                AppImageCircular(
-                  width: AppSize.width(value: 54),
-                  height: AppSize.width(value: 54),
-                  url:
-                      "https://cdn.pixabay.com/photo/2023/12/04/17/16/woman-8429860_1280.jpg",
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(
-                      data: "Welcome, Sabbir!",
-                      fontSize: AppSize.width(value: 24),
-                      fontWeight: FontWeight.w600,
-                    ),
-                    Gap(height: AppSize.width(value: 4)),
-                    Row(
-                      children: [
-                        AppImage(
-                          path: AssetsPath.icLocation,
-                          width: 16,
-                          height: 16,
-                          iconColor: AppColor.black,
-                        ),
-                        Gap(width: 6),
-                        AppText(
-                          data: "Los Angeles, California",
-                          fontSize: AppSize.width(value: 16),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Spacer(),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.instance.notification);
-                  },
-                  child: Stack(
+                Obx(() {
+                  return Row(
+                    spacing: AppSize.size.width * 0.03,
                     children: [
-                      Icon(
-                        Icons.notifications,
-                        color: AppColor.purple,
-                        size: 32,
+                      AppImageCircular(
+                        width: AppSize.width(value: 54),
+                        height: AppSize.width(value: 54),
+                        url:
+                            "${AppApiEndPoint.domain}${controller.profileController.profileData.value?.image}",
                       ),
-                      Positioned(
-                        top: 4,
-                        right: 4,
-                        child: Container(
-                          width: 15,
-                          height: 15,
-                          decoration: BoxDecoration(
-                            color: AppColor.gold,
-                            borderRadius: BorderRadius.circular(100),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText(
+                            data:
+                                "Welcome, ${controller.profileController.profileData.value?.name}",
+                            fontSize: AppSize.width(value: 24),
+                            fontWeight: FontWeight.w600,
                           ),
-                          child: Center(
-                            child: AppText(
-                              data: "1",
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: AppColor.white,
+                          Gap(height: AppSize.width(value: 4)),
+                          Row(
+                            children: [
+                              AppImage(
+                                path: AssetsPath.icLocation,
+                                width: 16,
+                                height: 16,
+                                iconColor: AppColor.black,
+                              ),
+                              Gap(width: 6),
+                              AppText(
+                                data: controller.userAddress.value,
+                                fontSize: AppSize.width(value: 16),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.instance.notification);
+                        },
+                        child: Stack(
+                          children: [
+                            Icon(
+                              Icons.notifications,
+                              color: AppColor.purple,
+                              size: 32,
                             ),
-                          ),
+                            Positioned(
+                              top: 4,
+                              right: 4,
+                              child: Container(
+                                width: 15,
+                                height: 15,
+                                decoration: BoxDecoration(
+                                  color: AppColor.gold,
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: Center(
+                                  child: AppText(
+                                    data: "1",
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 16.0),
-        child: AppCard(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: AppSize.width(value: 4),
-              children: [
-                AppText(
-                  data: "Statistics",
-                  fontSize: AppSize.width(value: 18),
-                  fontWeight: FontWeight.w600,
-                  color: AppColor.purple,
-                ),
-                Gap(height: AppSize.size.height * 0.001),
-                Row(
-                  spacing: AppSize.size.width * 0.04,
-                  children: [
-                    Expanded(
-                      child: ClientHomeCard(
-                        text: "Total Spend",
-                        text2: r"$4,250.75",
-                      ),
-                    ),
-                    Expanded(
-                      child: ClientHomeCard(
-                        text: "Total Shift Completed",
-                        text2: "15",
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  spacing: AppSize.size.width * 0.04,
-                  children: [
-                    Expanded(
-                      child: ClientHomeCard(
-                        text: "Running Shifts This Week",
-                        text2: "2",
-                      ),
-                    ),
-                    Expanded(
-                      child: ClientHomeCard(
-                        text: "Pending Invoices",
-                        text2: "1",
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(height: AppSize.size.height * 0.001),
-                AppText(
-                  data: "Active Shift",
-                  fontSize: AppSize.width(value: 18),
-                  fontWeight: FontWeight.w600,
-                  color: AppColor.purple,
-                ),
-
-                ClientHomeShiftCard(),
-                ClientHomeShiftCard(),
-
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: AppText(
-                    data: "See All",
-                    fontSize: AppSize.width(value: 22),
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.gold,
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
           ),
-        ),
-      ),
+          body: Padding(
+            padding: EdgeInsets.only(top: 16.0),
+            child: AppCard(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: AppSize.width(value: 4),
+                  children: [
+                    AppText(
+                      data: "Statistics",
+                      fontSize: AppSize.width(value: 18),
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.purple,
+                    ),
+                    Gap(height: AppSize.size.height * 0.001),
+                    Row(
+                      spacing: AppSize.size.width * 0.04,
+                      children: [
+                        Expanded(
+                          child: ClientHomeCard(
+                            text: "Total Spend",
+                            text2: r"$4,250.75",
+                          ),
+                        ),
+                        Expanded(
+                          child: ClientHomeCard(
+                            text: "Total Shift Completed",
+                            text2: "15",
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      spacing: AppSize.size.width * 0.04,
+                      children: [
+                        Expanded(
+                          child: ClientHomeCard(
+                            text: "Running Shifts This Week",
+                            text2: "2",
+                          ),
+                        ),
+                        Expanded(
+                          child: ClientHomeCard(
+                            text: "Pending Invoices",
+                            text2: "1",
+                          ),
+                        ),
+                      ],
+                    ),
+                    Gap(height: AppSize.size.height * 0.001),
+                    AppText(
+                      data: "Active Shift",
+                      fontSize: AppSize.width(value: 18),
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.purple,
+                    ),
+
+                    ClientHomeShiftCard(),
+                    ClientHomeShiftCard(),
+
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          controller.navController.selectedIndex(1);
+                        },
+                        child: AppText(
+                          data: "See All",
+                          fontSize: AppSize.width(value: 22),
+                          fontWeight: FontWeight.w600,
+                          color: AppColor.gold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

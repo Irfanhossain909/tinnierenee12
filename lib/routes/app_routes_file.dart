@@ -120,8 +120,8 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.clientHomeScreen,
-    // binding: AppBinding(),
-    page: () => const ClientHomeScreen(),
+    binding: AppBinding(),
+    page: () => ClientHomeScreen(),
   ),
   ///////////////////////////////earning screen//////////////////////////
   GetPage(
@@ -132,7 +132,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ///////////////////////////////shift screen//////////////////////////
   GetPage(
     name: AppRoutes.instance.clientAddShiftScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const ClientAddShiftScreen(),
   ),
   GetPage(

@@ -4,76 +4,45 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/auth/location_screen/controller/location_controller.dart';
+import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
 import 'package:tinnierenee12/service/repository/profile_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
-import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
-class ClientBusinessInfoController extends GetxController {
-  //Repository
-  ProfileRepository profileRepository = ProfileRepository.instance;
-  
-
-
-  //TextEditingControllers
+class ChangeProfileController extends GetxController {
+  //text controllers
   TextEditingController nameController = TextEditingController();
-  TextEditingController stateLicenseController = TextEditingController();
-  TextEditingController weblinkController = TextEditingController();
-  TextEditingController aboutMeController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
-  //Loading state
+  //all repositories
+  ProfileRepository profileRepository = ProfileRepository.instance;
+  LocationController locationController = Get.put(LocationController());
+  //loading state
   RxBool isLoading = false.obs;
-
-  bool validation() {
-    if (nameController.text.isEmpty) {
-      AppSnackbar.error(
-        title: "Error",
-        message: "Please enter your Business name",
-      );
-      return false;
-    }
-    if (stateLicenseController.text.isEmpty) {
-      AppSnackbar.error(
-        title: "Error",
-        message: "Please enter your state license",
-      );
-      return false;
-    }
-
-    if (aboutMeController.text.isEmpty) {
-      AppSnackbar.error(title: "Error", message: "Please enter your about me");
-      return false;
-    }
-    return true;
-  }
-
-  Future<void> centerInfoUpdate() async {
-    bool isValid = validation();
-
-    if (!isValid) return;
-
+  //profile update function
+  Future<void> updateProfile() async {
     try {
       isLoading.value = true;
       var response = await profileRepository.updateUserProfile(
+        name: nameController.text,
+        latitude: locationController.selectedLatitude.value,
+        longitude: locationController.selectedLongitude.value,
+        contact: phoneController.text,
         image: cameraImage.value,
-        bio: aboutMeController.text,
-        websiteLink: weblinkController.text,
-        businessInformation: nameController.text,
-        licenseId: stateLicenseController.text,
       );
       if (response) {
-        Get.offAllNamed(AppRoutes.instance.navigationForClientScreen);
-        AppSnackbar.success(
-          title: "Update Success",
-          message: "Your business profile has been updated",
-        );
+        Get.snackbar("Success", "Profile updated successfully");
+
+        await profileController.fetchProfileData();
+        Get.close(1);
       } else {
-        AppPrint.appError("response is false");
+        Get.snackbar("Error", "Profile update failed");
         isLoading.value = false;
       }
     } catch (e) {
-      AppPrint.appError(e, title: "centerInfoUpdate");
+      AppPrint.appError(e, title: "updateProfile");
     } finally {
       isLoading.value = false;
     }
@@ -189,31 +158,26 @@ class ClientBusinessInfoController extends GetxController {
 
   //////////////////////////////////////////////////////////////////////
 
-  //inisialize Contreoller
-  void appInisializ() {
-    nameController = TextEditingController();
-    stateLicenseController = TextEditingController();
-    weblinkController = TextEditingController();
-    aboutMeController = TextEditingController();
+  ///controller initialization value
+  void appInit() {
+    // Set text values for controllers with existing profile data
+    nameController.text = profileController.profileData.value?.name ?? '';
+    // phoneController.text = profileController.profileData.value?.phone ?? '';
+    // addressController.text = profileController.profileData.value?.address ?? '';
+    cameraImage.value = profileController.profileData.value?.image ?? '';
+
+    AppPrint.appLog(profileController.profileData.value?.image);
+    AppPrint.appLog(profileController.profileData.value?.contact);
+    // AppPrint.appLog(profileController.profileData.value?.address);
+    AppPrint.appLog(profileController.profileData.value?.email);
   }
 
-  //controller Dispose
-  void appDispose() {
-    nameController.dispose();
-    stateLicenseController.dispose();
-    weblinkController.dispose();
-    aboutMeController.dispose();
-  }
+  ProfileController profileController = Get.put(ProfileController());
 
   @override
   void onInit() {
-    super.onInit();
-    appInisializ();
-  }
+    appInit();
 
-  @override
-  void onClose() {
-    appDispose();
-    super.onClose();
+    super.onInit();
   }
 }
