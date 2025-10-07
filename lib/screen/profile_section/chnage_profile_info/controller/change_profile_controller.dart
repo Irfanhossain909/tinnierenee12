@@ -1,13 +1,15 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/screen/auth/location_screen/controller/location_controller.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
 import 'package:tinnierenee12/service/repository/profile_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
 class ChangeProfileController extends GetxController {
@@ -15,6 +17,7 @@ class ChangeProfileController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
 
   //all repositories
   ProfileRepository profileRepository = ProfileRepository.instance;
@@ -25,20 +28,43 @@ class ChangeProfileController extends GetxController {
   Future<void> updateProfile() async {
     try {
       isLoading.value = true;
+
+      // Convert birth date to proper format for API
+      String? birthDateForApi;
+      if (selectedStartDate.value.isNotEmpty &&
+          selectedStartDate.value != 'Select Birth Date') {
+        try {
+          // Convert "yyyy - MM - dd" format to ISO date string
+          String cleanDate = selectedStartDate.value.replaceAll(' - ', '-');
+          DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(cleanDate);
+          birthDateForApi = parsedDate.toIso8601String();
+        } catch (e) {
+          AppPrint.appError(e, title: "Date parsing error");
+          birthDateForApi = null;
+        }
+      }
+
       var response = await profileRepository.updateUserProfile(
         name: nameController.text,
         latitude: locationController.selectedLatitude.value,
         longitude: locationController.selectedLongitude.value,
         contact: phoneController.text,
+        bio: bioController.text,
         image: cameraImage.value,
+        birthDate: birthDateForApi,
       );
+      AppPrint.appLog("${AppApiEndPoint.domain}${cameraImage.value}");
       if (response) {
-        Get.snackbar("Success", "Profile updated successfully");
+        AppSnackbar.success(
+          title: "Success",
+          message: "Profile updated successfully",
+        );
 
         await profileController.fetchProfileData();
         Get.close(1);
       } else {
         Get.snackbar("Error", "Profile update failed");
+        AppSnackbar.error(title: "Error", message: "Profile update failed");
         isLoading.value = false;
       }
     } catch (e) {
@@ -158,26 +184,106 @@ class ChangeProfileController extends GetxController {
 
   //////////////////////////////////////////////////////////////////////
 
+  /////////////////////////select Dob////////////////////////////
+  var selectedStartDate = ''.obs; // selected date as string
+
+  Future<void> startDatePick(BuildContext context) async {
+    // Parse existing date if available to set as initial date
+    DateTime initialDate = DateTime.now();
+    if (selectedStartDate.value.isNotEmpty &&
+        selectedStartDate.value != 'Select Birth Date') {
+      try {
+        // Try to parse the existing date format "yyyy - MM - dd"
+        String cleanDate = selectedStartDate.value.replaceAll(' - ', '-');
+        initialDate = DateFormat('yyyy-MM-dd').parse(cleanDate);
+      } catch (e) {
+        // If parsing fails, use current date
+        initialDate = DateTime.now();
+      }
+    }
+
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1950), // minimum date
+      lastDate: DateTime.now(), // maximum date
+    );
+
+    if (pickedDate != null) {
+      // Format date to "1990 - 05 - 15"
+      String formattedDate = DateFormat('yyyy - MM - dd').format(pickedDate);
+      selectedStartDate.value = formattedDate;
+      debugPrint('Selected Birth Date: $formattedDate');
+      AppPrint.appLog(selectedStartDate.value);
+    }
+  }
+  ////////////////////////////////////////////
+
   ///controller initialization value
   void appInit() {
-    // Set text values for controllers with existing profile data
-    nameController.text = profileController.profileData.value?.name ?? '';
-    // phoneController.text = profileController.profileData.value?.phone ?? '';
-    // addressController.text = profileController.profileData.value?.address ?? '';
-    cameraImage.value = profileController.profileData.value?.image ?? '';
+    final profile = profileController.profileData.value;
 
-    AppPrint.appLog(profileController.profileData.value?.image);
-    AppPrint.appLog(profileController.profileData.value?.contact);
-    // AppPrint.appLog(profileController.profileData.value?.address);
-    AppPrint.appLog(profileController.profileData.value?.email);
+    // name
+    if (nameController.text.isEmpty) {
+      nameController.text = profile?.name ?? '';
+    }
+
+    // phone
+    if (phoneController.text.isEmpty) {
+      phoneController.text = profile?.contact ?? '';
+    }
+
+    // bio
+    if (bioController.text.isEmpty) {
+      bioController.text = profile?.bio ?? '';
+    }
+
+    // location (only if not already set)
+    if (locationController.selectedLatitude.value == 0.0 &&
+        locationController.selectedLongitude.value == 0.0) {
+      locationController.selectedLatitude.value = profile?.latitude ?? 0.0;
+      locationController.selectedLongitude.value = profile?.longitude ?? 0.0;
+    }
+
+    // image - keep cameraImage empty for server images
+    // cameraImage should only contain local file paths when user selects new image
+    // The UI will show server image when cameraImage is empty
+
+    // birth date
+    if (selectedStartDate.value.isEmpty) {
+      if (profile?.birthDate != null && profile!.birthDate!.isNotEmpty) {
+        // If profile has birth date, format it properly
+        try {
+          DateTime birthDate = DateTime.parse(profile.birthDate!);
+          selectedStartDate.value = DateFormat(
+            'yyyy - MM - dd',
+          ).format(birthDate);
+        } catch (e) {
+          // If parsing fails, use the raw value or default
+          selectedStartDate.value = profile.birthDate!.isNotEmpty
+              ? profile.birthDate!
+              : 'Select Birth Date';
+        }
+      } else {
+        selectedStartDate.value = 'Select Birth Date';
+      }
+    }
   }
 
   ProfileController profileController = Get.put(ProfileController());
 
   @override
   void onInit() {
-    appInit();
-
     super.onInit();
+    // Ensure profile data is loaded before initializing form
+    _initializeForm();
+  }
+
+  Future<void> _initializeForm() async {
+    // Wait for profile data to be available
+    if (profileController.profileData.value == null) {
+      await profileController.fetchProfileData();
+    }
+    appInit();
   }
 }

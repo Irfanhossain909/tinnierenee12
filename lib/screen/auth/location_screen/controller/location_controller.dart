@@ -22,8 +22,8 @@ class LocationController extends GetxController {
   var isLoadingForUpdate = false.obs;
   var selectedPlaceId = ''.obs;
   var selectedAddress = ''.obs;
-  var selectedLatitude = 0.0.obs;
-  var selectedLongitude = 0.0.obs;
+  RxDouble selectedLatitude = 0.0.obs;
+  RxDouble selectedLongitude = 0.0.obs;
   var isCurrentLocation = false.obs;
 
   ///Functions GetLocation

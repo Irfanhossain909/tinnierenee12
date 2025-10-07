@@ -17,7 +17,6 @@ class ProfileRepository {
   GetStorageServices getStorageServices = GetStorageServices.instance;
 
   Future<bool> updateUserProfile({
-    
     String? name,
     String? businessInformation,
     String? personalInformation,
@@ -29,23 +28,21 @@ class ProfileRepository {
     String? image,
     double? latitude,
     double? longitude,
-    bool? workExperience,
+    bool workExperience = false,
   }) async {
     try {
       FormData formDataMap = FormData.fromMap({
-        "data": jsonEncode({
-          "name": name,
-          "businessInformation": businessInformation,
-          "personalInformation": personalInformation,
-          "licenseId": licenseId,
-          "websiteLink": websiteLink,
-          "bio": bio,
-          "contact": contact,
-          "birthDate": birthDate,
-          "latitude": latitude,
-          "longitude": longitude,
-          "workExperience": workExperience,
-        }),
+        "name": name,
+        "businessInformation": businessInformation,
+        "personalInformation": personalInformation,
+        "licenseId": licenseId,
+        "websiteLink": websiteLink,
+        "bio": bio,
+        "contact": contact,
+        "birthDate": birthDate,
+        "latitude": latitude,
+        "longitude": longitude,
+        "workExperience": workExperience,
       });
 
       if (image != null) {

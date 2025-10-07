@@ -16,6 +16,7 @@ class AppDescriptionTextField extends StatelessWidget {
     this.titleColor,
     this.hintColor,
     this.textColor,
+    this.titleSize,
   });
 
   final String? title;
@@ -27,6 +28,7 @@ class AppDescriptionTextField extends StatelessWidget {
   final Color? textColor;
   final InputBorder? border;
   final InputBorder? errBorder;
+  final double? titleSize;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class AppDescriptionTextField extends StatelessWidget {
                 data: title!,
                 fontWeight: FontWeight.w600,
                 color: titleColor ?? Colors.white,
-                fontSize: AppSize.width(value: 18),
+                fontSize: titleSize ?? AppSize.width(value: 18),
               ),
 
         const Gap(height: 10),

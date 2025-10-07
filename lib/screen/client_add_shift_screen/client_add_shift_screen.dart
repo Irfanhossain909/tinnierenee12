@@ -42,110 +42,338 @@ class ClientAddShiftScreen extends StatelessWidget {
                 spacing: AppSize.size.height * 0.01,
                 children: [
                   Obx(() {
-                    return GestureDetector(
-                      onTap: () {
-                        controller.startDatePick(context);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSize.width(value: 16),
-                          vertical: AppSize.width(value: 10),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: AppColor.white),
-                        ),
-                        width: AppSize.width(value: double.infinity),
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            controller.selectedStartDate.isEmpty
-                                ? AppText(
-                                    data: "Select Start Date",
-                                    fontSize: AppSize.width(value: 16),
-                                    color: AppColor.white.withValues(
-                                      alpha: 0.5,
-                                    ),
-                                  )
-                                : AppText(
-                                    data: controller.selectedStartDate.value,
-                                    fontSize: AppSize.width(value: 16),
-                                    color: AppColor.white,
-                                  ),
-                            Icon(
-                              Icons.calendar_month,
-                              color: AppColor.white.withValues(alpha: 0.5),
+                    return Column(
+                      spacing: AppSize.size.height * 0.015,
+                      children: [
+                        // 🟢 Start Date Picker
+                        GestureDetector(
+                          onTap: () {
+                            controller.startDatePick(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSize.width(value: 16),
+                              vertical: AppSize.width(value: 10),
                             ),
-                          ],
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: AppColor.white),
+                            ),
+                            width: AppSize.width(value: double.infinity),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                controller.selectedStartDate.isEmpty
+                                    ? AppText(
+                                        data: "Select Start Date",
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                      )
+                                    : AppText(
+                                        data:
+                                            controller.selectedStartDate.value,
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white,
+                                      ),
+                                Icon(
+                                  Icons.calendar_month,
+                                  color: AppColor.white.withValues(alpha: 0.5),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
+
+                        // 🟢 End Date Picker
+                        GestureDetector(
+                          onTap: () {
+                            controller.endDatePick(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSize.width(value: 16),
+                              vertical: AppSize.width(value: 10),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: AppColor.white),
+                            ),
+                            width: AppSize.width(value: double.infinity),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                controller.selectedEndDate.isEmpty
+                                    ? AppText(
+                                        data: "Select End Date",
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                      )
+                                    : AppText(
+                                        data: controller.selectedEndDate.value,
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white,
+                                      ),
+                                Icon(
+                                  Icons.calendar_month,
+                                  color: AppColor.white.withValues(alpha: 0.5),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        // 🟢 Start Time Picker
+                        GestureDetector(
+                          onTap: () {
+                            controller.startTimePick(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSize.width(value: 16),
+                              vertical: AppSize.width(value: 10),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: AppColor.white),
+                            ),
+                            width: AppSize.width(value: double.infinity),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                controller.selectedStartTime.isEmpty
+                                    ? AppText(
+                                        data: "Select Start Time",
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                      )
+                                    : AppText(
+                                        data:
+                                            controller.selectedStartTime.value,
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white,
+                                      ),
+                                Icon(
+                                  Icons.watch_later_outlined,
+                                  color: AppColor.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        // 🟢 End Time Picker
+                        GestureDetector(
+                          onTap: () {
+                            controller.endTimePick(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSize.width(value: 16),
+                              vertical: AppSize.width(value: 10),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: AppColor.white),
+                            ),
+                            width: AppSize.width(value: double.infinity),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                controller.selectedEndTime.isEmpty
+                                    ? AppText(
+                                        data: "Select End Time",
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                      )
+                                    : AppText(
+                                        data: controller.selectedEndTime.value,
+                                        fontSize: AppSize.width(value: 16),
+                                        color: AppColor.white,
+                                      ),
+                                Icon(
+                                  Icons.watch_later_outlined,
+                                  color: AppColor.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   }),
-                  Obx(() {
-                    return GestureDetector(
-                      onTap: () {
-                        controller.endDatePick(context);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSize.width(value: 16),
-                          vertical: AppSize.width(value: 10),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: AppColor.white),
-                        ),
-                        width: AppSize.width(value: double.infinity),
+                  // Obx(() {
+                  //   return GestureDetector(
+                  //     onTap: () {
+                  //       controller.startDatePick(context);
+                  //     },
+                  //     child: Container(
+                  //       padding: EdgeInsets.symmetric(
+                  //         horizontal: AppSize.width(value: 16),
+                  //         vertical: AppSize.width(value: 10),
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         border: Border.all(color: AppColor.white),
+                  //       ),
+                  //       width: AppSize.width(value: double.infinity),
 
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            controller.selectedEndDate.isEmpty
-                                ? AppText(
-                                    data: "Select End Date",
-                                    fontSize: AppSize.width(value: 16),
-                                    color: AppColor.white.withValues(
-                                      alpha: 0.5,
-                                    ),
-                                  )
-                                : AppText(
-                                    data: controller.selectedEndDate.value,
-                                    fontSize: AppSize.width(value: 16),
-                                    color: AppColor.white,
-                                  ),
-                            Icon(
-                              Icons.calendar_month,
-                              color: AppColor.white.withValues(alpha: 0.5),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           controller.selectedStartDate.isEmpty
+                  //               ? AppText(
+                  //                   data: "Select Start Date",
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white.withValues(
+                  //                     alpha: 0.5,
+                  //                   ),
+                  //                 )
+                  //               : AppText(
+                  //                   data: controller.selectedStartDate.value,
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white,
+                  //                 ),
+                  //           Icon(
+                  //             Icons.calendar_month,
+                  //             color: AppColor.white.withValues(alpha: 0.5),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   );
+                  // }),
+                  // Obx(() {
+                  //   return GestureDetector(
+                  //     onTap: () {
+                  //       controller.endDatePick(context);
+                  //     },
+                  //     child: Container(
+                  //       padding: EdgeInsets.symmetric(
+                  //         horizontal: AppSize.width(value: 16),
+                  //         vertical: AppSize.width(value: 10),
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         border: Border.all(color: AppColor.white),
+                  //       ),
+                  //       width: AppSize.width(value: double.infinity),
 
-                  AppInputWidgetTwo(
-                    fillColor: AppColor.purple,
-                    hintText: "Select Start Time",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.watch_later_outlined,
-                        color: AppColor.white,
-                      ),
-                    ),
-                  ),
-                  AppInputWidgetTwo(
-                    fillColor: AppColor.purple,
-                    hintText: "Select End Time",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.watch_later_outlined,
-                        color: AppColor.white,
-                      ),
-                    ),
-                  ),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           controller.selectedEndDate.isEmpty
+                  //               ? AppText(
+                  //                   data: "Select End Date",
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white.withValues(
+                  //                     alpha: 0.5,
+                  //                   ),
+                  //                 )
+                  //               : AppText(
+                  //                   data: controller.selectedEndDate.value,
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white,
+                  //                 ),
+                  //           Icon(
+                  //             Icons.calendar_month,
+                  //             color: AppColor.white.withValues(alpha: 0.5),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   );
+                  // }),
+
+                  // Obx(() {
+                  //   return GestureDetector(
+                  //     onTap: () {
+                  //       controller.startTimePick(context);
+                  //     },
+                  //     child: Container(
+                  //       padding: EdgeInsets.symmetric(
+                  //         horizontal: AppSize.width(value: 16),
+                  //         vertical: AppSize.width(value: 10),
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         border: Border.all(color: AppColor.white),
+                  //       ),
+                  //       width: AppSize.width(value: double.infinity),
+
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           controller.selectedStartTime.isEmpty
+                  //               ? AppText(
+                  //                   data: "Select Start Time",
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white.withValues(
+                  //                     alpha: 0.5,
+                  //                   ),
+                  //                 )
+                  //               : AppText(
+                  //                   data: controller.selectedStartTime.value,
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white,
+                  //                 ),
+                  //           Icon(
+                  //             Icons.watch_later_outlined,
+                  //             color: AppColor.white,
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   );
+                  // }),
+                  // Obx(() {
+                  //   return GestureDetector(
+                  //     onTap: () {
+                  //       controller.endTimePick(context);
+                  //     },
+                  //     child: Container(
+                  //       padding: EdgeInsets.symmetric(
+                  //         horizontal: AppSize.width(value: 16),
+                  //         vertical: AppSize.width(value: 10),
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(8),
+                  //         border: Border.all(color: AppColor.white),
+                  //       ),
+                  //       width: AppSize.width(value: double.infinity),
+
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           controller.selectedEndTime.isEmpty
+                  //               ? AppText(
+                  //                   data: "Select End Time",
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white.withValues(
+                  //                     alpha: 0.5,
+                  //                   ),
+                  //                 )
+                  //               : AppText(
+                  //                   data: controller.selectedEndTime.value,
+                  //                   fontSize: AppSize.width(value: 16),
+                  //                   color: AppColor.white,
+                  //                 ),
+                  //           Icon(
+                  //             Icons.watch_later_outlined,
+                  //             color: AppColor.white,
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   );
+                  // }),
                   AppInputWidgetTwo(
                     fillColor: AppColor.purple,
                     hintText: "Title",

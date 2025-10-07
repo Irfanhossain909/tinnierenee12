@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/const/role.dart';
@@ -48,8 +49,7 @@ class ProfileScreen extends StatelessWidget {
                         AppImageCircular(
                           fit: BoxFit.cover,
                           url:
-                              controller.profileData.value?.image ??
-                              "https://cdn.pixabay.com/photo/2016/12/07/21/01/cartoon-1890438_640.jpg",
+                              "${AppApiEndPoint.domain}${controller.profileData.value?.image}",
                           width: AppSize.width(value: 124),
                           height: AppSize.width(value: 124),
                         ),

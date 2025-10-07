@@ -58,4 +58,51 @@ class ClientAddNewShiftController extends GetxController {
   }
 
   ////////////////////////////////////////////////////////////////////////
+  
+  ////////////////////////////Time Picker////////////////////////////////
+var selectedStartTime = ''.obs; // selected start time as string
+var selectedEndTime = ''.obs;   // selected end time as string
+
+Future<void> startTimePick(BuildContext context) async {
+  final TimeOfDay? pickedTime = await showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+  );
+
+  if (pickedTime != null) {
+    // Format time to "10:30 AM"
+    final now = DateTime.now();
+    final formattedTime = DateFormat('hh:mm a').format(
+      DateTime(now.year, now.month, now.day, pickedTime.hour, pickedTime.minute),
+    );
+
+    selectedStartTime.value = formattedTime;
+    debugPrint('Selected Start Time: $formattedTime');
+    AppPrint.appLog(selectedStartTime.value);
+
+    // reset end time when start time changes
+    selectedEndTime.value = '';
+  }
+}
+
+Future<void> endTimePick(BuildContext context) async {
+  final TimeOfDay? pickedTime = await showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+  );
+
+  if (pickedTime != null) {
+    // Format time to "10:30 AM"
+    final now = DateTime.now();
+    final formattedTime = DateFormat('hh:mm a').format(
+      DateTime(now.year, now.month, now.day, pickedTime.hour, pickedTime.minute),
+    );
+
+    selectedEndTime.value = formattedTime;
+    debugPrint('Selected End Time: $formattedTime');
+    AppPrint.appLog(selectedEndTime.value);
+  }
+}
+////////////////////////////////////////////////////////////////////////
+
 }
