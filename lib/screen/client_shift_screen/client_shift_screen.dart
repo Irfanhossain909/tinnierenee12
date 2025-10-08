@@ -40,7 +40,7 @@ class ClientShiftScreen extends StatelessWidget {
                     child: Text('Active'),
                   ),
                   const PopupMenuItem<String>(
-                    value: 'expired',
+                    value: 'completed',
                     child: Text('Complete'),
                   ),
                   const PopupMenuItem<String>(
@@ -82,7 +82,7 @@ class ClientShiftScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: AppColor.purple,
                               ),
-                            if (controller.selectedValue.value == "expired")
+                            if (controller.selectedValue.value == "completed")
                               AppText(
                                 data: "Complete Shift",
                                 fontSize: AppSize.width(value: 18),
@@ -126,7 +126,7 @@ class ClientShiftScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                      if (controller.selectedValue.value == "expired")
+                      if (controller.selectedValue.value == "completed")
                         Expanded(
                           child: ListView.builder(
                             itemCount: controller.jobsList.length,

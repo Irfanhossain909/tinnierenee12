@@ -27,15 +27,15 @@ class ClientAddShiftScreen extends StatelessWidget {
           appBar: CustomAppbar(
             title: "Post a New Shift",
             autoShowLeading: false,
-            action: [
-              Padding(
-                padding: EdgeInsets.only(right: AppSize.width(value: 16)),
-                child: AppImage(
-                  path: AssetsPath.filter,
-                  width: AppSize.width(value: 28),
-                ),
-              ),
-            ],
+            // action: [
+            //   Padding(
+            //     padding: EdgeInsets.only(right: AppSize.width(value: 16)),
+            //     child: AppImage(
+            //       path: AssetsPath.filter,
+            //       width: AppSize.width(value: 28),
+            //     ),
+            //   ),
+            // ],
           ),
           body: Padding(
             padding: EdgeInsets.all(AppSize.width(value: 16)),

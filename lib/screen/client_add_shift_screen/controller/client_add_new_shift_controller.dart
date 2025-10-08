@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
 import 'package:tinnierenee12/screen/auth/location_screen/controller/location_controller.dart';
+import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
 import 'package:tinnierenee12/service/repository/job_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
@@ -10,6 +12,9 @@ class ClientAddNewShiftController extends GetxController {
   //Repository
   JobRepository jobRepository = JobRepository.instance;
   LocationController locationController = Get.find<LocationController>();
+  AppNavigationForClientController appNavigationForClientController =
+      Get.find<AppNavigationForClientController>();
+  ClientHomeController clientHomeController = Get.find<ClientHomeController>();
 
   //TextEditingControllers
   TextEditingController titleController = TextEditingController();
@@ -102,12 +107,13 @@ class ClientAddNewShiftController extends GetxController {
         lng: locationController.selectedLongitude.value,
       );
       if (response) {
+        clearAllData();
+        await clientHomeController.fetchJobData();
         AppSnackbar.success(
           title: "Success",
           message: "Job added successfully",
         );
-        
-        Get.close(1);
+        appNavigationForClientController.selectedIndex.value = 0;
       } else {
         AppSnackbar.error(title: "Error", message: "Something went wrong");
         isLoading.value = false;
@@ -231,4 +237,32 @@ class ClientAddNewShiftController extends GetxController {
   }
 
   ////////////////////////////////////////////////////////////////////////
+
+  /// Clear all controller data
+  void clearAllData() {
+    // Clear text controllers
+    titleController.clear();
+    descriptionLicenseController.clear();
+    qualificationController.clear();
+    priceController.clear();
+
+    // Reset observable variables
+    selectedStartDate.value = '';
+    selectedEndDate.value = '';
+    selectedStartTime.value = '';
+    selectedEndTime.value = '';
+
+    // Reset age group selection
+    selectedAgeGroup = '';
+
+    // Reset loading state
+    isLoading.value = false;
+
+    // Clear location data from location controller
+    locationController.selectedLatitude.value = 0.0;
+    locationController.selectedLongitude.value = 0.0;
+    locationController.selectedAddress.value = '';
+
+    AppPrint.appLog('All controller data cleared successfully');
+  }
 }
