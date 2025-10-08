@@ -7,6 +7,9 @@ import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_card/app_card.dart';
+import 'package:tinnierenee12/widget/app_date_fortter/app_date_formetter.dart';
+import 'package:tinnierenee12/widget/app_date_fortter/date_calculator.dart';
+import 'package:tinnierenee12/widget/app_date_fortter/time_calculator.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
@@ -14,7 +17,7 @@ import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
 class ClientHomeScreen extends StatelessWidget {
   const ClientHomeScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ClientHomeController>(
@@ -122,44 +125,64 @@ class ClientHomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: AppSize.width(value: 4),
                   children: [
-                    AppText(
-                      data: "Statistics",
-                      fontSize: AppSize.width(value: 18),
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.purple,
-                    ),
-                    Gap(height: AppSize.size.height * 0.001),
-                    Row(
-                      spacing: AppSize.size.width * 0.04,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: AppSize.width(value: 4),
                       children: [
-                        Expanded(
-                          child: ClientHomeCard(
-                            text: "Total Spend",
-                            text2: r"$4,250.75",
-                          ),
+                        AppText(
+                          data: "Statistics",
+                          fontSize: AppSize.width(value: 18),
+                          fontWeight: FontWeight.w600,
+                          color: AppColor.purple,
                         ),
-                        Expanded(
-                          child: ClientHomeCard(
-                            text: "Total Shift Completed",
-                            text2: "15",
-                          ),
+                        Gap(height: AppSize.size.height * 0.001),
+                        Row(
+                          spacing: AppSize.size.width * 0.04,
+                          children: [
+                            Expanded(
+                              child: ClientHomeCard(
+                                text: "Total Spend",
+                                text2:
+                                    "\$${controller.statisticModel.value?.totalSpent.toString()}",
+                              ),
+                            ),
+                            Expanded(
+                              child: ClientHomeCard(
+                                text: "Total Shift Completed",
+                                text2: controller
+                                    .statisticModel
+                                    .value
+                                    ?.totalShifts
+                                    .toString(),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    Row(
-                      spacing: AppSize.size.width * 0.04,
-                      children: [
-                        Expanded(
-                          child: ClientHomeCard(
-                            text: "Running Shifts This Week",
-                            text2: "2",
-                          ),
-                        ),
-                        Expanded(
-                          child: ClientHomeCard(
-                            text: "Pending Invoices",
-                            text2: "1",
-                          ),
+                        Gap(height: AppSize.size.height * 0.002),
+                        Row(
+                          spacing: AppSize.size.width * 0.04,
+                          children: [
+                            Expanded(
+                              child: ClientHomeCard(
+                                text: "Running Shifts This Week",
+                                text2: controller
+                                    .statisticModel
+                                    .value
+                                    ?.runningShifts
+                                    .toString(),
+                              ),
+                            ),
+                            Expanded(
+                              child: ClientHomeCard(
+                                text: "Pending Invoices",
+                                text2: controller
+                                    .statisticModel
+                                    .value
+                                    ?.pendingInvoices
+                                    .toString(),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -170,10 +193,29 @@ class ClientHomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: AppColor.purple,
                     ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: controller.jobsList.length,
+                      itemBuilder: (context, index) {
+                        final job = controller.jobsList[index];
+                        return ClientHomeShiftCard(
+                          name: job.title,
+                          cirtificate: job.qualification,
 
-                    ClientHomeShiftCard(),
-                    ClientHomeShiftCard(),
+                          date: job.startDate,
+                          time: formatTimeRangeFromString(
+                            job.startTime ?? "",
+                            job.endTime ?? "",
+                          ),
+                          rateHourly: "\$${job.price.toString()}/hr",
+                          // img: job.pr,
+                        );
+                      },
+                    ),
 
+                    // ClientHomeShiftCard(),
+                    // ClientHomeShiftCard(),
                     Align(
                       alignment: Alignment.centerRight,
                       child: InkWell(
@@ -200,14 +242,30 @@ class ClientHomeScreen extends StatelessWidget {
 }
 
 class ClientHomeShiftCard extends StatelessWidget {
-  const ClientHomeShiftCard({super.key});
+  final String? name;
+  final String? cirtificate;
+  final String? date;
+  final String? time;
+  final String? rateHourly;
+  final String? img;
+  final VoidCallback? onPressed;
+  const ClientHomeShiftCard({
+    super.key,
+    this.name,
+    this.cirtificate,
+    this.date,
+    this.time,
+    this.rateHourly,
+    this.img,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: AppSize.width(value: 12)),
       child: GestureDetector(
-        onTap: () {},
+        onTap: onPressed,
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.white,
@@ -219,67 +277,87 @@ class ClientHomeShiftCard extends StatelessWidget {
             spacing: AppSize.width(value: 16),
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppImageCircular(
-                fit: BoxFit.cover,
-                width: AppSize.width(value: 46),
-                height: AppSize.width(value: 46),
-                url:
-                    "https://cdn.pixabay.com/photo/2025/08/07/20/52/lighthouse-9761567_640.png",
+              Expanded(
+                flex: 1,
+                child: AppImageCircular(
+                  fit: BoxFit.cover,
+                  width: AppSize.width(value: 46),
+                  height: AppSize.width(value: 46),
+                  url:
+                      img ??
+                      "https://cdn.pixabay.com/photo/2025/08/07/20/52/lighthouse-9761567_640.png",
+                ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                spacing: AppSize.width(value: 8),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    data: "Sunny Smiles Daycare",
-                    fontSize: AppSize.width(value: 18),
-                    fontWeight: FontWeight.w700,
-                  ),
-                  AppText(
-                    data: "Lead Teacher Certified",
-                    fontSize: AppSize.width(value: 12),
-                    fontWeight: FontWeight.w400,
-                  ),
+              Expanded(
+                flex: 4,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: AppSize.width(value: 8),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      data: name ?? "no data",
+                      fontSize: AppSize.width(value: 18),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    AppText(
+                      data: cirtificate ?? "no data",
+                      fontSize: AppSize.width(value: 12),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w400,
+                    ),
 
-                  Row(
-                    spacing: AppSize.width(value: 4),
-                    children: [
-                      Icon(Icons.calendar_month_outlined),
-                      AppText(
-                        data: "Tue, Sep 16, 2025",
-                        fontSize: AppSize.width(value: 12),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    spacing: AppSize.width(value: 4),
-                    children: [
-                      Icon(Icons.watch_later_outlined),
-                      AppText(
-                        data: "8:00 AM - 5:00 PM (9.0 hours)",
-                        fontSize: AppSize.width(value: 12),
-                      ),
-                    ],
-                  ),
-                ],
+                    Row(
+                      spacing: AppSize.width(value: 4),
+                      children: [
+                        Icon(Icons.calendar_month_outlined),
+                        AppText(
+                          data: date ?? "no data",
+                          fontSize: AppSize.width(value: 12),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      spacing: AppSize.width(value: 4),
+                      children: [
+                        Icon(Icons.watch_later_outlined),
+                        AppText(
+                          data: time ?? "no data",
+                          fontSize: AppSize.width(value: 12),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              Spacer(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppImage(
-                    path: AssetsPath.arrowRight,
-                    width: AppSize.width(value: 20),
-                    iconColor: AppColor.black,
-                  ),
-                  Gap(height: AppSize.size.height * 0.07),
-                  AppText(
-                    data: r"$18/hr",
-                    fontSize: AppSize.width(value: 14),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ],
+
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppImage(
+                      path: AssetsPath.arrowRight,
+                      width: AppSize.width(value: 20),
+                      iconColor: AppColor.black,
+                    ),
+                    Gap(height: AppSize.size.height * 0.07),
+                    AppText(
+                      data: rateHourly ?? "--:--",
+                      fontSize: AppSize.width(value: 14),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -299,7 +377,7 @@ class ClientHomeCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColor.black),
+        border: Border.all(color: AppColor.purple),
       ),
       padding: EdgeInsets.all(12),
       child: Column(
@@ -308,7 +386,9 @@ class ClientHomeCard extends StatelessWidget {
         children: [
           AppText(
             data: text ?? "No Text",
-            fontSize: AppSize.width(value: 16),
+            fontSize: AppSize.width(value: 12),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             color: AppColor.black,
           ),
           AppText(

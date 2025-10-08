@@ -25,9 +25,11 @@ class AppApiEndPoint {
   static String profileUpdate = "/user";
 
   //////////////////job /////////////////
-  static String job = "/job/posts";
+  static String job = "/job/post";
+  static String statistic = "/statistic/stats";
 
-  // static String getMessage(var page, var limit ,String iD) => "/message/$iD?page=$page&limit=$limit";
+  static String jobCategory(var status, var page, var limit) =>
+      "/job/post?status=$status&page=$page&limit=$limit";
   // static String search(var text,) => "/wcservice?search=$text";
   // final String specificCategoryService = "/service/";
 }

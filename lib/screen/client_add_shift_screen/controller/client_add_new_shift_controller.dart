@@ -106,6 +106,7 @@ class ClientAddNewShiftController extends GetxController {
           title: "Success",
           message: "Job added successfully",
         );
+        
         Get.close(1);
       } else {
         AppSnackbar.error(title: "Error", message: "Something went wrong");
