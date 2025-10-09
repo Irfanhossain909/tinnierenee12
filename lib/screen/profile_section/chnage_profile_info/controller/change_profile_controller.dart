@@ -238,16 +238,14 @@ class ChangeProfileController extends GetxController {
       bioController.text = profile?.bio ?? '';
     }
 
-    // location (only if not already set)
-    if (locationController.selectedLatitude.value == 0.0 &&
-        locationController.selectedLongitude.value == 0.0) {
-      locationController.selectedLatitude.value = profile?.latitude ?? 0.0;
-      locationController.selectedLongitude.value = profile?.longitude ?? 0.0;
-    }
+    // // location (only if not already set)
+    // if (locationController.selectedLatitude.value == 0.0 &&
+    //     locationController.selectedLongitude.value == 0.0) {
+    //   locationController.selectedLatitude.value = profile?.latitude ?? 0.0;
+    //   locationController.selectedLongitude.value = profile?.longitude ?? 0.0;
+    // }
 
-    // image - keep cameraImage empty for server images
-    // cameraImage should only contain local file paths when user selects new image
-    // The UI will show server image when cameraImage is empty
+    
 
     // birth date
     if (selectedStartDate.value.isEmpty) {

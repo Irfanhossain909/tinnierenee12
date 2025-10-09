@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
@@ -28,31 +27,46 @@ class ProfileRepository {
     String? image,
     double? latitude,
     double? longitude,
-    bool workExperience = false,
+    bool? workExperience,
   }) async {
     try {
-      FormData formDataMap = FormData.fromMap({
-        "name": name,
-        "businessInformation": businessInformation,
-        "personalInformation": personalInformation,
-        "licenseId": licenseId,
-        "websiteLink": websiteLink,
-        "bio": bio,
-        "contact": contact,
-        "birthDate": birthDate,
-        "latitude": latitude,
-        "longitude": longitude,
-        "workExperience": workExperience,
-      });
+      // ✅ Dynamically add only non-empty fields
+      final Map<String, dynamic> data = {};
 
-      if (image != null) {
+      if (name != null && name.isNotEmpty) data["name"] = name;
+      if (businessInformation != null && businessInformation.isNotEmpty) {
+        data["businessInformation"] = businessInformation;
+      }
+      if (personalInformation != null && personalInformation.isNotEmpty) {
+        data["personalInformation"] = personalInformation;
+      }
+      if (licenseId != null && licenseId.isNotEmpty) {
+        data["licenseId"] = licenseId;
+      }
+      if (websiteLink != null && websiteLink.isNotEmpty) {
+        data["websiteLink"] = websiteLink;
+      }
+      if (bio != null && bio.isNotEmpty) data["bio"] = bio;
+      if (contact != null && contact.isNotEmpty) data["contact"] = contact;
+      if (birthDate != null && birthDate.isNotEmpty) {
+        data["birthDate"] = birthDate;
+      }
+      if (latitude != null) data["latitude"] = latitude;
+      if (longitude != null) data["longitude"] = longitude;
+      if (workExperience != null) data["workExperience"] = workExperience;
+
+      // ✅ Create FormData
+      final formData = FormData.fromMap(data);
+
+      // ✅ Handle image only if valid path provided
+      if (image != null && image.isNotEmpty) {
         try {
           final file = File(image);
           if (await file.exists()) {
-            String fileName = file.path.split('/').last;
-            var mimeType = lookupMimeType(file.path);
+            final fileName = file.path.split('/').last;
+            final mimeType = lookupMimeType(file.path);
 
-            formDataMap.files.add(
+            formData.files.add(
               MapEntry(
                 "image",
                 await MultipartFile.fromFile(
@@ -65,16 +79,17 @@ class ProfileRepository {
               ),
             );
           } else {
-            AppPrint.appLog("Image file does not exist at path: $image");
+            AppPrint.appLog("⚠️ Image file does not exist at path: $image");
           }
         } catch (e) {
-          AppPrint.appError("Error processing image file: $e");
+          AppPrint.appError("❌ Error processing image file: $e");
         }
       }
 
-      var response = await apiServices.apiPatchServices(
+      // ✅ Send request
+      final response = await apiServices.apiPatchServices(
         url: AppApiEndPoint.profileUpdate,
-        body: formDataMap,
+        body: formData,
       );
 
       if (response != null) {
@@ -89,6 +104,80 @@ class ProfileRepository {
       return false;
     }
   }
+
+  // Future<bool> updateUserProfile({
+  //   String? name,
+  //   String? businessInformation,
+  //   String? personalInformation,
+  //   String? licenseId,
+  //   String? websiteLink,
+  //   String? bio,
+  //   String? contact,
+  //   String? birthDate,
+  //   String? image,
+  //   double? latitude,
+  //   double? longitude,
+  //   bool workExperience = false,
+  // }) async {
+  //   try {
+  //     FormData formDataMap = FormData.fromMap({
+  //       "name": name,
+  //       "businessInformation": businessInformation,
+  //       "personalInformation": personalInformation,
+  //       "licenseId": licenseId,
+  //       "websiteLink": websiteLink,
+  //       "bio": bio,
+  //       "contact": contact,
+  //       "birthDate": birthDate,
+  //       "latitude": latitude,
+  //       "longitude": longitude,
+  //       "workExperience": workExperience,
+  //     });
+
+  //     if (image != null) {
+  //       try {
+  //         final file = File(image);
+  //         if (await file.exists()) {
+  //           String fileName = file.path.split('/').last;
+  //           var mimeType = lookupMimeType(file.path);
+
+  //           formDataMap.files.add(
+  //             MapEntry(
+  //               "image",
+  //               await MultipartFile.fromFile(
+  //                 file.path,
+  //                 filename: fileName,
+  //                 contentType: MediaType.parse(
+  //                   mimeType ?? 'application/octet-stream',
+  //                 ),
+  //               ),
+  //             ),
+  //           );
+  //         } else {
+  //           AppPrint.appLog("Image file does not exist at path: $image");
+  //         }
+  //       } catch (e) {
+  //         AppPrint.appError("Error processing image file: $e");
+  //       }
+  //     }
+
+  //     var response = await apiServices.apiPatchServices(
+  //       url: AppApiEndPoint.profileUpdate,
+  //       body: formDataMap,
+  //     );
+
+  //     if (response != null) {
+  //       AppPrint.appLog("✅ Profile updated successfully");
+  //       return true;
+  //     } else {
+  //       AppPrint.appLog("❌ Profile update failed: Response is null");
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     AppPrint.appError(e, title: "updateUserProfile");
+  //     return false;
+  //   }
+  // }
 
   Future<ProfileModelData?> getProfileData() async {
     try {

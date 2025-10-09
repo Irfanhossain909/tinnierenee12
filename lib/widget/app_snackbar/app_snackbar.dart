@@ -60,4 +60,31 @@ class AppSnackbar {
       icon: Icon(icon ?? Icons.error, size: 24, color: iconColor ?? Colors.red),
     );
   }
+
+  // 💬 Message Snackbar (neutral / info)
+  static void message({
+    required String title,
+    required String message,
+    Color? bgColor,
+    Color? textColor,
+    Color? iconColor,
+    IconData? icon,
+    Duration? duration,
+    SnackPosition? position,
+  }) {
+    Get.snackbar(
+      title,
+      message,
+      backgroundColor: bgColor ?? const Color(0xFFE8E8FF), // soft purple tint
+      colorText: textColor ?? AppColors.black,
+      margin: const EdgeInsets.all(12),
+      borderRadius: 8,
+      duration: duration ?? const Duration(seconds: 2),
+      icon: Icon(
+        icon ?? Icons.info_outline,
+        size: 24,
+        color: iconColor ?? AppColors.purple,
+      ),
+    );
+  }
 }

@@ -5,6 +5,7 @@ import 'package:tinnierenee12/models/job_model/job_model.dart';
 import 'package:tinnierenee12/models/job_model/substitute_model.dart';
 import 'package:tinnierenee12/service/repository/job_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 
 class ClientShiftController extends GetxController {
   //variables
@@ -21,13 +22,40 @@ class ClientShiftController extends GetxController {
   void setvalue(value) {
     selectedValue.value = value;
     if (value == "active") {
-      fetchJobData(value: value);
+      if (jobsList.isEmpty) {
+        fetchJobData(value: value);
+        jobBookedComplateList.clear();
+        jobSubstituteList.clear();
+      } else {
+        AppSnackbar.message(
+          title: "Info",
+          message: "You are already in active jobs",
+        );
+      }
     }
     if (value == "completed") {
-      fetchJobBookedComplateData();
+      if (jobBookedComplateList.isEmpty) {
+        fetchJobBookedComplateData();
+        jobsList.clear();
+        jobSubstituteList.clear();
+      } else {
+        AppSnackbar.message(
+          title: "Info",
+          message: "You are already in complate list",
+        );
+      }
     }
     if (value == "booked") {
-      fetchJobSubstituteData();
+      if (jobSubstituteList.isEmpty) {
+        fetchJobSubstituteData();
+        jobsList.clear();
+        jobBookedComplateList.clear();
+      } else {
+        AppSnackbar.message(
+          title: "Info",
+          message: "You are already in booked list",
+        );
+      }
     }
   }
 
@@ -174,7 +202,8 @@ class ClientShiftController extends GetxController {
 
   void _jobCompleteListScrollListener() {
     if (isJobCompleteListMoreLoad.value == false ||
-        isPaginationLoadingComplete.value) return;
+        isPaginationLoadingComplete.value)
+      return;
     if (jobCompleteListScrollController.position.pixels ==
         jobCompleteListScrollController.position.maxScrollExtent) {
       AppPrint.apiResponse("fetching more completed jobs data");

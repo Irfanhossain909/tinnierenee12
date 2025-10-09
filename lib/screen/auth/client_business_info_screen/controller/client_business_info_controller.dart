@@ -13,8 +13,6 @@ import 'package:tinnierenee12/widget/app_text/app_text.dart';
 class ClientBusinessInfoController extends GetxController {
   //Repository
   ProfileRepository profileRepository = ProfileRepository.instance;
-  
-
 
   //TextEditingControllers
   TextEditingController nameController = TextEditingController();
