@@ -106,6 +106,32 @@ class JobRepository {
     return jobs;
   }
 
+  Future<List<JobComplateModelData>> getJobsApplyerList({
+    required int page,
+    required int limit,
+    required String jobId,
+  }) async {
+    List<JobComplateModelData> jobs = <JobComplateModelData>[];
+    try {
+      final response = await apiServices.apiGetServices(
+        AppApiEndPoint.jobApplier(jobId, page, limit),
+      );
+
+      if (response != null) {
+        if (response["data"] != null && response["data"] is List) {
+          for (var item in response["data"]) {
+            jobs.add(JobComplateModelData.fromJson(item));
+          }
+        }
+      } else {
+        AppPrint.appError("No Data Found", title: "getJobs");
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "getJobs");
+    }
+    return jobs;
+  }
+
   Future<List<SubstituteModelData>> getJobsSubstitute({
     required int page,
     required int limit,
@@ -129,5 +155,29 @@ class JobRepository {
       AppPrint.appError(e, title: "getJobs");
     }
     return jobs;
+  }
+
+  Future<bool> employeeAcceptReject({
+    required String empId,
+    required int page,
+    required int limit,
+    required String status,
+  }) async {
+    try {
+      Map<String, dynamic> body = {"status": status};
+      final response = await apiServices.apiPatchServices(
+        url: AppApiEndPoint.substituteAcceptReject(empId, page, limit),
+        body: body,
+      );
+      if (response != null) {
+        return true;
+      } else {
+        AppPrint.appError("response is null", title: "employeeAcceptReject");
+        return false;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "employeeAcceptReject");
+      return false;
+    }
   }
 }

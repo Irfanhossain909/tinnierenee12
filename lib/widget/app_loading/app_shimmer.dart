@@ -142,12 +142,8 @@ class StatisticsShimmer extends StatelessWidget {
           Row(
             spacing: AppSize.size.width * 0.04,
             children: [
-              Expanded(
-                child: _buildShimmerCard(),
-              ),
-              Expanded(
-                child: _buildShimmerCard(),
-              ),
+              Expanded(child: _buildShimmerCard()),
+              Expanded(child: _buildShimmerCard()),
             ],
           ),
           SizedBox(height: AppSize.size.height * 0.002),
@@ -155,12 +151,8 @@ class StatisticsShimmer extends StatelessWidget {
           Row(
             spacing: AppSize.size.width * 0.04,
             children: [
-              Expanded(
-                child: _buildShimmerCard(),
-              ),
-              Expanded(
-                child: _buildShimmerCard(),
-              ),
+              Expanded(child: _buildShimmerCard()),
+              Expanded(child: _buildShimmerCard()),
             ],
           ),
         ],

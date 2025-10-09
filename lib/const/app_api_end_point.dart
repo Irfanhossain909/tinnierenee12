@@ -34,6 +34,10 @@ class AppApiEndPoint {
       "/applier/booked-and-completed?limit=$limit&page=$page";
   static String jobSubstitute(var page, var limit) =>
       "/job/subtitute-shift?page=$page&limit=$limit";
+  static String jobApplier(var jobId,var page, var limit) =>
+      "/applier/$jobId?page=$page&limit=$limit";
+  static String substituteAcceptReject(var empId,var page, var limit) =>
+      "/applier/status/$empId?page=$page&limit=$limit";
   // static String search(var text,) => "/wcservice?search=$text";
   // final String specificCategoryService = "/service/";
 }

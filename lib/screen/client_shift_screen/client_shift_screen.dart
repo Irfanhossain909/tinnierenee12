@@ -14,6 +14,7 @@ import 'package:tinnierenee12/widget/app_date_fortter/time_calculator.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 import 'package:tinnierenee12/widget/app_reffesh_indicator/app_reffesh_indicator.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
 import 'package:tinnierenee12/widget/app_loading/app_shimmer.dart';
@@ -311,11 +312,21 @@ class ClientShiftScreen extends StatelessWidget {
                                             startDate: item.startDate,
                                             applicantCount: item.applicantCount,
                                             onTap: () {
-                                              Get.toNamed(
-                                                AppRoutes
-                                                    .instance
-                                                    .clientAllSubstituteScreen,
-                                              );
+                                              if (item.applicantCount! > 0) {
+                                                Get.toNamed(
+                                                  AppRoutes
+                                                      .instance
+                                                      .clientAllSubstituteScreen,
+
+                                                  arguments: item.sId,
+                                                );
+                                              } else {
+                                                AppSnackbar.message(
+                                                  title: "No Applicants",
+                                                  message:
+                                                      "There are no applicants for this job yet.",
+                                                );
+                                              }
                                             },
                                           );
                                         } else {

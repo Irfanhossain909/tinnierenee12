@@ -203,7 +203,7 @@ class ClientHomeScreen extends StatelessWidget {
                     Obx(() {
                       return controller.isLoadingJobs.value
                           ? ListView.builder(
-                            shrinkWrap: true,
+                              shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               itemCount: 2, // Show 2 shimmer items
                               itemBuilder: (context, index) {
