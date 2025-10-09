@@ -6,8 +6,19 @@ import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
 class SubstituteCard extends StatelessWidget {
+  final String? startDate;
+  final String? startTime;
+  final String? endTime;
+  final int? applicantCount;
   final VoidCallback? onTap;
-  const SubstituteCard({super.key, this.onTap});
+  const SubstituteCard({
+    super.key,
+    this.onTap,
+    required this.startDate,
+    required this.startTime,
+    required this.endTime,
+    this.applicantCount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +42,7 @@ class SubstituteCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AppText(
-                    data: "Wed, Sep 17, 2025",
+                    data: startDate,
                     fontSize: AppSize.width(value: 18),
                     fontWeight: FontWeight.w700,
                   ),
@@ -62,7 +73,7 @@ class SubstituteCard extends StatelessWidget {
                   TextButton(
                     onPressed: () {},
                     child: AppText(
-                      data: "3 Applicants",
+                      data: "$applicantCount Applicants",
                       fontSize: AppSize.width(value: 12),
                       fontWeight: FontWeight.w600,
                       color: AppColor.purple,

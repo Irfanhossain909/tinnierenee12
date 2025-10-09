@@ -5,7 +5,7 @@ import 'package:tinnierenee12/const/app_const.dart';
 class AppText extends StatelessWidget {
   const AppText({
     super.key,
-    required this.data,
+    this.data,
     this.fontSize = 16,
     this.textScaleFactor = 0.9,
     this.color,
@@ -16,7 +16,7 @@ class AppText extends StatelessWidget {
     this.height,
     this.softWrap,
   });
-  final String data;
+  final String? data;
   final double? fontSize;
   final double textScaleFactor;
   final Color? color;
@@ -29,7 +29,7 @@ class AppText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      data,
+      data ?? '',
       maxLines: maxLines,
       overflow: overflow,
       textAlign: textAlign,

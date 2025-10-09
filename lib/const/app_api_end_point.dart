@@ -30,6 +30,10 @@ class AppApiEndPoint {
 
   static String jobCategory(var status, var page, var limit) =>
       "/job/post?status=$status&page=$page&limit=$limit";
+  static String jobbookedComplate(var page, var limit) =>
+      "/applier/booked-and-completed?limit=$limit&page=$page";
+  static String jobSubstitute(var page, var limit) =>
+      "/job/subtitute-shift?page=$page&limit=$limit";
   // static String search(var text,) => "/wcservice?search=$text";
   // final String specificCategoryService = "/service/";
 }

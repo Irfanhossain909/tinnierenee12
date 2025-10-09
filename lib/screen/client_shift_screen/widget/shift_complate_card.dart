@@ -57,10 +57,15 @@ class ShiftCompleteCard extends StatelessWidget {
                   fontSize: AppSize.width(value: 18),
                   fontWeight: FontWeight.w700,
                 ),
-                AppText(
-                  data: cirtificate ?? "no certificate",
-                  fontSize: AppSize.width(value: 12),
-                  fontWeight: FontWeight.w400,
+                SizedBox(
+                  width: AppSize.size.width * 0.45,
+                  child: AppText(
+                    data: cirtificate ?? "no certificate",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: AppSize.width(value: 12),
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
 
                 AppText(
@@ -94,14 +99,14 @@ class ShiftCompleteCard extends StatelessWidget {
                   AppText(
                     data: "Veiw Invoices",
                     fontSize: AppSize.width(value: 12),
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                     color: AppColor.purple,
                   ),
                 if (!isPaid)
                   AppText(
                     data: "Pay Now",
                     fontSize: AppSize.width(value: 12),
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                     color: Colors.red,
                   ),
               ],
