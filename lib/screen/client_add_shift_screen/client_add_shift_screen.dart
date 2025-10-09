@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
-import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/screen/client_add_shift_screen/controller/client_add_new_shift_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_drop_down/custom_dropdown.dart';
-import 'package:tinnierenee12/widget/app_image/app_image.dart';
+
 import 'package:tinnierenee12/widget/app_input/add_descreption_text_field.dart';
 import 'package:tinnierenee12/widget/app_input/app_input_widget_two.dart';
 import 'package:tinnierenee12/widget/app_loading/app_loading.dart';

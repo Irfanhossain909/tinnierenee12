@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
-import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart';
+import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
+import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart'
+    hide userAddress;
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
@@ -245,7 +247,7 @@ class ChnageProfileScreen extends StatelessWidget {
                                 controller: controller
                                     .locationController
                                     .searchController,
-                                hintText: 'Enter location',
+                                hintText: userAddress.value,
                                 borderWidth: 0.9,
                                 showCurrentLocation: controller
                                     .locationController

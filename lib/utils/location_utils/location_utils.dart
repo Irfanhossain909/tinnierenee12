@@ -1,38 +1,69 @@
 import 'package:geocoding/geocoding.dart';
 
-/// ✅ Utility class to convert latitude & longitude into readable address.
-class LocationUtil {
-  LocationUtil._(); // prevent instantiation
-
-  /// Converts [lat] and [lng] (dynamic inputs allowed) into a formatted address.
-  ///
-  /// Example:
-  /// ```dart
-  /// final address = await LocationUtil.getAddressFromLatLng(23.8103, 90.4125);
-  /// print(address);
-  /// ```
-  static Future<String> getAddressFromLatLng(dynamic lat, dynamic lng) async {
-    try {
-      // Convert dynamic values safely to double
-      final double latitude = lat is double ? lat : double.parse(lat.toString());
-      final double longitude =
-          lng is double ? lng : double.parse(lng.toString());
-
-      // Fetch placemarks using geocoding
-      final List<Placemark> placemarks =
-          await placemarkFromCoordinates(latitude, longitude);
-
-      if (placemarks.isNotEmpty) {
-        final place = placemarks.first;
-        // nicely formatted address string
-        final address =
-            "${place.street}, ${place.subLocality}, ${place.locality}, ${place.country}";
-        return address;
-      } else {
-        return "Address not found";
-      }
-    } catch (e) {
-      return "Error getting address: $e";
+/// Get readable location from latitude and longitude.
+/// Automatically handles string/double types and invalid/missing values.
+Future<String> getLocationFromLatLong(dynamic lat, dynamic long) async {
+  try {
+    // ✅ Check for null or empty
+    if (lat == null || long == null) {
+      return "Update address";
     }
+
+    // ✅ Try to convert to double
+    double? latitude;
+    double? longitude;
+
+    if (lat is String) {
+      latitude = double.tryParse(lat);
+    } else if (lat is double) {
+      latitude = lat;
+    }
+
+    if (long is String) {
+      longitude = double.tryParse(long);
+    } else if (long is double) {
+      longitude = long;
+    }
+
+    // ✅ Validate parsed values
+    if (latitude == null || longitude == null) {
+      return "Invalid address";
+    }
+
+    // ✅ Check valid coordinate range
+    if (latitude < -90 ||
+        latitude > 90 ||
+        longitude < -180 ||
+        longitude > 180) {
+      return "Invalid address";
+    }
+
+    // ✅ Get location info
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      latitude,
+      longitude,
+    );
+
+    if (placemarks.isNotEmpty) {
+      final place = placemarks.first;
+      return "${place.locality}, ${place.country}";
+    } else {
+      // ✅ Try nearby coordinate fallback
+      double nearbyLat = latitude + 0.01; // ~1km north
+      double nearbyLong = longitude + 0.01; // ~1km east
+
+      List<Placemark> nearbyPlaces = await placemarkFromCoordinates(
+        nearbyLat,
+        nearbyLong,
+      );
+      if (nearbyPlaces.isNotEmpty) {
+        final place = nearbyPlaces.first;
+        return "${place.locality}, ${place.country} (approx)";
+      } else {
+        return "Invalid address";
+      }
+    }
+  } catch (e) {
+    return "Invalid address";
   }
 }

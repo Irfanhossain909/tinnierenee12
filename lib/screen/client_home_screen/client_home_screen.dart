@@ -7,11 +7,10 @@ import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_card/app_card.dart';
-import 'package:tinnierenee12/widget/app_date_fortter/app_date_formetter.dart';
-import 'package:tinnierenee12/widget/app_date_fortter/date_calculator.dart';
 import 'package:tinnierenee12/widget/app_date_fortter/time_calculator.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
+import 'package:tinnierenee12/widget/app_loading/app_shimmer.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 
@@ -38,82 +37,86 @@ class ClientHomeScreen extends StatelessWidget {
             ),
             title: Column(
               children: [
-                Obx(() {
-                  return Row(
-                    spacing: AppSize.size.width * 0.03,
-                    children: [
-                      AppImageCircular(
+                Row(
+                  children: [
+                    Obx(
+                      () => AppImageCircular(
                         width: AppSize.width(value: 54),
                         height: AppSize.width(value: 54),
                         url:
-                            "${AppApiEndPoint.domain}${controller.profileController.profileData.value?.image}",
+                            "${AppApiEndPoint.domain}${controller.profileController.profileData.value?.image ?? ''}",
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
+                    ),
+                    SizedBox(width: AppSize.size.width * 0.03),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Obx(
+                          () => AppText(
                             data:
-                                "Welcome, ${controller.profileController.profileData.value?.name}",
+                                "Welcome, ${controller.profileController.profileData.value?.name ?? 'User'}",
                             fontSize: AppSize.width(value: 24),
                             fontWeight: FontWeight.w600,
                           ),
-                          Gap(height: AppSize.width(value: 4)),
-                          Row(
-                            children: [
-                              AppImage(
-                                path: AssetsPath.icLocation,
-                                width: 16,
-                                height: 16,
-                                iconColor: AppColor.black,
-                              ),
-                              Gap(width: 6),
-                              AppText(
-                                data: controller.userAddress.value,
+                        ),
+                        Gap(height: AppSize.width(value: 4)),
+                        Row(
+                          children: [
+                            AppImage(
+                              path: AssetsPath.icLocation,
+                              width: 16,
+                              height: 16,
+                              iconColor: AppColor.black,
+                            ),
+                            Gap(width: 6),
+                            Obx(
+                              () => AppText(
+                                data: userAddress.value,
                                 fontSize: AppSize.width(value: 16),
                                 fontWeight: FontWeight.w400,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.instance.notification);
-                        },
-                        child: Stack(
-                          children: [
-                            Icon(
-                              Icons.notifications,
-                              color: AppColor.purple,
-                              size: 32,
-                            ),
-                            Positioned(
-                              top: 4,
-                              right: 4,
-                              child: Container(
-                                width: 15,
-                                height: 15,
-                                decoration: BoxDecoration(
-                                  color: AppColor.gold,
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Center(
-                                  child: AppText(
-                                    data: "1",
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.white,
-                                  ),
-                                ),
                               ),
                             ),
                           ],
                         ),
+                      ],
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.instance.notification);
+                      },
+                      child: Stack(
+                        children: [
+                          Icon(
+                            Icons.notifications,
+                            color: AppColor.purple,
+                            size: 32,
+                          ),
+                          Positioned(
+                            top: 4,
+                            right: 4,
+                            child: Container(
+                              width: 15,
+                              height: 15,
+                              decoration: BoxDecoration(
+                                color: AppColor.gold,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Center(
+                                child: AppText(
+                                  data: "1",
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  );
-                }),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -125,67 +128,71 @@ class ClientHomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: AppSize.width(value: 4),
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: AppSize.width(value: 4),
-                      children: [
-                        AppText(
-                          data: "Statistics",
-                          fontSize: AppSize.width(value: 18),
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.purple,
-                        ),
-                        Gap(height: AppSize.size.height * 0.001),
-                        Row(
-                          spacing: AppSize.size.width * 0.04,
-                          children: [
-                            Expanded(
-                              child: ClientHomeCard(
-                                text: "Total Spend",
-                                text2:
-                                    "\$${controller.statisticModel.value?.totalSpent.toString()}",
-                              ),
-                            ),
-                            Expanded(
-                              child: ClientHomeCard(
-                                text: "Total Shift Completed",
-                                text2: controller
-                                    .statisticModel
-                                    .value
-                                    ?.totalShifts
-                                    .toString(),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Gap(height: AppSize.size.height * 0.002),
-                        Row(
-                          spacing: AppSize.size.width * 0.04,
-                          children: [
-                            Expanded(
-                              child: ClientHomeCard(
-                                text: "Running Shifts This Week",
-                                text2: controller
-                                    .statisticModel
-                                    .value
-                                    ?.runningShifts
-                                    .toString(),
-                              ),
-                            ),
-                            Expanded(
-                              child: ClientHomeCard(
-                                text: "Pending Invoices",
-                                text2: controller
-                                    .statisticModel
-                                    .value
-                                    ?.pendingInvoices
-                                    .toString(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    Obx(() {
+                      return controller.isLoadingStatistic.value
+                          ? StatisticsShimmer()
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: AppSize.width(value: 4),
+                              children: [
+                                AppText(
+                                  data: "Statistics",
+                                  fontSize: AppSize.width(value: 18),
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.purple,
+                                ),
+                                Gap(height: AppSize.size.height * 0.001),
+                                Row(
+                                  spacing: AppSize.size.width * 0.04,
+                                  children: [
+                                    Expanded(
+                                      child: ClientHomeCard(
+                                        text: "Total Spend",
+                                        text2:
+                                            "\$${controller.statisticModel.value?.totalSpent.toString()}",
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ClientHomeCard(
+                                        text: "Total Shift Completed",
+                                        text2: controller
+                                            .statisticModel
+                                            .value
+                                            ?.totalShifts
+                                            .toString(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Gap(height: AppSize.size.height * 0.002),
+                                Row(
+                                  spacing: AppSize.size.width * 0.04,
+                                  children: [
+                                    Expanded(
+                                      child: ClientHomeCard(
+                                        text: "Running Shifts This Week",
+                                        text2: controller
+                                            .statisticModel
+                                            .value
+                                            ?.runningShifts
+                                            .toString(),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ClientHomeCard(
+                                        text: "Pending Invoices",
+                                        text2: controller
+                                            .statisticModel
+                                            .value
+                                            ?.pendingInvoices
+                                            .toString(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                    }),
                     Gap(height: AppSize.size.height * 0.001),
                     AppText(
                       data: "Active Shift",
@@ -193,26 +200,37 @@ class ClientHomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: AppColor.purple,
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.jobsList.length,
-                      itemBuilder: (context, index) {
-                        final job = controller.jobsList[index];
-                        return ClientHomeShiftCard(
-                          name: job.title,
-                          cirtificate: job.qualification,
+                    Obx(() {
+                      return controller.isLoadingJobs.value
+                          ? ListView.builder(
+                            shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: 2, // Show 2 shimmer items
+                              itemBuilder: (context, index) {
+                                return AppShimmer();
+                              },
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: controller.jobsList.length,
+                              itemBuilder: (context, index) {
+                                final job = controller.jobsList[index];
+                                return ClientHomeShiftCard(
+                                  name: job.title,
+                                  cirtificate: job.qualification,
 
-                          date: job.startDate,
-                          time: formatTimeRangeFromString(
-                            job.startTime ?? "",
-                            job.endTime ?? "",
-                          ),
-                          rateHourly: "\$${job.price.toString()}/hr",
-                          // img: job.pr,
-                        );
-                      },
-                    ),
+                                  date: job.startDate,
+                                  time: formatTimeRangeFromString(
+                                    job.startTime ?? "",
+                                    job.endTime ?? "",
+                                  ),
+                                  rateHourly: "\$${job.price.toString()}/hr",
+                                  // img: job.pr,
+                                );
+                              },
+                            );
+                    }),
 
                     // ClientHomeShiftCard(),
                     // ClientHomeShiftCard(),

@@ -8,10 +8,11 @@ import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/screen/auth/location_screen/controller/location_controller.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
 import 'package:tinnierenee12/service/repository/profile_repository.dart';
+import 'package:tinnierenee12/utils/location_utils/location_utils.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
-
+RxString userAddress = ''.obs;
 class ChangeProfileController extends GetxController {
   //text controllers
   TextEditingController nameController = TextEditingController();
@@ -24,6 +25,7 @@ class ChangeProfileController extends GetxController {
   LocationController locationController = Get.put(LocationController());
   //loading state
   RxBool isLoading = false.obs;
+  
   //profile update function
   Future<void> updateProfile() async {
     try {
@@ -245,8 +247,6 @@ class ChangeProfileController extends GetxController {
     //   locationController.selectedLongitude.value = profile?.longitude ?? 0.0;
     // }
 
-    
-
     // birth date
     if (selectedStartDate.value.isEmpty) {
       if (profile?.birthDate != null && profile!.birthDate!.isNotEmpty) {
@@ -271,10 +271,18 @@ class ChangeProfileController extends GetxController {
   ProfileController profileController = Get.put(ProfileController());
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     // Ensure profile data is loaded before initializing form
     _initializeForm();
+    await _fetchlocation();
+  }
+
+  Future<void> _fetchlocation() async {
+    userAddress.value = await getLocationFromLatLong(
+      profileController.profileData.value?.latitude,
+      profileController.profileData.value?.longitude,
+    );
   }
 
   Future<void> _initializeForm() async {

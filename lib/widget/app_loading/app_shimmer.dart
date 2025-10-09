@@ -118,3 +118,82 @@ class AppShimmer extends StatelessWidget {
     );
   }
 }
+
+class StatisticsShimmer extends StatelessWidget {
+  const StatisticsShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Skeletonizer(
+      enabled: true,
+      containersColor: AppColor.black.withValues(alpha: 0.1),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: AppSize.width(value: 4),
+        children: [
+          // Shimmer for "Statistics" title
+          Container(
+            height: AppSize.width(value: 18),
+            width: AppSize.width(value: 100),
+            color: Colors.white,
+          ),
+          SizedBox(height: AppSize.size.height * 0.001),
+          // First row of shimmer cards
+          Row(
+            spacing: AppSize.size.width * 0.04,
+            children: [
+              Expanded(
+                child: _buildShimmerCard(),
+              ),
+              Expanded(
+                child: _buildShimmerCard(),
+              ),
+            ],
+          ),
+          SizedBox(height: AppSize.size.height * 0.002),
+          // Second row of shimmer cards
+          Row(
+            spacing: AppSize.size.width * 0.04,
+            children: [
+              Expanded(
+                child: _buildShimmerCard(),
+              ),
+              Expanded(
+                child: _buildShimmerCard(),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShimmerCard() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColor.purple.withValues(alpha: 0.3)),
+        color: Colors.white,
+      ),
+      padding: EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: AppSize.size.height * 0.02,
+        children: [
+          // Shimmer for card title
+          Container(
+            height: AppSize.width(value: 12),
+            width: double.infinity,
+            color: Colors.white,
+          ),
+          // Shimmer for card value
+          Container(
+            height: AppSize.width(value: 18),
+            width: AppSize.width(value: 60),
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );
+  }
+}
