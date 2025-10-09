@@ -159,14 +159,12 @@ class JobRepository {
 
   Future<bool> employeeAcceptReject({
     required String empId,
-    required int page,
-    required int limit,
     required String status,
   }) async {
     try {
       Map<String, dynamic> body = {"status": status};
       final response = await apiServices.apiPatchServices(
-        url: AppApiEndPoint.substituteAcceptReject(empId, page, limit),
+        url: AppApiEndPoint.substituteAcceptReject(empId,),
         body: body,
       );
       if (response != null) {

@@ -35,22 +35,14 @@ class ClientAllSubstituteScreen extends StatelessWidget {
                       timesWorking: substitute.employee?.birthDate.toString(),
                       accept: () {
                         controller.substituteStatusUpdate(
-                          substituteId: substitute.employee?.id ?? "",
+                          substituteId: substitute.id ?? "",
                           status: 'booked',
-                        );
-                        AppSnackbar.success(
-                          title: "Success",
-                          message: "Substitute booked successfully",
                         );
                       },
                       reject: () {
                         controller.substituteStatusUpdate(
-                          substituteId: substitute.employee?.id ?? "",
+                          substituteId: substitute.id ?? "",
                           status: 'rejected',
-                        );
-                        AppSnackbar.success(
-                          title: "Success",
-                          message: "Substitute rejected successfully",
                         );
                       },
                     );

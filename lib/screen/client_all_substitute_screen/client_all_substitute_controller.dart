@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tinnierenee12/models/job_model/job_complate_model.dart';
+import 'package:tinnierenee12/screen/client_shift_screen/controller/client_shift_controller.dart';
 import 'package:tinnierenee12/service/repository/job_repository.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 
@@ -11,6 +12,8 @@ class ClientAllSubstituteController extends GetxController {
   final RxList<JobComplateModelData> _substituteList =
       <JobComplateModelData>[].obs;
   RxList<JobComplateModelData> get substituteList => _substituteList;
+
+  ClientShiftController clientShiftController = Get.find();
   //repository
   final JobRepository _jobRepository = JobRepository.instance;
   Future<void> fetchSubstituteList() async {
@@ -35,16 +38,19 @@ class ClientAllSubstituteController extends GetxController {
     }
   }
 
-  Future<void> substituteStatusUpdate({required String substituteId , required String status}) async {
+  Future<void> substituteStatusUpdate({
+    required String substituteId,
+    required String status,
+  }) async {
     try {
       final response = await _jobRepository.employeeAcceptReject(
         empId: substituteId,
         status: status,
-        page: 1,
-        limit: 10,
       );
       if (response) {
+        substituteList.clear();
         await fetchSubstituteList();
+        clientShiftController.jobSubstituteList();
       } else {
         AppPrint.appError(
           "Failed to update substitute status",
