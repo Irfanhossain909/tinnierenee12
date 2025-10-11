@@ -9,8 +9,8 @@ import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
 
-class PrivicyScreen extends StatelessWidget {
-  const PrivicyScreen({super.key});
+class TermsScreen extends StatelessWidget {
+  const TermsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class PrivicyScreen extends StatelessWidget {
       init: Controller(),
       builder: (controller) {
         return Scaffold(
-          appBar: CustomAppbar(title: title ?? "Privacy Policy"),
+          appBar: CustomAppbar(title: title ?? "Terms & conditions"),
           body: Obx(() {
             if (controller.isLoading.value) {
               return Center(child: AppLoading());

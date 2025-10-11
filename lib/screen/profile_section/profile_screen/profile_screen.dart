@@ -133,14 +133,20 @@ class ProfileScreen extends StatelessWidget {
                         ProfileRow(
                           iconPath: AssetsPath.terms,
                           onTap: () {
-                            Get.toNamed(AppRoutes.instance.termsCondiScreen);
+                            Get.toNamed(AppRoutes.instance.termsCondiScreen,arguments: {
+                              "title" : "Terms & conditions",
+                              "status" : "terms"
+                            });
                           },
                           text: "Terms & Conditions",
                         ),
                         ProfileRow(
                           iconPath: AssetsPath.privicy,
                           onTap: () {
-                            Get.toNamed(AppRoutes.instance.privicyScreen);
+                            Get.toNamed(AppRoutes.instance.privicyScreen, arguments: {
+                              "title" : "Privacy Policy",
+                              "status" : "privacy"
+                            });
                           },
                           text: "Privacy Policy",
                         ),

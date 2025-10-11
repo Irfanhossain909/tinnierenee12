@@ -8,6 +8,7 @@ import 'package:tinnierenee12/screen/client_add_shift_screen/controller/client_a
 import 'package:tinnierenee12/screen/client_all_substitute_screen/client_all_substitute_controller.dart';
 import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/controller/client_shift_controller.dart';
+import 'package:tinnierenee12/screen/privicy_screen/controllter/controller.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/controller/change_password_controller.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
@@ -27,5 +28,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => ChangeProfileController());
     Get.lazyPut(() => ClientAddNewShiftController());
     Get.lazyPut(() => ClientAllSubstituteController());
+    Get.lazyPut(() => Controller());
   }
 }

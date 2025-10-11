@@ -38,6 +38,8 @@ class AppApiEndPoint {
       "/applier/$jobId?page=$page&limit=$limit";
   static String substituteAcceptReject(var empId) =>
       "/applier/status/$empId";
+  static String termsPrivacyAboutUs(var status) =>
+      "/rule/$status";
   // static String search(var text,) => "/wcservice?search=$text";
   // final String specificCategoryService = "/service/";
 }

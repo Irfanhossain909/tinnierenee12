@@ -39,7 +39,7 @@ import 'package:tinnierenee12/screen/profile_section/profile_screen/profile_scre
 import 'package:tinnierenee12/screen/role_selection_screen/role_selection_screen.dart';
 import 'package:tinnierenee12/screen/splash_screen/splash_screen.dart';
 import 'package:tinnierenee12/screen/subscription_screen/my_sub_screen/my_sub_screen.dart';
-import 'package:tinnierenee12/screen/terms_screen/terms_screen.dart';
+import 'package:tinnierenee12/screen/privicy_screen/terms_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
@@ -179,12 +179,12 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.termsCondiScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const TermsScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.privicyScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const PrivicyScreen(),
   ),
   GetPage(
