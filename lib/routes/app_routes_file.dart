@@ -115,7 +115,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ///////////////////////////////Home screen//////////////////////////
   GetPage(
     name: AppRoutes.instance.employeeHome,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const EmployeeHomeScreen(),
   ),
   GetPage(
