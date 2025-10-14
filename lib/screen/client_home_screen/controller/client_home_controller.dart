@@ -7,13 +7,13 @@ import 'package:tinnierenee12/service/repository/common_repository.dart';
 import 'package:tinnierenee12/service/repository/job_repository.dart';
 import 'package:tinnierenee12/utils/location_utils/location_utils.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
-RxString userAddress = "".obs;
+
 class ClientHomeController extends GetxController {
   ProfileController profileController = Get.find<ProfileController>();
   AppNavigationForClientController navController =
       Get.find<AppNavigationForClientController>();
 
-  // RxString userAddress = "".obs;
+  
   //repositories
   CommonRepository commonRepository = CommonRepository.instance;
   JobRepository jobRepository = JobRepository.instance;
@@ -28,12 +28,10 @@ class ClientHomeController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    AppPrint.apiResponse(
-      "lat long${profileController.profileData.value?.latitude},${profileController.profileData.value?.longitude}",
-    );
+    
     fetchStatisticData();
     fetchJobData();
-    await profileController.fetchProfileData();
+    
     userAddress.value = await getLocationFromLatLong(
       profileController.profileData.value?.latitude,
       profileController.profileData.value?.longitude,
@@ -41,6 +39,8 @@ class ClientHomeController extends GetxController {
   }
 
   /////Functions
+  
+
 
   Future<void> fetchStatisticData() async {
     try {

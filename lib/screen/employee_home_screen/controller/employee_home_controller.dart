@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
+import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
+
 import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
 import 'package:tinnierenee12/utils/location_utils/location_utils.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';

@@ -1,43 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
+import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
-
+  NotificationScreen({super.key});
+  final AppNavigationForClientController controller =
+      Get.find<AppNavigationForClientController>();
   @override
   Widget build(BuildContext context) {
-    // Sample list of notifications
-    final List<Map<String, String>> notifications = [
-      {
-        "title": "OTP Verify!",
-        "message": "Your OTP is required to close the trip. Enter it now.",
-        "time": "2 h",
-      },
-      {
-        "title": "New Trip Request",
-        "message": "You have a new trip request waiting for approval.",
-        "time": "1 d",
-      },
-      {
-        "title": "Promo Code",
-        "message": "Use promo code 'NEW20' for 20% off on your next ride.",
-        "time": "3 d",
-      },
-    ];
-
     return Scaffold(
       appBar: CustomAppbar(title: "Notification"),
       body: ListView.builder(
         padding: EdgeInsets.only(top: AppSize.width(value: 10)),
-        itemCount: notifications.length,
+        itemCount: controller.notificationList.length,
         itemBuilder: (context, index) {
+          final notifications = controller.notificationList[index];
           return NotificationCard(
-            title: notifications[index]['title']!,
-            message: notifications[index]['message']!,
-            time: notifications[index]['time']!,
+            title: notifications.title,
+            message: notifications.text,
+            time: notifications.updatedAt.toString(),
           );
         },
       ),

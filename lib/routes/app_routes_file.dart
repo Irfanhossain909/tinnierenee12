@@ -169,8 +169,8 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ///
   GetPage(
     name: AppRoutes.instance.notification,
-    binding: AppBinding(),
-    page: () => const NotificationScreen(),
+    // binding: AppBinding(),
+    page: () => NotificationScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.profileScreen,
