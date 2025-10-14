@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
+import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
 
@@ -14,18 +15,26 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(title: "Notification"),
-      body: ListView.builder(
-        padding: EdgeInsets.only(top: AppSize.width(value: 10)),
-        itemCount: controller.notificationList.length,
-        itemBuilder: (context, index) {
-          final notifications = controller.notificationList[index];
-          return NotificationCard(
-            title: notifications.title,
-            message: notifications.text,
-            time: notifications.updatedAt.toString(),
-          );
-        },
-      ),
+      body: Obx(() {
+        return Stack(
+          children: [
+            ListView.builder(
+              controller: controller.scrollController,
+              padding: EdgeInsets.only(top: AppSize.width(value: 10)),
+              itemCount: controller.notificationList.length,
+              itemBuilder: (context, index) {
+                final notifications = controller.notificationList[index];
+                return NotificationCard(
+                  title: notifications.title,
+                  message: notifications.text,
+                  time: notifications.updatedAt.toString(),
+                );
+              },
+            ),
+            controller.isNotificationLoad.value ? AppLoading() : SizedBox(),
+          ],
+        );
+      }),
     );
   }
 }

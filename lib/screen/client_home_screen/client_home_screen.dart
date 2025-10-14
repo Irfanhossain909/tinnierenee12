@@ -82,40 +82,47 @@ class ClientHomeScreen extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.instance.notification);
-                      },
-                      child: Stack(
-                        children: [
-                          Icon(
-                            Icons.notifications,
-                            color: AppColor.purple,
-                            size: 32,
-                          ),
-                          Positioned(
-                            top: 4,
-                            right: 4,
-                            child: Container(
-                              width: 15,
-                              height: 15,
-                              decoration: BoxDecoration(
-                                color: AppColor.gold,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: Center(
-                                child: AppText(
-                                  data: "1",
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColor.white,
+                    Obx(() {
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.instance.notification);
+                          controller.navController.notificationCount.value = 0;
+                        },
+                        child: Stack(
+                          children: [
+                            Icon(
+                              Icons.notifications,
+                              color: AppColor.purple,
+                              size: 32,
+                            ),
+                            if (controller.navController.notificationCount > 0)
+                              Positioned(
+                                top: 4,
+                                right: 4,
+                                child: Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.gold,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Center(
+                                    child: AppText(
+                                      data: controller
+                                          .navController
+                                          .notificationCount
+                                          .toString(),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColor.white,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                          ],
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ],
