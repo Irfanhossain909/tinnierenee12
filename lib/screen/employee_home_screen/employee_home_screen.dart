@@ -72,7 +72,10 @@ class EmployeeHomeScreen extends StatelessWidget {
                             Gap(width: 6),
                             Obx(
                               () => AppText(
-                                data: userAddress.value,
+                                data: controller
+                                    .navigationScreenController
+                                    .userAddress
+                                    .value,
                                 fontSize: AppSize.width(value: 16),
                                 fontWeight: FontWeight.w400,
                               ),
@@ -82,40 +85,54 @@ class EmployeeHomeScreen extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.instance.notification);
-                      },
-                      child: Stack(
-                        children: [
-                          Icon(
-                            Icons.notifications,
-                            color: AppColor.purple,
-                            size: 32,
-                          ),
-                          Positioned(
-                            top: 4,
-                            right: 4,
-                            child: Container(
-                              width: 15,
-                              height: 15,
-                              decoration: BoxDecoration(
-                                color: AppColor.gold,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: Center(
-                                child: AppText(
-                                  data: "1",
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColor.white,
+                    Obx(() {
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.instance.employeeNotification);
+                          controller
+                                  .navigationScreenController
+                                  .notificationCount
+                                  .value =
+                              0;
+                        },
+                        child: Stack(
+                          children: [
+                            Icon(
+                              Icons.notifications,
+                              color: AppColor.purple,
+                              size: 32,
+                            ),
+                            if (controller
+                                    .navigationScreenController
+                                    .notificationCount >
+                                0)
+                              Positioned(
+                                top: 4,
+                                right: 4,
+                                child: Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.gold,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Center(
+                                    child: AppText(
+                                      data: controller
+                                          .navigationScreenController
+                                          .notificationCount
+                                          .toString(),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColor.white,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                          ],
+                        ),
+                      );
+                    }),
                   ],
                 ),
                 Gap(height: 16),
@@ -127,7 +144,10 @@ class EmployeeHomeScreen extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -166,7 +186,7 @@ class EmployeeHomeScreen extends StatelessWidget {
               ],
             ),
           ),
-        
+
           bottomNavigationBar: GestureDetector(
             onTap: () {
               Get.toNamed(AppRoutes.instance.employeeAddMyDocumentScreen);
@@ -243,11 +263,11 @@ class EmployeeHomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-        
+
                               ProgressiveBorderContainer(
                                 size: AppSize.size.width * 0.12,
                                 progressColor: AppColor.purple,
-        
+
                                 progress: 80.0,
                               ),
                             ],
@@ -275,13 +295,13 @@ class EmployeeHomeScreen extends StatelessWidget {
                       ),
                       buttonText: "Submit",
                       buttonColor: AppColor.gold,
-        
+
                       onButtonPressed: () {
                         Get.toNamed(
                           AppRoutes.instance.employeePersonalInfoSubmitScreen1,
                         );
                       },
-        
+
                       title: "Personal Information",
                       shortDescription: "Submit your personal details.",
                       longDescription:
@@ -293,7 +313,7 @@ class EmployeeHomeScreen extends StatelessWidget {
             ),
           ),
         );
-      }
+      },
     );
   }
 }

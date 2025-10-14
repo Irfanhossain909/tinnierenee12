@@ -29,6 +29,7 @@ import 'package:tinnierenee12/screen/employee_setting_screen/employee_setting_sc
 import 'package:tinnierenee12/screen/employee_shift_details_screen/employee_shift_details_screen.dart';
 import 'package:tinnierenee12/screen/employee_shift_screen/employee_shift_screen.dart';
 import 'package:tinnierenee12/screen/notification_screen/notification_screen.dart';
+import 'package:tinnierenee12/screen/notification_screen/notification_screen_for_employee.dart';
 import 'package:tinnierenee12/screen/on_boarding_screen1/on_boarding_screen1.dart';
 import 'package:tinnierenee12/screen/payment_successfull_screen/payment_successfull_screen.dart';
 import 'package:tinnierenee12/screen/privicy_screen/privicy_screen.dart';
@@ -241,5 +242,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.clientTransactionHistryScreen,
     // binding: AppBinding(),
     page: () => const ClientTransactionHistryScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.employeeNotification,
+    // binding: AppBinding(),
+    page: () => const NotificationScreenForEmployee(),
   ),
 ];

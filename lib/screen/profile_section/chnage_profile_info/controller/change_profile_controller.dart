@@ -12,7 +12,7 @@ import 'package:tinnierenee12/utils/location_utils/location_utils.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
-RxString userAddress = ''.obs;
+
 class ChangeProfileController extends GetxController {
   //text controllers
   TextEditingController nameController = TextEditingController();
@@ -23,9 +23,12 @@ class ChangeProfileController extends GetxController {
   //all repositories
   ProfileRepository profileRepository = ProfileRepository.instance;
   LocationController locationController = Get.put(LocationController());
+
+  RxDouble selectedLatitude = 0.0.obs;
+  RxDouble selectedLongitude = 0.0.obs;
   //loading state
   RxBool isLoading = false.obs;
-  
+
   //profile update function
   Future<void> updateProfile() async {
     try {
@@ -48,8 +51,8 @@ class ChangeProfileController extends GetxController {
 
       var response = await profileRepository.updateUserProfile(
         name: nameController.text,
-        latitude: locationController.selectedLatitude.value,
-        longitude: locationController.selectedLongitude.value,
+        latitude: selectedLatitude.value,
+        longitude: selectedLongitude.value,
         contact: phoneController.text,
         bio: bioController.text,
         image: cameraImage.value,
@@ -222,7 +225,7 @@ class ChangeProfileController extends GetxController {
   ////////////////////////////////////////////
 
   ///controller initialization value
-  void appInit() {
+  void appInit() async {
     final profile = profileController.profileData.value;
 
     // name
@@ -240,12 +243,20 @@ class ChangeProfileController extends GetxController {
       bioController.text = profile?.bio ?? '';
     }
 
-    // // location (only if not already set)
-    // if (locationController.selectedLatitude.value == 0.0 &&
-    //     locationController.selectedLongitude.value == 0.0) {
-    //   locationController.selectedLatitude.value = profile?.latitude ?? 0.0;
-    //   locationController.selectedLongitude.value = profile?.longitude ?? 0.0;
-    // }
+    // location - set from profile and fetch address
+    if (selectedLatitude.value == 0.0 && selectedLongitude.value == 0.0) {
+      selectedLatitude.value = profile?.latitude ?? 0.0;
+      selectedLongitude.value = profile?.longitude ?? 0.0;
+
+      // Set location data in locationController
+      locationController.selectedLatitude.value = selectedLatitude.value;
+      locationController.selectedLongitude.value = selectedLongitude.value;
+
+      // Fetch address from lat/long
+      if (selectedLatitude.value != 0.0 && selectedLongitude.value != 0.0) {
+        await _fetchLocationAddress();
+      }
+    }
 
     // birth date
     if (selectedStartDate.value.isEmpty) {
@@ -274,15 +285,26 @@ class ChangeProfileController extends GetxController {
   void onInit() async {
     super.onInit();
     // Ensure profile data is loaded before initializing form
-    _initializeForm();
-    await _fetchlocation();
+    await _initializeForm();
   }
 
-  Future<void> _fetchlocation() async {
-    userAddress.value = await getLocationFromLatLong(
-      profileController.profileData.value?.latitude,
-      profileController.profileData.value?.longitude,
-    );
+  RxString userAddress = ''.obs;
+
+  Future<void> _fetchLocationAddress() async {
+    try {
+      final address = await getLocationFromLatLong(
+        selectedLatitude.value,
+        selectedLongitude.value,
+      );
+
+      if (address.isNotEmpty) {
+        userAddress.value = address;
+        locationController.selectedAddress.value = address;
+        AppPrint.appLog("Fetched address: $address");
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "_fetchLocationAddress");
+    }
   }
 
   Future<void> _initializeForm() async {
@@ -291,5 +313,15 @@ class ChangeProfileController extends GetxController {
       await profileController.fetchProfileData();
     }
     appInit();
+  }
+
+  // Update location when new place is selected
+  void updateLocation(double lat, double lng, String address) {
+    selectedLatitude.value = lat;
+    selectedLongitude.value = lng;
+    userAddress.value = address;
+    AppPrint.appLog(
+      "Location updated - Lat: $lat, Lng: $lng, Address: $address",
+    );
   }
 }

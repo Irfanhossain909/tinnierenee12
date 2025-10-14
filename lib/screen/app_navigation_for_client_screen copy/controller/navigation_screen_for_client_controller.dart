@@ -7,8 +7,6 @@ import 'package:tinnierenee12/service/socket/socket_all_oparation.dart';
 import 'package:tinnierenee12/utils/location_utils/location_utils.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 
-RxString userAddress = "".obs;
-
 class AppNavigationForClientController extends GetxController {
   RxInt selectedIndex = RxInt(0);
   bool isExpanded = false;
@@ -16,7 +14,7 @@ class AppNavigationForClientController extends GetxController {
   int page = 1;
   int notificationPage = 1;
   RxBool isLastPage = false.obs;
-
+  RxString userAddress = "".obs;
   final ScrollController scrollController = ScrollController();
 
   AppSocketAllOperation appSocketAllOperation = AppSocketAllOperation.instance;

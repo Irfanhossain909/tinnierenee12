@@ -6,6 +6,7 @@ import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/app_navigation_for_client_screen%20copy/controller/navigation_screen_for_client_controller.dart';
 import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
+import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_card/app_card.dart';
 import 'package:tinnierenee12/widget/app_date_fortter/time_calculator.dart';
@@ -72,7 +73,8 @@ class ClientHomeScreen extends StatelessWidget {
                             Gap(width: 6),
                             Obx(
                               () => AppText(
-                                data: userAddress.value,
+                                data:
+                                    controller.navController.userAddress.value,
                                 fontSize: AppSize.width(value: 16),
                                 fontWeight: FontWeight.w400,
                               ),

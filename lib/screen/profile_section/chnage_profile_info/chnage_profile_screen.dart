@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:tinnierenee12/const/app_api_end_point.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
-import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart'
-   ;
+import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
@@ -246,43 +245,23 @@ class ChnageProfileScreen extends StatelessWidget {
                                 controller: controller
                                     .locationController
                                     .searchController,
-                                hintText: userAddress.value,
+                                hintText:
+                                    controller.userAddress.value.isNotEmpty
+                                    ? controller.userAddress.value
+                                    : "Enter Address",
                                 borderWidth: 0.9,
-                                showCurrentLocation: controller
-                                    .locationController
-                                    .hasLocationData,
+                                showCurrentLocation: true,
                                 currentLocationAddress:
-                                    controller
-                                        .locationController
-                                        .selectedAddress
-                                        .value
-                                        .isNotEmpty
-                                    ? controller
-                                          .locationController
-                                          .selectedAddress
-                                          .value
+                                    controller.userAddress.value.isNotEmpty
+                                    ? controller.userAddress.value
                                     : null,
                                 currentLocationLat:
-                                    controller
-                                            .locationController
-                                            .selectedLatitude
-                                            .value !=
-                                        0.0
-                                    ? controller
-                                          .locationController
-                                          .selectedLatitude
-                                          .value
+                                    controller.selectedLatitude.value != 0.0
+                                    ? controller.selectedLatitude.value
                                     : null,
                                 currentLocationLng:
-                                    controller
-                                            .locationController
-                                            .selectedLongitude
-                                            .value !=
-                                        0.0
-                                    ? controller
-                                          .locationController
-                                          .selectedLongitude
-                                          .value
+                                    controller.selectedLongitude.value != 0.0
+                                    ? controller.selectedLongitude.value
                                     : null,
                                 onPlaceSelected:
                                     (
@@ -292,15 +271,23 @@ class ChnageProfileScreen extends StatelessWidget {
                                       lat,
                                       lng,
                                     }) {
-                                      controller.locationController
-                                          .onPlaceSelected(
-                                            placeId,
-                                            description,
-                                            isCurrentLocation:
-                                                isCurrentLocation,
-                                            lat: lat,
-                                            lng: lng,
-                                          );
+                                      // Update location in both controllers
+                                      if (lat != null && lng != null) {
+                                        controller.updateLocation(
+                                          lat,
+                                          lng,
+                                          description,
+                                        );
+                                        controller.locationController
+                                            .onPlaceSelected(
+                                              placeId,
+                                              description,
+                                              isCurrentLocation:
+                                                  isCurrentLocation,
+                                              lat: lat,
+                                              lng: lng,
+                                            );
+                                      }
                                     },
                               ),
                             ),

@@ -32,10 +32,10 @@ class ClientHomeController extends GetxController {
     fetchStatisticData();
     fetchJobData();
     
-    userAddress.value = await getLocationFromLatLong(
-      profileController.profileData.value?.latitude,
-      profileController.profileData.value?.longitude,
-    );
+    // userAddress.value = await getLocationFromLatLong(
+    //   profileController.profileData.value?.latitude,
+    //   profileController.profileData.value?.longitude,
+    // );
   }
 
   /////Functions
