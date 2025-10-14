@@ -56,4 +56,21 @@ class CommonRepository {
     }
     return notificationList;
   }
+
+  Future<bool> updateNotificationStatus({required String id}) async {
+    try {
+      final response = await apiServices.apiPatchServices(
+        url: "${AppApiEndPoint.readNotification}/$id",
+      );
+      if (response != null && response["data"] != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "updateNotificationStatus");
+    }
+
+    return false;
+  }
 }

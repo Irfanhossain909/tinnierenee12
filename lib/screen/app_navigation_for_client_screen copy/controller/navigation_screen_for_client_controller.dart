@@ -64,22 +64,49 @@ class AppNavigationForClientController extends GetxController {
     }
   }
 
+  Future<void> updateNotification({required String id}) async {
+    try {
+      final response = await commonRepository.updateNotificationStatus(id: id);
+      if (response) {
+        AppPrint.appLog("Notification updated successfully");
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "updateNotification");
+    }
+  }
+
+  void reffreshNotification() async {
+    try {
+      notificationList.clear();
+      page = 1;
+      isLastPage.value = false;
+      await fetchNotification();
+    } catch (e) {
+      AppPrint.appError(e, title: "refreshNotification");
+    }
+  }
+
   void readSocketData() {
     String _id = profileController.profileData.value?.id ?? "";
+
     appSocketAllOperation.readEvent(
       event: "get-notification::$_id",
       handler: (data) {
         AppPrint.appLog("Socket notification received: $data");
-        // Handle the incoming notification data here
-        // For example, add it to the notification list
+
         try {
           if (data != null) {
-            // Parse and handle the notification data
-            // You may need to convert data to NotificationModelData
-            AppPrint.appLog("New notification: $data");
-            // Optionally refresh the notification list
-            fetchNotification();
+            // 1️⃣ Parse socket data to NotificationModelData
+            NotificationModelData newNotification =
+                NotificationModelData.fromJson(data);
+
+            // 2️⃣ Insert new notification at the beginning of the list
+            notificationList.insert(0, newNotification);
+
+            // 3️⃣ Optionally update unread count
             notificationCount.value++;
+
+            AppPrint.appLog("New notification added: ${newNotification.title}");
           }
         } catch (e) {
           AppPrint.appError(e, title: "readSocketData handler");
@@ -87,6 +114,7 @@ class AppNavigationForClientController extends GetxController {
       },
     );
   }
+
   //////////////////////////end/////////////////////
 
   void toggleExpansion() {

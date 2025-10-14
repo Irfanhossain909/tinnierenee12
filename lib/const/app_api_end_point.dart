@@ -19,6 +19,7 @@ class AppApiEndPoint {
   static String resetPassword = "/auth/reset-password";
   static String resendOtp = "/auth/resend-otp";
   static String deleteAccount = "/auth/delete-account";
+  static String readNotification = "/notification";
 
   ///////////////////////other /////////////////////
   static String profile = "/user/profile";
