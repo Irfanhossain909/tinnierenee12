@@ -9,6 +9,7 @@ import 'package:tinnierenee12/screen/client_all_substitute_screen/client_all_sub
 import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/controller/client_shift_controller.dart';
 import 'package:tinnierenee12/screen/employee_home_screen/controller/employee_home_controller.dart';
+import 'package:tinnierenee12/screen/employee_shift_screen/controller/employee_shift_controller.dart';
 import 'package:tinnierenee12/screen/privicy_screen/controllter/controller.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/controller/change_password_controller.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart';
@@ -31,5 +32,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => ClientAllSubstituteController());
     Get.lazyPut(() => Controller());
     Get.lazyPut(() => EmployeeHomeController());
+    Get.lazyPut(() => EmployeeShiftController());
   }
 }

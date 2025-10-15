@@ -158,7 +158,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.employeeShiftScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const EmployeeShiftScreen(),
   ),
   GetPage(
