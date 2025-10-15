@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/screen/employee_shift_details_screen/controller/employee_shift_details_controller.dart';
@@ -10,6 +11,7 @@ import 'package:tinnierenee12/widget/app_date_fortter/time_calculator.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
+import 'package:tinnierenee12/widget/app_map/custom_map.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
 
@@ -133,15 +135,13 @@ class EmployeeShiftDetailsScreen extends StatelessWidget {
                       fontSize: AppSize.width(value: 18),
                       fontWeight: FontWeight.w700,
                     ),
-
-                    ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      child: AppImage(
-                        width: AppSize.width(value: double.infinity),
-                        height: AppSize.size.height * 0.23,
-                        path: AssetsPath.map,
-                      ),
+                    CustomGoogleMap(
+                      latitude:
+                          controller.myShiftModelData.value?.job?.lat ?? 0.0,
+                      longitude:
+                          controller.myShiftModelData.value?.job?.lng ?? 0.0,
                     ),
+
                     Gap(height: AppSize.width(value: 12)),
                     AppText(
                       data: "My Working Day",

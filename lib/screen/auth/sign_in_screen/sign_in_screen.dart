@@ -21,7 +21,6 @@ class SignInScreen extends StatelessWidget {
       init: SigninController(),
       builder: (controller) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             leading: Padding(
               padding: EdgeInsets.all(18),

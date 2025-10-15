@@ -217,7 +217,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
                 shape: BoxShape.circle,
               ),
               todayDecoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.2),
+                color: Colors.blue.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
               todayTextStyle: TextStyle(
@@ -239,7 +239,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
                   return Container(
                     margin: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: Colors.lightBlue.withOpacity(0.15),
+                      color: Colors.lightBlue.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
                     alignment: Alignment.center,
