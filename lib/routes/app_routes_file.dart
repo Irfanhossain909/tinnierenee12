@@ -163,7 +163,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.employeeShiftDetailsScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const EmployeeShiftDetailsScreen(),
   ),
   ///////////////////////////////Profile screen//////////////////////////
