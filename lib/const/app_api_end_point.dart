@@ -24,8 +24,7 @@ class AppApiEndPoint {
   ///////////////////////other /////////////////////
   static String profile = "/user/profile";
   static String profileUpdate = "/user";
-  static String notification(var page) =>
-      "/notification/all?page=$page";
+  static String notification(var page) => "/notification/all?page=$page";
 
   //////////////////job /////////////////
   static String job = "/job/post";
@@ -41,9 +40,15 @@ class AppApiEndPoint {
       "/applier/$jobId?page=$page&limit=$limit";
   static String substituteAcceptReject(var empId) => "/applier/status/$empId";
   static String termsPrivacyAboutUs(var status) => "/rule/$status";
-  static String myShift(var page, var limit) => "/applier/job?page=$page&limit=$limit";
-  // static String search(var text,) => "/wcservice?search=$text";
-  // final String specificCategoryService = "/service/";
+  static String myShift(var page, var limit) =>
+      "/applier/job?page=$page&limit=$limit";
+  static String findShift(
+    var page,
+    var limit,
+    var lat,
+    var lng,
+    var distance,
+  ) => "/job/all?lat=$lat&lng=$lng&distance=$distance&page=$page&limit=$limit";
 }
 
 // Move this function outside the class

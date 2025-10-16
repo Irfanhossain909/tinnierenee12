@@ -1,4 +1,5 @@
 import 'package:tinnierenee12/const/app_api_end_point.dart';
+import 'package:tinnierenee12/models/shift_model/find_shift_model.dart';
 import 'package:tinnierenee12/models/shift_model/my_shift_model.dart';
 import 'package:tinnierenee12/service/api/api_services.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
@@ -31,5 +32,30 @@ class ShiftRepository {
       AppPrint.appError("getMyShift");
     }
     return myShift;
+  }
+
+  Future<List<FindShiftModelData>> getFindShift({
+    required int page,
+    required int limit,
+    required double lat,
+    required double lng,
+    required int distance,
+  }) async {
+    List<FindShiftModelData> findShift = <FindShiftModelData>[];
+
+    try {
+      final response = await _apiServices.apiGetServices(
+        AppApiEndPoint.findShift(page, limit, lat, lng, distance),
+      );
+
+      if (response != null && response["data"] != null) {
+        for (var item in response["data"]) {
+          findShift.add(FindShiftModelData.fromJson(item));
+        }
+      }
+    } catch (e) {
+      AppPrint.appError("getMyShift");
+    }
+    return findShift;
   }
 }

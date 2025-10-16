@@ -35,6 +35,7 @@ class NavigationScreenController extends GetxController {
       profileController.profileData.value?.latitude,
       profileController.profileData.value?.longitude,
     );
+
     await fetchNotification();
     readSocketData();
   }

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/utils.dart';
-import 'package:tinnierenee12/const/app_color.dart';
+import 'package:get/get.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/routes/app_routes.dart';
+import 'package:tinnierenee12/screen/employee_find_shift_screen/controller/employee_find_shift_controller.dart';
+import 'package:tinnierenee12/screen/employee_find_shift_screen/widget/employee_find_shift_card.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
 import 'package:tinnierenee12/widget/app_card/app_card.dart';
+import 'package:tinnierenee12/widget/app_date_fortter/date_time_formetter_pro.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
+import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
 
@@ -15,121 +18,89 @@ class EmployeeFindShiftScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppbar(
-        action: [
-          Padding(
-            padding: EdgeInsets.only(right: AppSize.width(value: 16)),
-            child: AppImage(
-              path: AssetsPath.filter,
-              width: AppSize.width(value: 28),
-            ),
-          ),
-        ],
-        autoShowLeading: false,
-        title: "Find Shift",
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 16)),
-        child: AppCard(
-          child: ListView.builder(
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return EmployeeFindShiftCard(
-                onTap: () {
-                  Get.toNamed(
-                    AppRoutes.instance.employeeFindShiftDetailsScreen,
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class EmployeeFindShiftCard extends StatelessWidget {
-  final Function()? onTap;
-  const EmployeeFindShiftCard({super.key, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: AppSize.width(value: 12)),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColor.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColor.black.withValues(alpha: .1)),
-          ),
-          padding: EdgeInsets.all(AppSize.width(value: 16)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            spacing: AppSize.width(value: 16),
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                spacing: AppSize.width(value: 8),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    data: "Sunny Smiles Daycare",
-                    fontSize: AppSize.width(value: 18),
-                    fontWeight: FontWeight.w700,
-                  ),
-                  AppText(
-                    data: "123 Main St, Springfield",
-                    fontSize: AppSize.width(value: 12),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  AppText(
-                    data: "Shift Time & Date",
-                    fontSize: AppSize.width(value: 14),
-                    fontWeight: FontWeight.w700,
-                  ),
-                  Row(
-                    spacing: AppSize.width(value: 4),
-                    children: [
-                      Icon(Icons.watch_later_outlined),
-                      AppText(data: "09:00 - 17:00"),
-                    ],
-                  ),
-                  Row(
-                    spacing: AppSize.width(value: 4),
-                    children: [
-                      Icon(Icons.calendar_month_outlined),
-                      AppText(data: "Monday, September 22"),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                spacing: AppSize.width(value: 8),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    data: r"$20/hr",
-                    fontSize: AppSize.width(value: 18),
-                    fontWeight: FontWeight.w700,
-                    color: AppColor.gold,
-                  ),
-                  AppText(
-                    data: "13 miles",
-                    fontSize: AppSize.width(value: 14),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
+    return GetBuilder<EmployeeFindShiftController>(
+      init: EmployeeFindShiftController(),
+      builder: (controller) {
+        return Scaffold(
+          appBar: CustomAppbar(
+            action: [
+              Padding(
+                padding: EdgeInsets.only(right: AppSize.width(value: 16)),
+                child: AppImage(
+                  path: AssetsPath.filter,
+                  width: AppSize.width(value: 28),
+                ),
               ),
             ],
+            autoShowLeading: false,
+            title: "Find Shift",
           ),
-        ),
-      ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 16)),
+            child: AppCard(
+              height: AppSize.size.height * 0.8,
+              child: Obx(() {
+                // যদি প্রথমবার load হচ্ছে এবং list empty থাকে
+                if (controller.isLoading.value &&
+                    controller.findShiftList.isEmpty) {
+                  return const Center(child: AppLoading());
+                }
+
+                // যদি list empty হয় এবং loading শেষ হয়ে যায়
+                if (controller.findShiftList.isEmpty &&
+                    !controller.isLoading.value) {
+                  return Center(child: AppText(data: "No shifts Found"));
+                }
+                return ListView.builder(
+                  controller: controller.scrollController,
+                  itemCount: controller.findShiftList.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index < controller.findShiftList.length) {
+                      final shift = controller.findShiftList[index];
+                      return EmployeeFindShiftCard(
+                        title: shift.title,
+                        address: shift.address,
+                        startTime: shift.startTime,
+                        endTime: shift.endTime,
+                        startDate: DateTimeFormatterPro.format(shift.startDate),
+                        price: shift.price.toString(),
+                        // distance: shift.location.distance.toString(),
+                        onTap: () {
+                          Get.toNamed(
+                            AppRoutes.instance.employeeFindShiftDetailsScreen,
+                          );
+                        },
+                      );
+                    } else {
+                      // Pagination loading indicator - শুধু যখন আরো data আছে
+                      if (controller.isMoreDataAvailable.value) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: AppText(
+                              data: "No more shift",
+                              fontSize: AppSize.width(value: 16),
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.purple,
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                );
+              }),
+            ),
+          ),
+        );
+      },
     );
   }
 }
