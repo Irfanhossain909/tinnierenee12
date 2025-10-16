@@ -9,6 +9,8 @@ import 'package:tinnierenee12/widget/app_card/app_card.dart';
 import 'package:tinnierenee12/widget/app_date_fortter/date_time_formetter_pro.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
+import 'package:tinnierenee12/widget/app_log/app_print.dart';
+import 'package:tinnierenee12/widget/app_renge_slider/app_render_slider.dart';
 import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
@@ -26,9 +28,90 @@ class EmployeeFindShiftScreen extends StatelessWidget {
             action: [
               Padding(
                 padding: EdgeInsets.only(right: AppSize.width(value: 16)),
-                child: AppImage(
-                  path: AssetsPath.filter,
-                  width: AppSize.width(value: 28),
+                child: InkWell(
+                  onTap: () {
+                    Get.bottomSheet(
+                      Container(
+                        decoration: BoxDecoration(color: AppColors.white),
+                        height: AppSize.size.height * 0.5,
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            AppText(
+                              data: "Job Filter",
+                              fontSize: AppSize.width(value: 18),
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.black,
+                            ),
+                            Divider(color: AppColors.black, thickness: 2),
+
+                            Obx(
+                              () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: AppSize.width(value: 12),
+                                children: [
+                                  AppText(
+                                    data: "Distance",
+                                    fontSize: AppSize.width(value: 18),
+                                    fontWeight: FontWeight.w700,
+
+                                    color: AppColors.purple,
+                                  ),
+
+                                  // --- Value Text ---
+                                  AppText(
+                                    data:
+                                        "Maximum Distance: ${controller.progressValue.value.toStringAsFixed(0)} miles",
+                                    fontSize: AppSize.width(value: 12),
+                                    fontWeight: FontWeight.w400,
+
+                                    color: AppColors.black,
+                                  ),
+
+                                  CustomProgressBarSlider(
+                                    minimumValue: 10,
+                                    value: controller.progressValue.value,
+                                    onChanged: (val) {
+                                      controller.updateDistance(val);
+                                    },
+                                  ),
+                                  AppText(
+                                    data: "Payment",
+                                    fontSize: AppSize.width(value: 18),
+                                    fontWeight: FontWeight.w700,
+
+                                    color: AppColors.purple,
+                                  ),
+
+                                  // --- Value Text ---
+                                  AppText(
+                                    data:
+                                        "${controller.priceValue.value.toStringAsFixed(0)} /hr or more",
+                                    fontSize: AppSize.width(value: 12),
+                                    fontWeight: FontWeight.w400,
+
+                                    color: AppColors.black,
+                                  ),
+
+                                  CustomProgressBarSlider(
+                                    minimumValue: 10,
+                                    value: controller.priceValue.value,
+                                    onChanged: (val) {
+                                      controller.updatePrice(val);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  child: AppImage(
+                    path: AssetsPath.filter,
+                    width: AppSize.width(value: 28),
+                  ),
                 ),
               ),
             ],
@@ -62,6 +145,7 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                       if (index < controller.findShiftList.length) {
                         final shift = controller.findShiftList[index];
                         return EmployeeFindShiftCard(
+                          status: shift.status,
                           title: shift.title,
                           address: shift.address,
                           startTime: shift.startTime,
@@ -72,6 +156,7 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                           price: shift.price.toString(),
                           // distance: shift.location.distance.toString(),
                           onTap: () {
+                            AppPrint.apiResponse(shift.id);
                             Get.toNamed(
                               AppRoutes.instance.employeeFindShiftDetailsScreen,
                               arguments: shift,

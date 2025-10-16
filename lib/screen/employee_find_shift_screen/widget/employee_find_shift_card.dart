@@ -12,6 +12,7 @@ class EmployeeFindShiftCard extends StatelessWidget {
   final String? endDate;
   final String? price;
   final String? distance;
+  final String? status;
   final Function()? onTap;
   const EmployeeFindShiftCard({
     super.key,
@@ -24,6 +25,7 @@ class EmployeeFindShiftCard extends StatelessWidget {
     this.distance,
     this.startTime,
     this.endTime,
+    this.status,
   });
 
   @override
@@ -34,7 +36,9 @@ class EmployeeFindShiftCard extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: AppColor.white,
+            color: status == "booked"
+                ? AppColor.purple.withValues(alpha: 0.2)
+                : AppColor.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: AppColor.black.withValues(alpha: .1)),
           ),

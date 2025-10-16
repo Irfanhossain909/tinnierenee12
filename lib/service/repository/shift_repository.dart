@@ -39,13 +39,14 @@ class ShiftRepository {
     required int limit,
     required double lat,
     required double lng,
-    required int distance,
+    required double distance,
+    required int price,
   }) async {
     List<FindShiftModelData> findShift = <FindShiftModelData>[];
 
     try {
       final response = await _apiServices.apiGetServices(
-        AppApiEndPoint.findShift(page, limit, lat, lng, distance),
+        AppApiEndPoint.findShift(page, limit, lat, lng, distance, price),
       );
 
       if (response != null && response["data"] != null) {
@@ -57,5 +58,24 @@ class ShiftRepository {
       AppPrint.appError("getMyShift");
     }
     return findShift;
+  }
+
+  Future<bool> applyShift({required String job, required String status}) async {
+    Map<String, dynamic> body = {"status": status, "job": job};
+
+    try {
+      final response = await _apiServices.apiPostServices(
+        url: AppApiEndPoint.shiftApply,
+        body: body,
+      );
+      if (response != null && response["success"] == true) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "updateShift");
+    }
+    return false;
   }
 }

@@ -10,9 +10,11 @@ import 'package:tinnierenee12/widget/app_card/app_card.dart';
 import 'package:tinnierenee12/widget/app_date_fortter/date_time_formetter_pro.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_image/app_image_circular.dart';
+import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
 import 'package:tinnierenee12/widget/app_location_field/location_repository.dart';
 import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_map/custom_map.dart';
+import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
 import 'package:tinnierenee12/widget/appbar/custom_appbar.dart';
 
@@ -26,6 +28,7 @@ class EmployeeFindShiftDetailsScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           bottomNavigationBar: Container(
+            height: AppSize.size.height * 0.1,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),
@@ -37,7 +40,29 @@ class EmployeeFindShiftDetailsScreen extends StatelessWidget {
               horizontal: AppSize.width(value: 20),
               vertical: AppSize.width(value: 20),
             ),
-            child: AppButton(title: "Apply", filColor: AppColor.purple),
+            child: Obx(() {
+              return controller.isLoading.value
+                  ? AppLoading()
+                  : (controller.findShiftList.value?.status == "booked"
+                        ? AppButton(
+                            onTap: () {
+                              AppSnackbar.message(
+                                title: "Already Applied",
+                                message:
+                                    "You have already applied for this job.",
+                              );
+                            },
+                            title: "Booked",
+                            filColor: AppColor.purple.withValues(alpha: 0.4),
+                          )
+                        : AppButton(
+                            onTap: () {
+                              controller.applyShift();
+                            },
+                            title: "Apply",
+                            filColor: AppColor.purple,
+                          ));
+            }),
           ),
           appBar: CustomAppbar(title: "Shift Full Details"),
           body: Padding(
@@ -46,6 +71,7 @@ class EmployeeFindShiftDetailsScreen extends StatelessWidget {
               bottom: AppSize.width(value: 16),
             ),
             child: AppCard(
+              height: AppSize.size.height * 0.8,
               child: SingleChildScrollView(
                 child: Column(
                   spacing: AppSize.size.width * 0.01,

@@ -28,6 +28,7 @@ class AppApiEndPoint {
 
   //////////////////job /////////////////
   static String job = "/job/post";
+  static String shiftApply = "/applier/job";
   static String statistic = "/statistic/stats";
 
   static String jobCategory(var status, var page, var limit) =>
@@ -48,7 +49,9 @@ class AppApiEndPoint {
     var lat,
     var lng,
     var distance,
-  ) => "/job/all?lat=$lat&lng=$lng&distance=$distance&page=$page&limit=$limit";
+    var price,
+  ) =>
+      "/job/all?lat=$lat&lng=$lng&distance=$distance&page=$page&limit=$limit&price=$price";
 }
 
 // Move this function outside the class

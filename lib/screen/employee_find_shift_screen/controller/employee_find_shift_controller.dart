@@ -20,6 +20,20 @@ class EmployeeFindShiftController extends GetxController {
     AppPrint.apiResponse(lng, title: "lng");
   }
 
+  ///////////////distance function
+  RxDouble progressValue = 30.0.obs;
+
+  void updateDistance(double value) {
+    progressValue.value = value;
+  }
+
+  ///////////////price/hr function
+  RxDouble priceValue = 100.0.obs;
+
+  void updatePrice(double value) {
+    priceValue.value = value;
+  }
+
   ////repository
   final ShiftRepository shiftRepository = ShiftRepository.instance;
   RxList<FindShiftModelData> findShiftList = <FindShiftModelData>[].obs;
@@ -30,7 +44,7 @@ class EmployeeFindShiftController extends GetxController {
   int limit = 10;
   double? lat;
   double? lng;
-  int distance = 10;
+
   Future<void> fetchFindShift() async {
     try {
       isLoading.value = true;
@@ -39,7 +53,8 @@ class EmployeeFindShiftController extends GetxController {
         limit: limit,
         lat: lat ?? 0.0,
         lng: lng ?? 0.0,
-        distance: distance,
+        distance: progressValue.value,
+        price: priceValue.value.toInt(),
       );
 
       if (response.isNotEmpty) {
