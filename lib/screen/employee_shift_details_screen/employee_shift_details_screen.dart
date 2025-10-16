@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tinnierenee12/const/app_color.dart';
 import 'package:tinnierenee12/const/assets_icons_path.dart';
 import 'package:tinnierenee12/screen/employee_shift_details_screen/controller/employee_shift_details_controller.dart';
