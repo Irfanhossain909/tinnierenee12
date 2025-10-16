@@ -37,66 +37,74 @@ class EmployeeFindShiftScreen extends StatelessWidget {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 16)),
-            child: AppCard(
-              height: AppSize.size.height * 0.8,
-              child: Obx(() {
-                // যদি প্রথমবার load হচ্ছে এবং list empty থাকে
-                if (controller.isLoading.value &&
-                    controller.findShiftList.isEmpty) {
-                  return const Center(child: AppLoading());
-                }
+            child: RefreshIndicator(
+              onRefresh: () async {
+                controller.refreshFindShift();
+              },
+              child: AppCard(
+                height: AppSize.size.height * 0.8,
+                child: Obx(() {
+                  // যদি প্রথমবার load হচ্ছে এবং list empty থাকে
+                  if (controller.isLoading.value &&
+                      controller.findShiftList.isEmpty) {
+                    return const Center(child: AppLoading());
+                  }
 
-                // যদি list empty হয় এবং loading শেষ হয়ে যায়
-                if (controller.findShiftList.isEmpty &&
-                    !controller.isLoading.value) {
-                  return Center(child: AppText(data: "No shifts Found"));
-                }
-                return ListView.builder(
-                  controller: controller.scrollController,
-                  itemCount: controller.findShiftList.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index < controller.findShiftList.length) {
-                      final shift = controller.findShiftList[index];
-                      return EmployeeFindShiftCard(
-                        title: shift.title,
-                        address: shift.address,
-                        startTime: shift.startTime,
-                        endTime: shift.endTime,
-                        startDate: DateTimeFormatterPro.format(shift.startDate),
-                        price: shift.price.toString(),
-                        // distance: shift.location.distance.toString(),
-                        onTap: () {
-                          Get.toNamed(
-                            AppRoutes.instance.employeeFindShiftDetailsScreen,
-                          );
-                        },
-                      );
-                    } else {
-                      // Pagination loading indicator - শুধু যখন আরো data আছে
-                      if (controller.isMoreDataAvailable.value) {
-                        return const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: CircularProgressIndicator(),
+                  // যদি list empty হয় এবং loading শেষ হয়ে যায়
+                  if (controller.findShiftList.isEmpty &&
+                      !controller.isLoading.value) {
+                    return Center(child: AppText(data: "No shifts Found"));
+                  }
+                  return ListView.builder(
+                    controller: controller.scrollController,
+                    itemCount: controller.findShiftList.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index < controller.findShiftList.length) {
+                        final shift = controller.findShiftList[index];
+                        return EmployeeFindShiftCard(
+                          title: shift.title,
+                          address: shift.address,
+                          startTime: shift.startTime,
+                          endTime: shift.endTime,
+                          startDate: DateTimeFormatterPro.format(
+                            shift.startDate,
                           ),
+                          price: shift.price.toString(),
+                          // distance: shift.location.distance.toString(),
+                          onTap: () {
+                            Get.toNamed(
+                              AppRoutes.instance.employeeFindShiftDetailsScreen,
+                              arguments: shift,
+                            );
+                          },
                         );
                       } else {
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: AppText(
-                              data: "No more shift",
-                              fontSize: AppSize.width(value: 16),
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.purple,
+                        // Pagination loading indicator - শুধু যখন আরো data আছে
+                        if (controller.isMoreDataAvailable.value) {
+                          return const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: CircularProgressIndicator(),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: AppText(
+                                data: "No more shift",
+                                fontSize: AppSize.width(value: 16),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.purple,
+                              ),
+                            ),
+                          );
+                        }
                       }
-                    }
-                  },
-                );
-              }),
+                    },
+                  );
+                }),
+              ),
             ),
           ),
         );

@@ -8,6 +8,7 @@ import 'package:tinnierenee12/screen/client_add_shift_screen/controller/client_a
 import 'package:tinnierenee12/screen/client_all_substitute_screen/client_all_substitute_controller.dart';
 import 'package:tinnierenee12/screen/client_home_screen/controller/client_home_controller.dart';
 import 'package:tinnierenee12/screen/client_shift_screen/controller/client_shift_controller.dart';
+import 'package:tinnierenee12/screen/employee_find_shift_details_scrteen/controller/employee_find_shift_details_controller.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_screen/controller/employee_find_shift_controller.dart';
 import 'package:tinnierenee12/screen/employee_home_screen/controller/employee_home_controller.dart';
 import 'package:tinnierenee12/screen/employee_shift_details_screen/controller/employee_shift_details_controller.dart';
@@ -37,5 +38,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => EmployeeShiftController());
     Get.lazyPut(() => EmployeeShiftDetailsController());
     Get.lazyPut(() => EmployeeFindShiftController());
+    Get.lazyPut(() => EmployeeFindShiftDetailsController());
   }
 }

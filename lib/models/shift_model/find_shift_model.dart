@@ -58,6 +58,7 @@ class FindShiftModelData {
   int price;
   String user;
   String? address;
+  String? jobImage;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -80,6 +81,7 @@ class FindShiftModelData {
     required this.createdAt,
     required this.updatedAt,
     this.address,
+    this.jobImage,
   });
 
   factory FindShiftModelData.fromRawJson(String str) => FindShiftModelData.fromJson(json.decode(str));
@@ -117,6 +119,7 @@ class FindShiftModelData {
           ? DateTime.tryParse(json["updatedAt"]) ?? DateTime.now()
           : DateTime.now(),
       address: json["address"] is String ? json["address"] : "",
+      jobImage: json["jobImage"] is String ? json["jobImage"] : "",
     );
   }
 
@@ -141,6 +144,7 @@ class FindShiftModelData {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "address": address,
+        "jobImage": jobImage,
       };
 }
 

@@ -60,6 +60,13 @@ class EmployeeFindShiftController extends GetxController {
     }
   }
 
+  void refreshFindShift() {
+    page = 1;
+    isMoreDataAvailable.value = true;
+    findShiftList.clear();
+    fetchFindShift();
+  }
+
   Future<String> locationFetch({
     required dynamic lat,
     required dynamic long,
