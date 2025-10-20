@@ -108,7 +108,7 @@ class FindShiftModelData {
       description: json["description"] is String ? json["description"] : "",
       qualification:
           json["qualification"] is String ? json["qualification"] : "",
-      ageGroup: json["ageGroup"] is String ? json["ageGroup"] : "",
+      ageGroup: json["ageGroup"] is String && json["ageGroup"] != null ? json["ageGroup"] : "",
       status: json["status"] is String ? json["status"] : "",
       price: json["price"] is int ? json["price"] : 0,
       user: json["user"] is String ? json["user"] : "",
