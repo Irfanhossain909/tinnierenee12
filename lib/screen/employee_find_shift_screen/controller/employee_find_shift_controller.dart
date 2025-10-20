@@ -9,6 +9,8 @@ import 'package:tinnierenee12/widget/app_log/app_print.dart';
 class EmployeeFindShiftController extends GetxController {
   List<String> ageGroup = <String>["school", "infant", "pre-school", "toddle"];
   RxInt selectedIndex = 0.obs;
+  RxString selectedAgeGroup =
+      "".obs; // New variable to store selected age group
   NavigationScreenController navigationScreenController =
       Get.find<NavigationScreenController>();
   @override
@@ -30,7 +32,7 @@ class EmployeeFindShiftController extends GetxController {
   }
 
   ///////////////price/hr function
-  RxDouble priceValue = 100.0.obs;
+  RxDouble priceValue = 30.0.obs;
 
   void updatePrice(double value) {
     priceValue.value = value;
@@ -129,5 +131,12 @@ class EmployeeFindShiftController extends GetxController {
         fetchFindShift();
       }
     }
+  }
+
+  // Method to update selected age group
+  void updateSelectedAgeGroup(int index) {
+    selectedIndex.value = index;
+    selectedAgeGroup.value = ageGroup[index];
+    AppPrint.apiResponse(selectedAgeGroup.value, title: "selectedAgeGroup");
   }
 }

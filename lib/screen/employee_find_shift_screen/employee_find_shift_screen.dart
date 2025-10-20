@@ -5,11 +5,13 @@ import 'package:tinnierenee12/routes/app_routes.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_screen/controller/employee_find_shift_controller.dart';
 import 'package:tinnierenee12/screen/employee_find_shift_screen/widget/employee_find_shift_card.dart';
 import 'package:tinnierenee12/utils/app_size.dart';
+import 'package:tinnierenee12/widget/app_button/app_button.dart';
 import 'package:tinnierenee12/widget/app_card/app_card.dart';
 import 'package:tinnierenee12/widget/app_date_fortter/date_time_formetter_pro.dart';
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
+import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_renge_slider/app_render_slider.dart';
 import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
@@ -33,13 +35,14 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                     Get.bottomSheet(
                       Container(
                         decoration: BoxDecoration(color: AppColors.white),
-                        height: AppSize.size.height * 0.5,
+                        // height: AppSize.size.height * 0.5,
                         width: double.infinity,
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(16),
                               child: AppCard(
+                                filColor: Colors.white38,
                                 child: Column(
                                   children: [
                                     AppText(
@@ -96,7 +99,7 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                                           // --- Value Text ---
                                           AppText(
                                             data:
-                                                "${controller.priceValue.value.toStringAsFixed(0)} /hr or more",
+                                                "\$${controller.priceValue.value.toStringAsFixed(0)} /hr or more",
                                             fontSize: AppSize.width(value: 12),
                                             fontWeight: FontWeight.w400,
 
@@ -105,6 +108,7 @@ class EmployeeFindShiftScreen extends StatelessWidget {
 
                                           CustomProgressBarSlider(
                                             minimumValue: 10,
+                                            maximumValue: 999,
                                             value: controller.priceValue.value,
                                             onChanged: (val) {
                                               controller.updatePrice(val);
@@ -133,22 +137,50 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                                                   padding: const EdgeInsets.all(
                                                     8.0,
                                                   ),
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color: isSelected
-                                                          ? AppColors.purple
-                                                          : Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            AppSize.width(
-                                                              value: 8,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      controller
+                                                          .updateSelectedAgeGroup(
+                                                            index,
+                                                          );
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color:
+                                                              AppColors.purple,
+                                                        ),
+                                                        color: isSelected
+                                                            ? AppColors.purple
+                                                            : Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              AppSize.width(
+                                                                value: 8,
+                                                              ),
                                                             ),
+                                                      ),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                AppSize.width(
+                                                                  value: 16,
+                                                                ),
+                                                            vertical:
+                                                                AppSize.width(
+                                                                  value: 8,
+                                                                ),
                                                           ),
+                                                      child: AppText(
+                                                        fontSize: AppSize.width(
+                                                          value: 16,
+                                                        ),
+                                                        data: item,
+                                                        color: isSelected
+                                                            ? AppColors.white
+                                                            : AppColors.black,
+                                                      ),
                                                     ),
-                                                    padding: EdgeInsets.all(
-                                                      AppSize.width(value: 8),
-                                                    ),
-                                                    child: Text(item),
                                                   ),
                                                 );
                                               },
@@ -159,6 +191,13 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                              ),
+                            ),
+
+                            AppButton(
+                              title: "Apply Filters",
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(0),
                               ),
                             ),
                           ],
