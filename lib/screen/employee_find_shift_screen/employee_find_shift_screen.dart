@@ -37,70 +37,128 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                         width: double.infinity,
                         child: Column(
                           children: [
-                            AppText(
-                              data: "Job Filter",
-                              fontSize: AppSize.width(value: 18),
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.black,
-                            ),
-                            Divider(color: AppColors.black, thickness: 2),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: AppCard(
+                                child: Column(
+                                  children: [
+                                    AppText(
+                                      data: "Job Filter",
+                                      fontSize: AppSize.width(value: 18),
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.black,
+                                    ),
+                                    Divider(
+                                      color: AppColors.black,
+                                      thickness: 2,
+                                    ),
 
-                            Obx(
-                              () => Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: AppSize.width(value: 12),
-                                children: [
-                                  AppText(
-                                    data: "Distance",
-                                    fontSize: AppSize.width(value: 18),
-                                    fontWeight: FontWeight.w700,
+                                    Obx(
+                                      () => Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        spacing: AppSize.width(value: 12),
+                                        children: [
+                                          AppText(
+                                            data: "Distance",
+                                            fontSize: AppSize.width(value: 18),
+                                            fontWeight: FontWeight.w700,
 
-                                    color: AppColors.purple,
-                                  ),
+                                            color: AppColors.purple,
+                                          ),
 
-                                  // --- Value Text ---
-                                  AppText(
-                                    data:
-                                        "Maximum Distance: ${controller.progressValue.value.toStringAsFixed(0)} miles",
-                                    fontSize: AppSize.width(value: 12),
-                                    fontWeight: FontWeight.w400,
+                                          // --- Value Text ---
+                                          AppText(
+                                            data:
+                                                "Maximum Distance: ${controller.progressValue.value.toStringAsFixed(0)} miles",
+                                            fontSize: AppSize.width(value: 12),
+                                            fontWeight: FontWeight.w400,
 
-                                    color: AppColors.black,
-                                  ),
+                                            color: AppColors.black,
+                                          ),
 
-                                  CustomProgressBarSlider(
-                                    minimumValue: 10,
-                                    value: controller.progressValue.value,
-                                    onChanged: (val) {
-                                      controller.updateDistance(val);
-                                    },
-                                  ),
-                                  AppText(
-                                    data: "Payment",
-                                    fontSize: AppSize.width(value: 18),
-                                    fontWeight: FontWeight.w700,
+                                          CustomProgressBarSlider(
+                                            minimumValue: 10,
+                                            value:
+                                                controller.progressValue.value,
+                                            onChanged: (val) {
+                                              controller.updateDistance(val);
+                                            },
+                                          ),
+                                          AppText(
+                                            data: "Payment",
+                                            fontSize: AppSize.width(value: 18),
+                                            fontWeight: FontWeight.w700,
 
-                                    color: AppColors.purple,
-                                  ),
+                                            color: AppColors.purple,
+                                          ),
 
-                                  // --- Value Text ---
-                                  AppText(
-                                    data:
-                                        "${controller.priceValue.value.toStringAsFixed(0)} /hr or more",
-                                    fontSize: AppSize.width(value: 12),
-                                    fontWeight: FontWeight.w400,
+                                          // --- Value Text ---
+                                          AppText(
+                                            data:
+                                                "${controller.priceValue.value.toStringAsFixed(0)} /hr or more",
+                                            fontSize: AppSize.width(value: 12),
+                                            fontWeight: FontWeight.w400,
 
-                                    color: AppColors.black,
-                                  ),
+                                            color: AppColors.black,
+                                          ),
 
-                                  CustomProgressBarSlider(
-                                    minimumValue: 10,
-                                    value: controller.priceValue.value,
-                                    onChanged: (val) {
-                                      controller.updatePrice(val);
-                                    },
-                                  ),
-                                ],
+                                          CustomProgressBarSlider(
+                                            minimumValue: 10,
+                                            value: controller.priceValue.value,
+                                            onChanged: (val) {
+                                              controller.updatePrice(val);
+                                            },
+                                          ),
+                                          AppText(
+                                            data: "Age Group",
+                                            fontSize: AppSize.width(value: 18),
+                                            fontWeight: FontWeight.w700,
+
+                                            color: AppColors.purple,
+                                          ),
+
+                                          Wrap(
+                                            children: List.generate(
+                                              controller.ageGroup.length,
+                                              (index) {
+                                                final item =
+                                                    controller.ageGroup[index];
+                                                final isSelected =
+                                                    controller
+                                                        .selectedIndex
+                                                        .value ==
+                                                    index;
+                                                return Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    8.0,
+                                                  ),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: isSelected
+                                                          ? AppColors.purple
+                                                          : Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            AppSize.width(
+                                                              value: 8,
+                                                            ),
+                                                          ),
+                                                    ),
+                                                    padding: EdgeInsets.all(
+                                                      AppSize.width(value: 8),
+                                                    ),
+                                                    child: Text(item),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

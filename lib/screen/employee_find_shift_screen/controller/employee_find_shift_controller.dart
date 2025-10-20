@@ -7,6 +7,8 @@ import 'package:tinnierenee12/utils/location_utils/location_utils.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
 
 class EmployeeFindShiftController extends GetxController {
+  List<String> ageGroup = <String>["school", "infant", "pre-school", "toddle"];
+  RxInt selectedIndex = 0.obs;
   NavigationScreenController navigationScreenController =
       Get.find<NavigationScreenController>();
   @override
