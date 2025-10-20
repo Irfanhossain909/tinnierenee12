@@ -195,7 +195,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.contactUsScreen,
-    // binding: AppBinding(),
+    binding: AppBinding(),
     page: () => const ContactUsScreen(),
   ),
   GetPage(

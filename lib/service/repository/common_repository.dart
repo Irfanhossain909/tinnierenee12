@@ -73,4 +73,27 @@ class CommonRepository {
 
     return false;
   }
+
+  Future<bool> postCintactUs({
+    required String subject,
+    required String message,
+  }) async {
+    Map<String, dynamic> body = {"subject": subject, "message": message};
+
+    try {
+      final response = await apiServices.apiPostServices(
+        body: body,
+        url: AppApiEndPoint.contacyUs,
+      );
+      if (response["success"] == true) {
+        return true;
+      } else {
+        AppPrint.appError("Error");
+        return false;
+      }
+    } catch (e) {
+      AppPrint.appError(e, title: "postCintactUs");
+    }
+    return false;
+  }
 }

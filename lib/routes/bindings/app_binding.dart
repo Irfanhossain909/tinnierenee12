@@ -16,6 +16,7 @@ import 'package:tinnierenee12/screen/employee_shift_screen/controller/employee_s
 import 'package:tinnierenee12/screen/privicy_screen/controllter/controller.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_pass_screen/controller/change_password_controller.dart';
 import 'package:tinnierenee12/screen/profile_section/chnage_profile_info/controller/change_profile_controller.dart';
+import 'package:tinnierenee12/screen/profile_section/contact_us_screen/controller/contact_us_controller.dart';
 import 'package:tinnierenee12/screen/profile_section/profile_screen/controller/profile_controller.dart';
 
 class AppBinding extends Bindings {
@@ -39,5 +40,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => EmployeeShiftDetailsController());
     Get.lazyPut(() => EmployeeFindShiftController());
     Get.lazyPut(() => EmployeeFindShiftDetailsController());
+    Get.lazyPut(() => ContactUsController());
   }
 }

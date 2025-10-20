@@ -30,6 +30,7 @@ class AppApiEndPoint {
   static String job = "/job/post";
   static String shiftApply = "/applier/job";
   static String statistic = "/statistic/stats";
+  static String contacyUs = "/contuct/us";
 
   static String jobCategory(var status, var page, var limit) =>
       "/job/post?status=$status&page=$page&limit=$limit";

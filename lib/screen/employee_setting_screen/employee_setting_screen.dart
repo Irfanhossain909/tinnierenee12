@@ -20,7 +20,7 @@ class EmployeeSettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbar(title: "Settings"),
       body: Padding(
-        padding: EdgeInsets.only(top: 16.0),
+        padding: EdgeInsets.only(top: 68.0),
         child: AppCard(
           child: Column(
             spacing: AppSize.size.height * 0.04,

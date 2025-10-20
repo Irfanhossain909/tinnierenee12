@@ -51,9 +51,9 @@ class AppDescriptionTextField extends StatelessWidget {
             ? const SizedBox()
             : AppText(
                 data: title!,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
                 color: titleColor ?? Colors.white,
-                fontSize: titleSize ?? AppSize.width(value: 18),
+                fontSize: titleSize ?? AppSize.width(value: 16),
               ),
 
         const Gap(height: 10),
