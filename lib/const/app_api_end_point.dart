@@ -44,15 +44,18 @@ class AppApiEndPoint {
   static String termsPrivacyAboutUs(var status) => "/rule/$status";
   static String myShift(var page, var limit) =>
       "/applier/job?page=$page&limit=$limit";
-  static String findShift(
-    var page,
-    var limit,
-    var lat,
-    var lng,
-    var distance,
-    var price,
-  ) =>
-      "/job/all?lat=$lat&lng=$lng&distance=$distance&page=$page&limit=$limit&price=$price";
+  static String findShift = "/job/all";
+  // static String findShift(
+  //   var page,
+  //   var limit,
+  //   var lat,
+  //   var lng,
+  //   var distance,
+  //   var priceG,
+  //   var priceL,
+  //   var ageGroup,
+  // ) =>
+  //     "/job/all?lat=$lat&lng=$lng&distance=$distance&page=$page&limit=$limit&price[gte]=$priceG&price[lte]=$priceL&ageGroup=$ageGroup";
 }
 
 // Move this function outside the class

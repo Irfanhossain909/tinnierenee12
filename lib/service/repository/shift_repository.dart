@@ -40,25 +40,80 @@ class ShiftRepository {
     required double lat,
     required double lng,
     required double distance,
-    required int price,
+    required int priceGte,
+    required int priceLte,
+    required String ageGroup,
   }) async {
     List<FindShiftModelData> findShift = <FindShiftModelData>[];
 
     try {
+      // ✅ Build query params map dynamically
+      final Map<String, dynamic> queryParams = {};
+
+      if (page > 0) queryParams['page'] = page;
+      if (limit > 0) queryParams['limit'] = limit;
+      if (lat != 0.0) queryParams['lat'] = lat;
+      if (lng != 0.0) queryParams['lng'] = lng;
+      if (distance > 0) queryParams['distance'] = distance;
+      if (priceGte > 0) queryParams['price[gte]'] = priceGte;
+      if (priceLte > 0) queryParams['price[lte]'] = priceLte;
+      if (ageGroup.isNotEmpty) queryParams['ageGroup'] = ageGroup;
+
+      // ✅ Pass map to your API service
       final response = await _apiServices.apiGetServices(
-        AppApiEndPoint.findShift(page, limit, lat, lng, distance, price),
+        AppApiEndPoint.findShift,
+        queryParameters: queryParams,
       );
 
+      // ✅ Parse response
       if (response != null && response["data"] != null) {
         for (var item in response["data"]) {
           findShift.add(FindShiftModelData.fromJson(item));
         }
       }
     } catch (e) {
-      AppPrint.appError("getMyShift");
+      AppPrint.appError("getFindShift error: $e");
     }
+
     return findShift;
   }
+
+  // Future<List<FindShiftModelData>> getFindShift({
+  //   required int page,
+  //   required int limit,
+  //   required double lat,
+  //   required double lng,
+  //   required double distance,
+  //   required int priceGte,
+  //   required int priceLte,
+  //   required String ageGroup,
+  // }) async {
+  //   List<FindShiftModelData> findShift = <FindShiftModelData>[];
+
+  //   try {
+  //     final response = await _apiServices.apiGetServices(
+  //       AppApiEndPoint.findShift(
+  //         page,
+  //         limit,
+  //         lat,
+  //         lng,
+  //         distance,
+  //         priceGte,
+  //         priceLte,
+  //         ageGroup,
+  //       ),
+  //     );
+
+  //     if (response != null && response["data"] != null) {
+  //       for (var item in response["data"]) {
+  //         findShift.add(FindShiftModelData.fromJson(item));
+  //       }
+  //     }
+  //   } catch (e) {
+  //     AppPrint.appError("getMyShift");
+  //   }
+  //   return findShift;
+  // }
 
   Future<bool> applyShift({required String job, required String status}) async {
     Map<String, dynamic> body = {"status": status, "job": job};

@@ -11,7 +11,6 @@ import 'package:tinnierenee12/widget/app_date_fortter/date_time_formetter_pro.da
 import 'package:tinnierenee12/widget/app_image/app_image.dart';
 import 'package:tinnierenee12/widget/app_loading/app_loading.dart';
 import 'package:tinnierenee12/widget/app_log/app_print.dart';
-import 'package:tinnierenee12/widget/app_log/gap.dart';
 import 'package:tinnierenee12/widget/app_renge_slider/app_render_slider.dart';
 import 'package:tinnierenee12/widget/app_snackbar/app_snackbar.dart';
 import 'package:tinnierenee12/widget/app_text/app_text.dart';
@@ -195,6 +194,9 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                             ),
 
                             AppButton(
+                              onTap: () {
+                                controller.filterFunction();
+                              },
                               title: "Apply Filters",
                               borderRadius: BorderRadius.all(
                                 Radius.circular(0),
@@ -262,13 +264,18 @@ class EmployeeFindShiftScreen extends StatelessWidget {
                         );
                       } else {
                         // Pagination loading indicator - শুধু যখন আরো data আছে
-                        if (controller.isMoreDataAvailable.value) {
+                        if (controller.isMoreDataAvailable.value &&
+                            controller.isLoading.value) {
                           return const Center(
                             child: Padding(
                               padding: EdgeInsets.all(16.0),
                               child: CircularProgressIndicator(),
                             ),
                           );
+                        } else if (controller.isMoreDataAvailable.value &&
+                            !controller.isLoading.value) {
+                          // Just a placeholder with no visual element when more data is available but not loading
+                          return const SizedBox.shrink();
                         } else {
                           return Center(
                             child: Padding(

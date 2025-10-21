@@ -32,7 +32,7 @@ class EmployeeFindShiftController extends GetxController {
   }
 
   ///////////////price/hr function
-  RxDouble priceValue = 30.0.obs;
+  RxDouble priceValue = 10.0.obs;
 
   void updatePrice(double value) {
     priceValue.value = value;
@@ -58,7 +58,9 @@ class EmployeeFindShiftController extends GetxController {
         lat: lat ?? 0.0,
         lng: lng ?? 0.0,
         distance: progressValue.value,
-        price: priceValue.value.toInt(),
+        priceLte: 0,
+        priceGte: priceValue.value.toInt(),
+        ageGroup: selectedAgeGroup.value,
       );
 
       if (response.isNotEmpty) {
@@ -77,6 +79,13 @@ class EmployeeFindShiftController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void filterFunction() {
+    page = 1;
+    findShiftList.clear();
+    fetchFindShift();
+    Get.back();
   }
 
   void refreshFindShift() {
