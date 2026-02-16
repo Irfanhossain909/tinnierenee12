@@ -1,0 +1,555 @@
+import 'package:flutter/material.dart';
+
+class ProgressiveBorderContainer extends StatefulWidget {
+  final double progress; // 0 to 100 percentage
+  final Widget? child;
+  final double size; // Single value for both width and height
+  final Color progressColor;
+  final Color backgroundColor;
+  final double borderWidth;
+  final Duration animationDuration;
+
+  const ProgressiveBorderContainer({
+    super.key,
+    required this.progress,
+    this.child,
+    this.size = 150, // Default size
+    this.progressColor = Colors.white,
+    this.backgroundColor = Colors.grey,
+    this.borderWidth = 4.0,
+    this.animationDuration = const Duration(milliseconds: 1000),
+  });
+
+  @override
+  State<ProgressiveBorderContainer> createState() =>
+      _ProgressiveBorderContainerState();
+}
+
+class _ProgressiveBorderContainerState extends State<ProgressiveBorderContainer>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: widget.animationDuration,
+      vsync: this,
+    );
+
+    _animation = Tween<double>(begin: 0, end: widget.progress / 100).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+
+    _animationController.forward();
+  }
+
+  @override
+  void didUpdateWidget(ProgressiveBorderContainer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.progress != widget.progress) {
+      _animation =
+          Tween<double>(
+            begin: _animation.value,
+            end: widget.progress / 100,
+          ).animate(
+            CurvedAnimation(
+              parent: _animationController,
+              curve: Curves.easeInOut,
+            ),
+          );
+      _animationController.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  // Calculate responsive text size based on container size
+  double get responsiveTextSize {
+    // Base size calculation: size * 0.12 for good proportion
+    return widget.size * 0.12;
+  }
+
+  // Calculate responsive icon size based on container size
+  double get responsiveIconSize {
+    // Base size calculation: size * 0.2 for good proportion
+    return widget.size * 0.2;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return CustomPaint(
+          painter: ProgressiveBorderPainter(
+            progress: _animation.value,
+            progressColor: widget.progressColor,
+            backgroundColor: widget.backgroundColor,
+            borderWidth: widget.borderWidth,
+            borderRadius: widget.size / 2, // Perfect circle
+          ),
+          child: Container(
+            width: widget.size,
+            height: widget.size,
+            padding: EdgeInsets.all(widget.borderWidth + 8),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (widget.child != null)
+                    widget.child is Icon
+                        ? Icon(
+                            (widget.child as Icon).icon,
+                            color:
+                                (widget.child as Icon).color ??
+                                widget.progressColor,
+                            size: responsiveIconSize,
+                          )
+                        : widget.child!,
+                  if (widget.child != null)
+                    SizedBox(height: widget.size * 0.02),
+                  Text(
+                    '${(widget.progress).toStringAsFixed(0)}%',
+                    style: TextStyle(
+                      fontSize: responsiveTextSize,
+                      fontWeight: FontWeight.bold,
+                      color: widget.progressColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class ProgressiveBorderPainter extends CustomPainter {
+  final double progress;
+  final Color progressColor;
+  final Color backgroundColor;
+  final double borderWidth;
+  final double borderRadius;
+
+  ProgressiveBorderPainter({
+    required this.progress,
+    required this.progressColor,
+    required this.backgroundColor,
+    required this.borderWidth,
+    required this.borderRadius,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = Rect.fromLTWH(
+      borderWidth / 2,
+      borderWidth / 2,
+      size.width - borderWidth,
+      size.height - borderWidth,
+    );
+    final borderRect = RRect.fromRectAndRadius(
+      rect,
+      Radius.circular(borderRadius),
+    );
+
+    // Background border
+    final backgroundPaint = Paint()
+      ..color = backgroundColor.withValues(alpha: .3)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth;
+
+    canvas.drawRRect(borderRect, backgroundPaint);
+
+    // Progressive border using arc
+    final progressPaint = Paint()
+      ..color = progressColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth
+      ..strokeCap = StrokeCap.round;
+
+    // Calculate the sweep angle based on progress (0 to 2π)
+    final sweepAngle = 2 * 3.14159 * progress;
+
+    // Draw the progressive arc starting from top (-π/2)
+    canvas.drawArc(
+      rect,
+      -3.14159 / 2, // Start from top
+      sweepAngle, // Sweep angle based on progress
+      false, // Don't use center
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+// Usage Example
+class ExampleUsage extends StatefulWidget {
+  const ExampleUsage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _ExampleUsageState createState() => _ExampleUsageState();
+}
+
+class _ExampleUsageState extends State<ExampleUsage> {
+  double progress = 40;
+  double circleSize = 150;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Progressive Border Container')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ProgressiveBorderContainer(
+              progress: progress,
+              size: circleSize, // Single size parameter
+              progressColor: Colors.white,
+              backgroundColor: Colors.grey,
+              borderWidth: 8,
+              child: Icon(Icons.download, color: Colors.white),
+            ),
+            SizedBox(height: 30),
+            Text(
+              'Progress: ${progress.round()}%',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Slider(
+              value: progress,
+              min: 0,
+              max: 100,
+              divisions: 100,
+              label: '${progress.round()}%',
+              onChanged: (value) {
+                setState(() {
+                  progress = value;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Circle Size: ${circleSize.round()}',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+            Slider(
+              value: circleSize,
+              min: 80,
+              max: 300,
+              divisions: 22,
+              label: '${circleSize.round()}',
+              onChanged: (value) {
+                setState(() {
+                  circleSize = value;
+                });
+              },
+            ),
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => setState(() => progress = 25),
+                  child: Text('25%'),
+                ),
+                ElevatedButton(
+                  onPressed: () => setState(() => progress = 50),
+                  child: Text('50%'),
+                ),
+                ElevatedButton(
+                  onPressed: () => setState(() => progress = 75),
+                  child: Text('75%'),
+                ),
+                ElevatedButton(
+                  onPressed: () => setState(() => progress = 100),
+                  child: Text('100%'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => setState(() => circleSize = 100),
+                  child: Text('Small'),
+                ),
+                ElevatedButton(
+                  onPressed: () => setState(() => circleSize = 150),
+                  child: Text('Medium'),
+                ),
+                ElevatedButton(
+                  onPressed: () => setState(() => circleSize = 200),
+                  child: Text('Large'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// import 'package:flutter/material.dart';
+// import 'package:tinnierenee12/utils/app_size.dart';
+
+// class ProgressiveBorderContainer extends StatefulWidget {
+//   final double progress; // 0 to 100 percentage
+//   final Widget? child;
+//   final double width;
+//   final double height;
+//   final double borderRadius;
+//   final Color progressColor;
+//   final Color backgroundColor;
+//   final double borderWidth;
+//   final Duration animationDuration;
+
+//   const ProgressiveBorderContainer({
+//     super.key,
+//     required this.progress,
+//     this.child,
+//     this.width = 200,
+//     this.height = 100,
+//     this.borderRadius = 50.0,
+//     this.progressColor = Colors.white,
+//     this.backgroundColor = Colors.grey,
+//     this.borderWidth = 4.0,
+//     this.animationDuration = const Duration(milliseconds: 1000),
+//   });
+
+//   @override
+//   State<ProgressiveBorderContainer> createState() =>
+//       _ProgressiveBorderContainerState();
+// }
+
+// class _ProgressiveBorderContainerState extends State<ProgressiveBorderContainer>
+//     with SingleTickerProviderStateMixin {
+//   late AnimationController _animationController;
+//   late Animation<double> _animation;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _animationController = AnimationController(
+//       duration: widget.animationDuration,
+//       vsync: this,
+//     );
+
+//     _animation = Tween<double>(begin: 0, end: widget.progress / 100).animate(
+//       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+//     );
+
+//     _animationController.forward();
+//   }
+
+//   @override
+//   void didUpdateWidget(ProgressiveBorderContainer oldWidget) {
+//     super.didUpdateWidget(oldWidget);
+//     if (oldWidget.progress != widget.progress) {
+//       _animation =
+//           Tween<double>(
+//             begin: _animation.value,
+//             end: widget.progress / 100,
+//           ).animate(
+//             CurvedAnimation(
+//               parent: _animationController,
+//               curve: Curves.easeInOut,
+//             ),
+//           );
+//       _animationController.forward(from: 0);
+//     }
+//   }
+
+//   @override
+//   void dispose() {
+//     _animationController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AnimatedBuilder(
+//       animation: _animation,
+//       builder: (context, child) {
+//         return CustomPaint(
+//           painter: ProgressiveBorderPainter(
+//             progress: _animation.value,
+//             progressColor: widget.progressColor,
+//             backgroundColor: widget.backgroundColor,
+//             borderWidth: widget.borderWidth,
+//             borderRadius: widget.borderRadius,
+//           ),
+//           child: Container(
+//             width: widget.width,
+//             height: widget.height,
+//             padding: EdgeInsets.all(widget.borderWidth + 8),
+//             child: Center(
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   if (widget.child != null) widget.child!,
+//                   Text(
+//                     '${(widget.progress).toStringAsFixed(0)}%',
+//                     style: TextStyle(
+//                       fontSize: AppSize.width(value: 16),
+//                       fontWeight: FontWeight.bold,
+//                       color: widget.progressColor,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
+
+// class ProgressiveBorderPainter extends CustomPainter {
+//   final double progress;
+//   final Color progressColor;
+//   final Color backgroundColor;
+//   final double borderWidth;
+//   final double borderRadius;
+
+//   ProgressiveBorderPainter({
+//     required this.progress,
+//     required this.progressColor,
+//     required this.backgroundColor,
+//     required this.borderWidth,
+//     required this.borderRadius,
+//   });
+
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final rect = Rect.fromLTWH(
+//       borderWidth / 2,
+//       borderWidth / 2,
+//       size.width - borderWidth,
+//       size.height - borderWidth,
+//     );
+//     final borderRect = RRect.fromRectAndRadius(
+//       rect,
+//       Radius.circular(borderRadius),
+//     );
+
+//     // Background border
+//     final backgroundPaint = Paint()
+//       ..color = backgroundColor.withValues(alpha: .3)
+//       ..style = PaintingStyle.stroke
+//       ..strokeWidth = borderWidth;
+
+//     canvas.drawRRect(borderRect, backgroundPaint);
+
+//     // Progressive border using arc
+//     final progressPaint = Paint()
+//       ..color = progressColor
+//       ..style = PaintingStyle.stroke
+//       ..strokeWidth = borderWidth
+//       ..strokeCap = StrokeCap.round;
+
+//     // Calculate the sweep angle based on progress (0 to 2π)
+//     final sweepAngle = 2 * 3.14159 * progress;
+
+//     // Draw the progressive arc starting from top (-π/2)
+//     canvas.drawArc(
+//       rect,
+//       -3.14159 / 2, // Start from top
+//       sweepAngle, // Sweep angle based on progress
+//       false, // Don't use center
+//       progressPaint,
+//     );
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     return true;
+//   }
+// }
+
+// // Usage Example
+// class ExampleUsage extends StatefulWidget {
+//   const ExampleUsage({super.key});
+
+//   @override
+//   // ignore: library_private_types_in_public_api
+//   _ExampleUsageState createState() => _ExampleUsageState();
+// }
+
+// class _ExampleUsageState extends State<ExampleUsage> {
+//   double progress = 40;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Progressive Border Container')),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             ProgressiveBorderContainer(
+//               progress: progress,
+//               width: 150, // Chhoto size
+//               height: 150, // Square shape
+//               borderRadius: 75, // Perfectly rounded
+//               progressColor: Colors.white,
+//               backgroundColor: Colors.grey,
+//               borderWidth: 8,
+//               child: Icon(Icons.download, color: Colors.white, size: 30),
+//             ),
+//             SizedBox(height: 50),
+//             Slider(
+//               value: progress,
+//               min: 0,
+//               max: 100,
+//               divisions: 100,
+//               label: '${progress.round()}%',
+//               onChanged: (value) {
+//                 setState(() {
+//                   progress = value;
+//                 });
+//               },
+//             ),
+//             SizedBox(height: 20),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: [
+//                 ElevatedButton(
+//                   onPressed: () => setState(() => progress = 25),
+//                   child: Text('25%'),
+//                 ),
+//                 ElevatedButton(
+//                   onPressed: () => setState(() => progress = 50),
+//                   child: Text('50%'),
+//                 ),
+//                 ElevatedButton(
+//                   onPressed: () => setState(() => progress = 75),
+//                   child: Text('75%'),
+//                 ),
+//                 ElevatedButton(
+//                   onPressed: () => setState(() => progress = 100),
+//                   child: Text('100%'),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

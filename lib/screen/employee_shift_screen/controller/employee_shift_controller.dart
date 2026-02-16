@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tinnierenee12/models/shift_model/my_shift_model.dart';
+import 'package:tinnierenee12/service/repository/shift_repository.dart';
+import 'package:tinnierenee12/utils/location_utils/location_utils.dart';
+import 'package:tinnierenee12/widget/app_log/app_print.dart';
+
+class EmployeeShiftController extends GetxController {
+  final ShiftRepository shiftRepository = ShiftRepository.instance;
+
+  RxList<MyShiftModelData> myShiftModelData = <MyShiftModelData>[].obs;
+  RxBool isLoading = false.obs;
+
+  final ScrollController scrollController = ScrollController();
+
+  int page = 1;
+  int limit = 10;
+  RxBool isMoreDataAvailable = true.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    scrollController.addListener(_scrollListener);
+    fetchMyShiftList();
+  }
+
+  Future<void> refreshMyShiftList() async {
+    page = 1;
+    isMoreDataAvailable.value = true;
+    myShiftModelData.clear();
+    await fetchMyShiftList();
+  }
+
+  Future<void> fetchMyShiftList() async {
+    isLoading.value = true;
+    final response = await shiftRepository.getMyShift(page: page, limit: limit);
+    if (response.isNotEmpty) {
+      // ✅ প্রতিটা shift এর জন্য address resolve করে সেট করছি
+      for (var shift in response) {
+        final lat = shift.job?.lat;
+        final long = shift.job?.lng;
+        shift.job?.address = await locationFetch(lat: lat, long: long);
+      }
+      myShiftModelData.addAll(response);
+    } else {
+      AppPrint.appError("MyShift is Empty now in controller");
+      isMoreDataAvailable.value = false;
+    }
+    isLoading.value = false;
+  }
+
+  Future<String> locationFetch({
+    required dynamic lat,
+    required dynamic long,
+  }) async {
+    if (lat != "" && long != "") {
+      var userAddress = await getLocationFromLatLong(lat, long);
+      return userAddress;
+    }
+    return "No Address Found";
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (isMoreDataAvailable.value) {
+        page++;
+        fetchMyShiftList();
+      }
+    }
+  }
+}
